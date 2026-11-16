@@ -12,4 +12,5 @@ Claude Code liest diese Datei zu Beginn jeder Sitzung automatisch. Die beiden fo
 - Vor größeren Umbauten nachfragen.
 - Nach jeder Phase **FORTSCHRITT.md aktualisieren**: Erledigtes, Entscheidungen, nächste Schritte.
 - Vor dem Abschluss einer Phase prüfen: `npm run build` (enthält die Typprüfung) und `npm test` (Speed-Reader, Import, Wiederholung, Sitzung, Karte, Beherrschung, Sicherung, Suche, Code-Darstellung, eingebaute Kurse).
+- **Neue Webdesign-Kacheln** (z. B. aus `C:\Users\PCUser\Webdesign\labor-XX\topos-notizen.md`): in [src/content/webdesign/](src/content/webdesign/) ergänzen (Labore in `labore.ts`, ID `l<Labor>-<n>`), in `WEBDESIGN_ORDER` in `index.ts` eintragen, eigene Worte statt Folientext, keine persönlichen Daten. Bestehende Kurs-/Kachel-IDs und Fragetexte nie ändern. `npm test` prüft die eingebauten Kurse.
 - Achtung beim Schreiben von Dateien: Escape-Folgen wie `\u00a0` im Code wurden beim Speichern zu unsichtbaren Zeichen. Danach mit `grep -F '\u'` prüfen oder die Zeichen per Node-Skript (`String.fromCharCode`) einsetzen.

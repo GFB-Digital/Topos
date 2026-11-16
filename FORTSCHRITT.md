@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 16.11.2026 – Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“ – noch **nicht committet**. Als Nächstes: testen, committen; JavaScript und der Lernmodus fürs Vibe-Coding (Phase C) kommen später.
+**Stand:** 16.11.2026 – Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
 
 ## Erledigt
 
@@ -189,6 +189,12 @@ Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur
 - **Lernstand zieht mit:** Die sechs umgezogenen Kacheln (`v2-1` … `v2-5`, `l1-1`) waren schon veröffentlicht. [moves.ts](src/lib/moves.ts) (`applyTileMoves`) verschiebt ihren Kachel-Status und ihre Gedächtnis-Stände beim Start einmalig in den neuen Kurs – auch beim Einspielen einer älteren Sicherung; neuere Stände im Zielkurs werden nie überschrieben. Die Liste steht als `MOVED_TILES` in [index.ts](src/content/webdesign/index.ts).
 - **Geprüft:** `npm test` 170 Tests (neu: [moves.test.ts](src/lib/moves.test.ts), [builtin.test.ts](src/lib/builtin.test.ts) für beide Kurse), `npm run build` fehlerfrei. Im Browser: alter Lernstand von „Internet und Web“ unter Webdesign → nach dem Neuladen unter World Wide Web (Häkchen auf der Karte), angefangene HTML-Kachel bleibt in Webdesign; keine Konsolenfehler.
 
+### Phase C – Lernmodus fürs Vibe-Coding (16.11.2026)
+- Neuer Arbeitsordner **`C:\Users\PCUser\Webdesign`** (außerhalb dieses Repos, kein Git) mit `CLAUDE.md` und `LIESMICH.md`. Claude arbeitet dort nach einer festen Routine: Aufgabe zusammenfassen und nachfragen → Plan mit Begründung → Gerüst mit 1–3 `TODO(du)`-Stellen zum Selbstschreiben → vor dem Neuladen vorhersagen lassen → bei Fehlern erst Hinweise → am Ende zurückerklären lassen (Übung fürs Testat) → `topos-notizen.md` mit Fragen für neue Kacheln. Notfall-Wort „Zeitdruck“: Claude schreibt mehr selbst, erklärt aber trotzdem und stellt 3 Kontrollfragen.
+- Die Pfade zu Aufgabenblättern und Folien (Obsidian-Ordner „learn by doing“) stehen in der `CLAUDE.md`, damit Claude die PDFs direkt lesen kann.
+- Hier in `CLAUDE.md` steht, wie aus den Notizen neue Kacheln im eingebauten Kurs werden.
+- **Nicht geprüft:** Die Routine selbst lässt sich erst beim nächsten echten Labor ausprobieren.
+
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.
 - **Sicherung ersetzt, sie mischt nicht:** Einspielen überschreibt Kurse, Lernstand und Einstellungen des Geräts (nach Rückfrage). Zwei Geräte lassen sich damit nicht zusammenführen – das wäre Synchronisierung, und die ist laut Plan nicht gewollt.
@@ -234,7 +240,8 @@ Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur
 
 ## Als Nächstes
 - **Webdesign weiter ausbauen:** neue Vorlesungen und Labore als neue Kacheln in [src/content/webdesign/](src/content/webdesign/) ergänzen (siehe „Erweitern“ oben)
-- **Webdesign Phase C:** Arbeitsordner für die Labore mit `CLAUDE.md` im Lernmodus (Plan vor Code, `TODO(du)`-Stellen, vorhersagen, zurückerklären, Fragen für Topos sammeln)
+- **Lernmodus ausprobieren** beim nächsten Labor (Ordner `C:\Users\PCUser\Webdesign`) und die Regeln in dessen `CLAUDE.md` nachschärfen
+- **JavaScript** in den Kurs „Webdesign“, sobald es in Vorlesung und Labor drankommt
 - **Auf dem iPhone testen:** Drehen und Zoomen mit zwei Fingern (flüssig?), Nachgleiten, Sicherung über das Teilen-Menü, Datumsfeld für den Prüfungstermin, Reihenfolge-Frage und Karteikarte
 - **Kurse erweitern:** Claude mit der neuen Vorlage bitten, in die Studienkurse Karteikarten und Reihenfolge-Fragen einzubauen (IDs beibehalten) und ihnen bei Bedarf ein `group` zu geben
 - Rückmeldungen einarbeiten, v. a. zur Optik der Säulen (Farben, Schatten, Höhe) und zu den Kursnamen in der Gesamtübersicht
