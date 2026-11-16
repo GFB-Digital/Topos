@@ -26,21 +26,113 @@ export function paragraphs(text: string): string[] {
     .filter(Boolean)
 }
 
-/** „**fett**“ → Abschnitte mit bold-Markierung */
-export function inlineSegments(text: string): { text: string; bold: boolean }[] {
-  return text
-    .split(/(\*\*[^*]+\*\*)/)
-    .filter(Boolean)
-    .map((part) =>
-      part.startsWith('**') && part.endsWith('**') && part.length > 4
-        ? { text: part.slice(2, -2), bold: true }
-        : { text: part, bold: false },
-    )
+/** Abschnitt eines Textes: normaler Text oder Codeblock (```…```) */
+export type TextBlock = { kind: 'text'; text: string } | { kind: 'code'; code: string; lang: string }
+
+/** Zeile, die einen Codeblock öffnet oder schließt: ``` oder ```html */
+const FENCE = /^\s*```\s*([\w+-]*)\s*$/
+
+/**
+ * Text in normalen Text und Codeblöcke zerlegen. Ein Codeblock beginnt mit einer
+ * Zeile ``` (optional mit Sprache, z. B. ```html) und endet mit einer Zeile ```.
+ * Im Code bleiben Einrückungen und Leerzeilen erhalten. Ein nicht geschlossener
+ * Block reicht bis zum Ende (der Import meldet das, siehe `unclosedFence`).
+ */
+export function textBlocks(text: string): TextBlock[] {
+  const blocks: TextBlock[] = []
+  let prose: string[] = []
+  let code: string[] | null = null
+  let lang = ''
+  const flushProse = () => {
+    const joined = prose.join('\n').trim()
+    if (joined) blocks.push({ kind: 'text', text: joined })
+    prose = []
+  }
+  for (const line of text.split('\n')) {
+    const fence = FENCE.exec(line)
+    if (code === null) {
+      if (fence) {
+        flushProse()
+        code = []
+        lang = fence[1].toLowerCase()
+      } else {
+        prose.push(line)
+      }
+    } else if (fence && fence[1] === '') {
+      blocks.push({ kind: 'code', code: code.join('\n').replace(/\s+$/, ''), lang })
+      code = null
+    } else {
+      code.push(line)
+    }
+  }
+  if (code !== null) blocks.push({ kind: 'code', code: code.join('\n').replace(/\s+$/, ''), lang })
+  flushProse()
+  return blocks
 }
 
-/** Markierungen entfernen (für den Speed-Reader) */
-export function stripMarkup(text: string): string {
-  return text.replace(/\*\*/g, '')
+/** Wie `textBlocks`, aber normaler Text zusätzlich in Absätze zerlegt (für Leseseiten) */
+export function pageBlocks(text: string): TextBlock[] {
+  return textBlocks(text).flatMap((block) =>
+    block.kind === 'code' ? [block] : paragraphs(block.text).map((p): TextBlock => ({ kind: 'text', text: p })),
+  )
+}
+
+/** Hat der Text einen Codeblock? */
+export function hasCodeBlock(text: string): boolean {
+  return textBlocks(text).some((block) => block.kind === 'code')
+}
+
+/** Öffnet der Text einen Codeblock, der nie geschlossen wird? */
+export function unclosedFence(text: string): boolean {
+  let open = false
+  for (const line of text.split('\n')) {
+    const fence = FENCE.exec(line)
+    if (fence && (open ? fence[1] === '' : true)) open = !open
+  }
+  return open
+}
+
+export interface InlineSegment {
+  text: string
+  kind: 'plain' | 'bold' | 'code'
+}
+
+/** „**fett**“ und „`Code`“ im Satz → Abschnitte. Im Code gilt ** nicht als fett. */
+export function inlineSegments(text: string): InlineSegment[] {
+  const segments: InlineSegment[] = []
+  for (const part of text.split(/(`[^`\n]+`)/)) {
+    if (!part) continue
+    if (part.length > 2 && part.startsWith('`') && part.endsWith('`')) {
+      segments.push({ text: part.slice(1, -1), kind: 'code' })
+      continue
+    }
+    for (const piece of part.split(/(\*\*[^*]+\*\*)/)) {
+      if (!piece) continue
+      segments.push(
+        piece.startsWith('**') && piece.endsWith('**') && piece.length > 4
+          ? { text: piece.slice(2, -2), kind: 'bold' }
+          : { text: piece, kind: 'plain' },
+      )
+    }
+  }
+  return segments
+}
+
+/**
+ * Markierungen entfernen (für Speed-Reader, Suche, Bildschirmleser): ** und `
+ * verschwinden. Ganze Codeblöcke werden durch „(Codebeispiel)“ ersetzt –
+ * oder mit `keepCode` als Text behalten (für die Suche).
+ */
+export function stripMarkup(text: string, keepCode = false): string {
+  return textBlocks(text)
+    .map((block) =>
+      block.kind === 'code'
+        ? keepCode
+          ? block.code
+          : '(Codebeispiel)'
+        : block.text.replace(/\*\*/g, '').replace(/`([^`\n]+)`/g, '$1'),
+    )
+    .join('\n\n')
 }
 
 /** Zufällige Reihenfolge der Zahlen 0 … count-1 (Fisher-Yates) */

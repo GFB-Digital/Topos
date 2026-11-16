@@ -130,3 +130,10 @@ Auftrag: Die App auf Basis einer vollständigen Analyse gezielt verbessern. Kinn
 - Vorschau der anstehenden Wiederholungen, Themengebiete (`group`), Suche, Import-Hinweise, Tastatur für die Karte.
 
 **Bewusst nicht gemacht:** grafischer Kurseditor, Kurse aus PDFs ohne Claude, lokale KI im Browser, Ligen/Herzen/Punkte, Wechsel auf eine 3D-Bibliothek.
+
+## Erweiterung (16.11.2026): Code verstehen (Webdesign)
+
+Der Nutzer bearbeitet die Webdesign-Labore teils mit KI und will den Code trotzdem verstehen. Freigegebener Plan:
+- **A – Code in Topos:** `Code` im Satz und Codeblöcke in allen Kurstexten (außer Lückentext), Code-Seiten nur im normalen Lesemodus, Reihenfolge-Aufgaben mit Code-Zeilen. Keine neue Schrift, keine Bibliothek, kein Syntax-Highlighting.
+- **B – Kurs „Webdesign“** im privaten Kurs-Repo: Grundlagen aus den Vorlesungen, dann je Labor die eigene Abgabe erklärt und abgefragt.
+- **C – Lernmodus fürs Vibe-Coding:** Regeln für Claude im Arbeitsordner der Labore (erst erklären, kleine Stellen selbst schreiben, vorhersagen, zurückerklären).

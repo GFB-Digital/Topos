@@ -2,7 +2,7 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import { Icon } from '../components/Icon.tsx'
 import { IconButton, TopBar } from '../components/TopBar.tsx'
 import { courseColor } from '../lib/colors.ts'
-import { cardKey, courseStats, formatStudyTime, questionText, tileQuestions, tileStatus } from '../lib/model.ts'
+import { cardKey, courseStats, formatStudyTime, questionText, stripMarkup, tileQuestions, tileStatus } from '../lib/model.ts'
 import type { Navigation } from '../lib/navigation.ts'
 import { lookupQuestion } from '../lib/session.ts'
 import { dueCards, dueForecast, hardCards, learnedCards } from '../lib/smart.ts'
@@ -156,7 +156,7 @@ export function KnowledgeScreen({ nav, section }: { nav: Navigation; section?: '
                       style={{ '--course': courseColor(found.course) } as CSSProperties}
                       onClick={() => nav.navigate({ name: 'tile', courseId: ref.courseId, tileId: ref.tileId, mode: 'read' })}
                     >
-                      <span className="kb-hard-text">{questionText(found.step)}</span>
+                      <span className="kb-hard-text">{stripMarkup(questionText(found.step))}</span>
                       <span className="kb-hard-meta">
                         {found.course.title} · {found.tile.title} · {ref.card.lapses}-mal falsch
                       </span>

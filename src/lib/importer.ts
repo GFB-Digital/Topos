@@ -2,6 +2,7 @@
 // Fehlermeldungen erzeugen. Reine Funktionen → getestet in importer.test.ts.
 
 import { COURSE_COLOR_NAMES, isCourseColor } from './colors.ts'
+import { hasCodeBlock, stripMarkup, unclosedFence } from './model.ts'
 import type {
   BinaryStep,
   ChoiceStep,
@@ -229,6 +230,31 @@ function validateImage(value: unknown, where: string, ctx: Context): ImageRef | 
   return result
 }
 
+/** Alle Texte eines Schritts, in denen Code stehen darf */
+function stepTexts(step: Step): string[] {
+  switch (step.type) {
+    case 'text':
+      return [step.text]
+    case 'truefalse':
+      return [step.statement, step.explanation ?? '']
+    case 'cloze':
+      return [step.text, ...step.options, step.explanation ?? '']
+    case 'recall':
+      return [step.question, step.answer, step.explanation ?? '']
+    case 'order':
+      return [step.question, ...step.items, step.explanation ?? '']
+    default:
+      return [step.question, ...step.options, step.explanation ?? '']
+  }
+}
+
+/** Ein geöffneter Codeblock (```) muss wieder geschlossen werden */
+function checkFences(texts: string[], where: string, ctx: Context): boolean {
+  if (!texts.some(unclosedFence)) return true
+  ctx.errors.push(`${where}: Ein Codeblock wird mit \`\`\` geöffnet, aber nicht wieder geschlossen.`)
+  return false
+}
+
 function validateStep(value: unknown, where: string, ctx: Context): Step | null {
   if (!isObject(value)) {
     ctx.errors.push(`${where}: Erwartet wird ein Objekt { … }.`)
@@ -300,6 +326,10 @@ function validateStep(value: unknown, where: string, ctx: Context): Step | null 
       const gaps = text.match(new RegExp(CLOZE_GAP.source, 'g'))?.length ?? 0
       if (gaps !== 1) {
         ctx.errors.push(`${where}: Der Lückentext braucht genau eine Lücke „___“ (gefunden: ${gaps}).`)
+        return null
+      }
+      if (hasCodeBlock(text)) {
+        ctx.errors.push(`${where}: Im Lückentext sind keine Codeblöcke (\`\`\`) möglich – Code im Satz mit \`…\` geht.`)
         return null
       }
     }
@@ -388,8 +418,11 @@ function validateTile(
 
   const checked = steps.map((step, k) => {
     const kind = isObject(step) ? (step.type === 'text' ? 'Seite' : step.type ? 'Frage' : '') : ''
-    return validateStep(step, `${where} › Schritt ${k + 1}${kind ? ` (${kind})` : ''}`, ctx)
+    const stepWhere = `${where} › Schritt ${k + 1}${kind ? ` (${kind})` : ''}`
+    const result = validateStep(step, stepWhere, ctx)
+    return result && checkFences(stepTexts(result), stepWhere, ctx) ? result : null
   })
+  if (!checkFences([...(intro ?? []), ...(recap ?? [])], where, ctx)) return { tile: null, generatedId }
 
   if (!title || !id || checked.some((step) => step === null)) return { tile: null, generatedId }
   const tile: Tile = { id, title, steps: checked as Step[] }
@@ -473,7 +506,8 @@ export function contentHints(course: Course, label = 'Kurs'): string[] {
     for (const step of tile.steps) {
       if (step.type !== 'text') continue
       page++
-      const words = step.text.split(/\s+/).filter(Boolean).length
+      // Codeblöcke zählen nicht als Lesetext
+      const words = stripMarkup(step.text).split(/\s+/).filter(Boolean).length
       if (words > LONG_PAGE_WORDS) long.push(`„${shorten(tile.title, 30)}“, Seite ${page} (${words} Wörter)`)
     }
     if (tile.steps.every((step) => step.type === 'text')) unasked.push(`„${shorten(tile.title, 30)}“`)

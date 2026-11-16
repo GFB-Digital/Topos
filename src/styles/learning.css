@@ -833,6 +833,79 @@
   margin-top: 0.75rem;
 }
 
+/* Statt „Normal | Speed“ auf Seiten mit Codeblock */
+.page-mode-note {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font: 600 0.8rem var(--font-ui);
+}
+
+/* ---------- Code (Kurse übers Programmieren) ---------- */
+
+.code-inline,
+.code-block {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, Menlo, 'SF Mono', monospace;
+  font-weight: 400;
+  font-variant-ligatures: none;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+/* Hintergrund aus der Textfarbe → passt auf Leseseite, farbiger Fragekarte und weißen Antworten */
+.code-inline {
+  padding: 0.05em 0.3em;
+  border-radius: 5px;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  font-size: 0.88em;
+  white-space: pre-wrap; /* Einrückung bleibt sichtbar (z. B. Code-Zeilen ordnen) */
+  overflow-wrap: anywhere;
+}
+
+/* Block: in Leseseiten ein <pre>, in Fragen und Antworten ein <code> mit display: block */
+.code-block {
+  display: block;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.7em 0.9em;
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, currentColor 7%, transparent);
+  font-size: 0.82em;
+  line-height: 1.5;
+  text-align: left;
+  white-space: pre;
+  tab-size: 2;
+  overflow-x: auto; /* breite Zeilen scrollen im Block, nicht die Seite */
+  overscroll-behavior-x: contain;
+}
+
+.code-block code {
+  font: inherit;
+}
+
+.q-title .code-block {
+  font-size: 0.66em;
+}
+
+.rich-par {
+  display: block;
+}
+
+.rich-par + .rich-par,
+.rich-par + .code-block,
+.code-block + .rich-par,
+.code-block + .code-block {
+  margin-top: 0.6em;
+}
+
+.q-solution-list {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+  padding-left: 1.4em;
+  text-align: left;
+}
+
 /* Leseseite als Karte */
 .page-card {
   gap: 1.25rem;

@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 13.11.2026 – Großer Ausbau in drei Phasen umgesetzt (Phasen 13–15, siehe unten): Die 3D-Karte ist die einzige Ansicht, Säulenhöhe = Beherrschung, dazu Sicherung als Datei, Karteikarte, Reihenfolge-Frage, Prüfung mit Termin, Suche. Noch **nicht committet** und **nicht auf dem iPhone getestet**. Als Nächstes: am PC und iPhone testen, committen, dann als Erstes eine Sicherung speichern.
+**Stand:** 16.11.2026 – Code-Darstellung eingebaut (Phase A des Webdesign-Plans, siehe unten), noch **nicht committet**. Als Nächstes: Kurs „Webdesign“ aus Vorlesungen und Laboren (Phase B, privates Kurs-Repo) und Lernmodus fürs Vibe-Coding (Phase C). Die Phasen 13–15 sind seit Commit `d4e5dad` veröffentlicht.
 
 ## Erledigt
 
@@ -161,6 +161,18 @@ Auftrag des Nutzers: erst Analyse und Plan (siehe PLAN.md, „Erweiterung 13.11.
 - **Geprüft:** `npm test` 147 Tests, `npm run build` fehlerfrei. Im Browser (Firefox, 390 px hell/dunkel, 360 px, 1280 px, mit den drei Studienkursen und erfundenem Lernstand): Karte in allen Zoomstufen und gedreht; eine Kachel komplett gelernt (Reihenfolge erst falsch, dann richtig; Karteikarte), Säule wuchs von 7 auf 20 Bildschirm-px; Prüfung mit Termin; Wissensbank; Abbruch einer Runde (2 Antworten gespeichert); Suche; Sicherung gespeichert, alles gelöscht, eingespielt – Lernstand identisch. Keine Fehler in der Konsole, kein seitliches Scrollen.
 - **Nicht geprüft:** echtes iPhone (Tempo beim Drehen, Teilen-Menü der Sicherung, Datumsfeld im Kursblatt), Zwei-Finger-Gesten (im Test nur Maus und Mausrad).
 
+### Code in Kursen – Phase A des Webdesign-Plans (16.11.2026)
+Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur per KI erledigen, sondern verstehen. Plan in drei Phasen: **A** Code in Topos darstellen, **B** Kurs „Webdesign“ aus den Vorlesungen und den eigenen Laborabgaben (Obsidian-Ordner „learn by doing“, privates Kurs-Repo), **C** Lernmodus-Regeln für Claude beim Bearbeiten der Labore.
+
+- **Schreibweise:** `` `Code` `` im Satz und Codeblöcke mit ```` ```html ```` … ```` ``` ```` (eigene Zeilen), erlaubt in Seiten, Fragen, Antworten, Erklärungen, Karteikarten, Reihenfolge-Einträgen, „Du lernst …“ und Rückblick. Nicht im Lückentext (Importfehler).
+- **Zerlegen** in [model.ts](src/lib/model.ts): `textBlocks`, `pageBlocks`, `hasCodeBlock`, `unclosedFence`; `inlineSegments` liefert jetzt `kind: 'plain' | 'bold' | 'code'`; `stripMarkup(text, keepCode)` ersetzt Codeblöcke durch „(Codebeispiel)“ bzw. behält sie für die Suche.
+- **Anzeige:** neue Komponente [RichText.tsx](src/components/RichText.tsx) (`InlineText`, `RichText`), genutzt in Leseseite, Fragekarte, Aufdeck-Karte. In Fragen und Antworten ist ein Block ein `<code>` mit `display: block` (in Überschriften und Buttons erlaubt), in Leseseiten ein `<pre>`. Systemschrift mit fester Breite, Einrückung bleibt, breite Zeilen scrollen im Block. Code wird nur als Text gezeigt, nie ausgeführt.
+- **Reihenfolge-Aufgaben mit Code-Zeilen** (Parsons-Aufgaben): Einrückung innerhalb der Backticks bleibt sichtbar; die richtige Reihenfolge erscheint nach einem Fehler als nummerierte Liste statt als Pfeilkette.
+- **Speed-Reader:** Seiten mit Codeblock nur im normalen Modus („Seite mit Code · nur Normal“), der gewählte Modus gilt für die nächsten Seiten weiter. `Code` im Satz liest der Speed-Reader ohne Backticks.
+- **Import:** nicht geschlossener Codeblock → Fehler mit Ort; Codeblöcke zählen nicht zur Wortzahl einer Seite. Lernstand-Schlüssel unverändert.
+- **Claude-Vorlage** und README um einen Abschnitt „Code“ ergänzt (README per Skript aktualisiert).
+- **Geprüft:** `npm test` 159 Tests (12 neu in [markup.test.ts](src/lib/markup.test.ts)), `npm run build` fehlerfrei. Im Browser (Firefox, 360 px hell, 1280 px dunkel) mit einem Testkurs: Leseseite mit breitem Block (scrollt im Block, nicht die Seite), Auswahlfrage mit Codeblock, Reihenfolge mit eingerückten Code-Zeilen, Karteikarte mit Code in der Antwort; keine Konsolenfehler.
+
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.
 - **Sicherung ersetzt, sie mischt nicht:** Einspielen überschreibt Kurse, Lernstand und Einstellungen des Geräts (nach Rückfrage). Zwei Geräte lassen sich damit nicht zusammenführen – das wäre Synchronisierung, und die ist laut Plan nicht gewollt.
@@ -205,6 +217,8 @@ Auftrag des Nutzers: erst Analyse und Plan (siehe PLAN.md, „Erweiterung 13.11.
 - **Neue Styles** stehen in [learning.css](src/styles/learning.css), die Grundlagen weiter in global.css.
 
 ## Als Nächstes
+- **Webdesign Phase B:** Kurs `webdesign-ws2627` (Präfix `wd-`) im privaten Kurs-Repo: Grundlagen-Kacheln aus den Vorlesungen 02–08 (`v<n>-<k>`), dann „Dein Labor“ je Labor 1–7 mit der eigenen Abgabe (`l<n>-<k>`)
+- **Webdesign Phase C:** Arbeitsordner für die Labore mit `CLAUDE.md` im Lernmodus (Plan vor Code, `TODO(du)`-Stellen, vorhersagen, zurückerklären, Fragen für Topos sammeln)
 - **Auf dem iPhone testen:** Drehen und Zoomen mit zwei Fingern (flüssig?), Nachgleiten, Sicherung über das Teilen-Menü, Datumsfeld für den Prüfungstermin, Reihenfolge-Frage und Karteikarte
 - **Kurse erweitern:** Claude mit der neuen Vorlage bitten, in die Studienkurse Karteikarten und Reihenfolge-Fragen einzubauen (IDs beibehalten) und ihnen bei Bedarf ein `group` zu geben
 - Rückmeldungen einarbeiten, v. a. zur Optik der Säulen (Farben, Schatten, Höhe) und zu den Kursnamen in der Gesamtübersicht

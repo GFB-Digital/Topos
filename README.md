@@ -172,6 +172,11 @@ Bilder (freiwillig):
 - Nur wenn du dir sicher bist, dass es das Bild gibt: "image" mit einer direkten Adresse von upload.wikimedia.org und einer Quellenangabe in "credit" (Wer, Lizenz, „via Wikimedia Commons“).
 - Bist du nicht ganz sicher, lass "image" weg. Ein falscher Link wird als fehlendes Bild angezeigt.
 
+Code (nur bei Kursen übers Programmieren, z. B. HTML, CSS, JavaScript):
+- Code im Satz steht in Backticks: `display: flex`. Das geht in allen Texten, auch in Antworten und in "items".
+- Längerer Code steht in einem Codeblock: eine Zeile ```html (oder css, js), dann der Code, dann eine Zeile ```. Im JSON sind die Zeilenumbrüche \n, z. B. "text": "Ein Beispiel:\n\n```html\n<ul>\n  <li>Eins</li>\n</ul>\n```". Einrückungen mit Leerzeichen bleiben erhalten. Codeblöcke gehen in Seiten, Fragen, Antworten, Erklärungen und Karteikarten, aber nicht im Lückentext. Höchstens etwa 12 Zeilen pro Block.
+- Gute Fragen zu Code: „Was zeigt der Browser?“ (choice mit Codeblock in der Frage), „Wo steckt der Fehler?“ (choice), Code-Zeilen in die richtige Reihenfolge bringen ("order", jede Zeile in Backticks, Einrückung innerhalb der Backticks: "`  <li>Eins</li>`"), „Was bewirkt …?“ ("recall").
+
 Format:
 Antworte ausschließlich mit gültigem JSON in einem ```json-Codeblock, ohne Text davor oder danach. Halte dich genau an diese Struktur:
 
@@ -259,6 +264,8 @@ Kurs → Kacheln → Schritte (Seiten und Fragen). Ein Import kann ein einzelner
 ```
 
 Absätze werden mit einer Leerzeile getrennt – im JSON als `\n\n` geschrieben. `**zwei Sternchen**` machen ein Wort fett. Das Bild ist freiwillig; nach dem ersten Laden ist es auch offline verfügbar.
+
+**Code** (für Kurse übers Programmieren): `` `display: flex` `` in Backticks erscheint als Code im Satz. Ein Codeblock beginnt mit einer Zeile `` ```html `` (oder `css`, `js`) und endet mit einer Zeile `` ``` ``; Einrückungen bleiben erhalten, breite Zeilen scrollen im Block. Code geht in Seiten, Fragen, Antworten, Erklärungen, Karteikarten und Reihenfolge-Einträgen (dort jede Zeile in Backticks), nicht im Lückentext. Seiten mit Codeblock gibt es nur im normalen Lesemodus. Code wird immer als Text angezeigt, nie ausgeführt.
 
 **Auswahlfrage** (2 bis 6 Antworten, ΤΟΠΟΣ mischt sie beim Anzeigen)
 

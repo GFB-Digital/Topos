@@ -3,7 +3,7 @@
 // Nur reine Funktionen ohne Bildschirm-Zugriff → einfach zu testen
 // (siehe orp.test.ts, Aufruf: npm test).
 
-import { paragraphs } from './model.ts'
+import { paragraphs, stripMarkup } from './model.ts'
 
 export type Pause = 'none' | 'clause' | 'sentence'
 
@@ -162,8 +162,8 @@ export function splitCompound(word: string): string[] {
 export function tokenize(text: string): Token[] {
   const tokens: Token[] = []
 
-  // **fett**-Markierungen gehören nicht zum Lesetext
-  paragraphs(text.replace(/\*\*/g, '')).forEach((paragraph, paragraphIndex) => {
+  // **fett**- und `Code`-Markierungen gehören nicht zum Lesetext
+  paragraphs(stripMarkup(text)).forEach((paragraph, paragraphIndex) => {
     const words: string[] = []
     let pending = '' // Satzzeichen am Absatzanfang, z. B. ein einzelnes „–“
     for (const raw of paragraph.split(/\s+/)) {

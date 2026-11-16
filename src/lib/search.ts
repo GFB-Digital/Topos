@@ -65,17 +65,17 @@ export function searchCourses(courses: Course[], query: string, limit = 40): Sea
       let question = false
       for (const step of tile.steps) {
         if (!isQuestion(step)) {
-          const text = stripMarkup(step.text)
+          const text = stripMarkup(step.text, true)
           if (!page && matches(`${step.title ?? ''} ${text}`)) {
             page = true
             // Ausschnitt nur aus dem Lesetext (steht das Wort nur in der Überschrift: der Anfang der Seite)
             byKind.page.push({ ...base, kind: 'page', snippet: snippetAround(text, words) })
           }
         } else {
-          const text = `${questionText(step)} ${correctLabel(step)} ${step.explanation ?? ''}`
+          const text = stripMarkup(`${questionText(step)}\n\n${correctLabel(step)}\n\n${step.explanation ?? ''}`, true)
           if (!question && matches(text)) {
             question = true
-            byKind.question.push({ ...base, kind: 'question', snippet: snippetAround(questionText(step), words, 90) })
+            byKind.question.push({ ...base, kind: 'question', snippet: snippetAround(stripMarkup(questionText(step), true), words, 90) })
           }
         }
       }

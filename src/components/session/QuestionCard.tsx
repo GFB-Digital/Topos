@@ -6,11 +6,13 @@ import {
   questionChoices,
   questionText,
   shuffledIndices,
+  stripMarkup,
   type Choice,
 } from '../../lib/model.ts'
 import type { QuestionStep } from '../../lib/types.ts'
 import { isOnButton, useKeydown } from '../../lib/useKeydown.ts'
 import { Icon } from '../Icon.tsx'
+import { InlineText, RichText } from '../RichText.tsx'
 
 interface Result {
   correct: boolean
@@ -167,7 +169,7 @@ export function QuestionCard({
         disabled={result !== null}
         onClick={() => decide(choice.value)}
       >
-        <span className="q-option-label">{choice.label}</span>
+        <span className="q-option-label"><RichText text={choice.label} /></span>
         {state === 'correct' && <Icon name="check" size={20} />}
         {state === 'wrong' && <Icon name="close" size={20} />}
       </button>
@@ -189,7 +191,7 @@ export function QuestionCard({
   if (step.type === 'recall') {
     body = (
       <>
-        <h2 className="q-title">{step.question}</h2>
+        <h2 className="q-title"><RichText text={step.question} /></h2>
         {!revealed ? (
           <>
             <p className="q-hint">Sag dir die Antwort erst selbst – am besten laut. Dann decke sie auf.</p>
@@ -201,7 +203,9 @@ export function QuestionCard({
           <>
             <div className="q-answer">
               <span className="q-answer-label">Antwort</span>
-              <p>{step.answer}</p>
+              <p>
+                <RichText text={step.answer} />
+              </p>
             </div>
             {!result && (
               <div className="q-options q-options--row">
@@ -221,7 +225,7 @@ export function QuestionCard({
     const rest = order.filter((item) => !picked.includes(item))
     body = (
       <>
-        <h2 className="q-title">{step.question}</h2>
+        <h2 className="q-title"><RichText text={step.question} /></h2>
         <ol className="q-order" aria-label="Deine Reihenfolge">
           {step.items.map((_, position) => {
             const item = picked[position]
@@ -233,11 +237,11 @@ export function QuestionCard({
                   className="q-order-slot"
                   data-state={state}
                   disabled={item === undefined || result !== null}
-                  aria-label={item === undefined ? `Platz ${position + 1}, noch frei` : `${step.items[item]} – wieder entfernen`}
+                  aria-label={item === undefined ? `Platz ${position + 1}, noch frei` : `${stripMarkup(step.items[item])} – wieder entfernen`}
                   onClick={() => item !== undefined && unpick(item)}
                 >
                   <span className="q-order-number">{position + 1}</span>
-                  <span className="q-option-label">{item === undefined ? '' : step.items[item]}</span>
+                  <span className="q-option-label">{item !== undefined && <RichText text={step.items[item]} />}</span>
                   {state === 'correct' && <Icon name="check" size={20} />}
                   {state === 'wrong' && <Icon name="close" size={20} />}
                 </button>
@@ -249,7 +253,7 @@ export function QuestionCard({
           <div className="q-options q-options--chips">
             {rest.map((item) => (
               <button key={item} type="button" className="q-option" onClick={() => pick(item)}>
-                <span className="q-option-label">{step.items[item]}</span>
+                <span className="q-option-label"><RichText text={step.items[item]} /></span>
               </button>
             ))}
           </div>
@@ -262,20 +266,20 @@ export function QuestionCard({
       <div className="q-binary" onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
         {option(choices[0], 'q-option--wide')}
         <Icon name="arrowUp" size={28} />
-        <h2 className="q-title">{step.question}</h2>
+        <h2 className="q-title"><RichText text={step.question} /></h2>
         <Icon name="arrowDown" size={28} />
         {option(choices[1], 'q-option--wide')}
       </div>
     )
   } else if (step.type === 'cloze') {
     const [before, after] = step.text.split(CLOZE_GAP)
-    const filled = result ? step.options[step.answer] : null
+    const filled = result ? <InlineText text={step.options[step.answer]} /> : null
     body = (
       <>
         <h2 className="q-title q-cloze">
-          {before}
+          <InlineText text={before} />
           <span className={filled ? 'q-gap q-gap--filled' : 'q-gap'}>{filled ?? '\u2003\u2003\u2003'}</span>
-          {after}
+          <InlineText text={after ?? ''} />
         </h2>
         <div className="q-options q-options--chips">{choices.map((choice) => option(choice))}</div>
       </>
@@ -283,14 +287,14 @@ export function QuestionCard({
   } else if (step.type === 'truefalse') {
     body = (
       <>
-        <h2 className="q-title">{step.statement}</h2>
+        <h2 className="q-title"><RichText text={step.statement} /></h2>
         <div className="q-options q-options--row">{choices.map((choice) => option(choice))}</div>
       </>
     )
   } else {
     body = (
       <>
-        <h2 className="q-title">{step.question}</h2>
+        <h2 className="q-title"><RichText text={step.question} /></h2>
         <div className="q-options">{choices.map((choice) => option(choice))}</div>
       </>
     )
@@ -308,22 +312,40 @@ export function QuestionCard({
 
   return (
     <>
-      <div className="session-card session-card--color question-card step-enter" aria-label={questionText(step)}>
+      <div className="session-card session-card--color question-card step-enter" aria-label={stripMarkup(questionText(step))}>
         {body}
 
         {result && !exam && (
           <div ref={feedbackRef} className="q-feedback" role="status">
             <p className="q-feedback-title">{feedbackTitle}</p>
-            {!result.correct && step.type !== 'recall' && (
+            {!result.correct && step.type === 'order' && (
+              <div className="q-feedback-solution">
+                <p>Richtige Reihenfolge:</p>
+                <ol className="q-solution-list">
+                  {step.items.map((item, i) => (
+                    <li key={i}>
+                      <RichText text={item} />
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            {!result.correct && step.type !== 'recall' && step.type !== 'order' && (
               <p className="q-feedback-solution">
-                {step.type === 'truefalse'
-                  ? correctLabel(step)
-                  : step.type === 'order'
-                    ? `Richtige Reihenfolge: ${correctLabel(step)}`
-                    : `Richtig ist: „${correctLabel(step)}“`}
+                {step.type === 'truefalse' ? (
+                  correctLabel(step)
+                ) : (
+                  <>
+                    Richtig ist: „<RichText text={correctLabel(step)} />“
+                  </>
+                )}
               </p>
             )}
-            {step.explanation && <p>{step.explanation}</p>}
+            {step.explanation && (
+              <p>
+                <RichText text={step.explanation} />
+              </p>
+            )}
             {!result.correct && (
               <p className="q-feedback-again">
                 <Icon name="shieldFilled" size={14} /> Diese Frage kommt am Ende noch einmal.

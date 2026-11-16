@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { inlineSegments, paragraphs } from '../../lib/model.ts'
+import { pageBlocks } from '../../lib/model.ts'
 import type { ImageRef, ReadingMode, TextStep } from '../../lib/types.ts'
 import { isOnButton, useKeydown } from '../../lib/useKeydown.ts'
 import { LessonFooter } from '../lesson/LessonFooter.tsx'
+import { InlineText } from '../RichText.tsx'
 import { SegmentedControl } from '../SegmentedControl.tsx'
 import { SpeedReader } from '../speed/SpeedReader.tsx'
 
@@ -10,16 +11,6 @@ const MODES: { value: ReadingMode; label: string }[] = [
   { value: 'normal', label: 'Normal' },
   { value: 'speed', label: 'Speed' },
 ]
-
-function RichText({ text }: { text: string }) {
-  return (
-    <>
-      {inlineSegments(text).map((segment, i) =>
-        segment.bold ? <strong key={i}>{segment.text}</strong> : <span key={i}>{segment.text}</span>,
-      )}
-    </>
-  )
-}
 
 /** Bild mit Quellenangabe; fehlt es (falscher Link, offline), erscheint ein Hinweis */
 function Figure({ image }: { image: ImageRef }) {
@@ -67,6 +58,12 @@ export function PageView({
   onModeChange: (mode: ReadingMode) => void
   onNext: () => void
 }) {
+  const blocks = pageBlocks(step.text)
+  // Code lässt sich nicht Wort für Wort lesen → Seiten mit Codeblock nur normal.
+  // Der gewählte Modus bleibt für die nächsten Seiten erhalten.
+  const hasCode = blocks.some((block) => block.kind === 'code')
+  const shown: ReadingMode = hasCode ? 'normal' : mode
+
   // Im Speed-Modus übernimmt der Speed-Reader die Tastatur
   useKeydown(
     (event) => {
@@ -75,7 +72,7 @@ export function PageView({
         onNext()
       }
     },
-    mode === 'normal',
+    shown === 'normal',
   )
 
   const head = (
@@ -85,11 +82,15 @@ export function PageView({
       <span className="page-count">
         Seite {page} / {pages}
       </span>
-      <SegmentedControl label="Lesemodus" value={mode} options={MODES} onChange={onModeChange} />
+      {hasCode ? (
+        <span className="page-mode-note">Seite mit Code · nur Normal</span>
+      ) : (
+        <SegmentedControl label="Lesemodus" value={mode} options={MODES} onChange={onModeChange} />
+      )}
     </header>
   )
 
-  if (mode === 'speed') {
+  if (shown === 'speed') {
     return (
       <SpeedReader
         header={
@@ -104,7 +105,6 @@ export function PageView({
     )
   }
 
-  const parts = paragraphs(step.text)
   return (
     <>
       <div className="lesson-content step-enter">
@@ -112,11 +112,18 @@ export function PageView({
           {head}
           <article className="reading-text">
             {step.title && <h2 className="reading-title">{step.title}</h2>}
-            {parts.map((paragraph, i) => (
+            {blocks.map((block, i) => (
               <div key={i}>
-                <p>
-                  <RichText text={paragraph} />
-                </p>
+                {block.kind === 'code' ? (
+                  // tabIndex: breite Blöcke lassen sich auch per Tastatur seitlich scrollen
+                  <pre className="code-block" data-lang={block.lang || undefined} tabIndex={0}>
+                    <code>{block.code}</code>
+                  </pre>
+                ) : (
+                  <p>
+                    <InlineText text={block.text} />
+                  </p>
+                )}
                 {/* Bild nach dem ersten Absatz */}
                 {i === 0 && step.image && <Figure image={step.image} />}
               </div>

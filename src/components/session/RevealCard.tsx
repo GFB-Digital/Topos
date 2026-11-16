@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { isOnButton, useKeydown } from '../../lib/useKeydown.ts'
 import { LessonFooter } from '../lesson/LessonFooter.tsx'
+import { RichText } from '../RichText.tsx'
 
 /**
  * Karte mit Einträgen zum Aufdecken – für „Du lernst …“ (Leitfragen) und
@@ -39,7 +40,7 @@ export function RevealCard({
           {entries.map((entry, i) =>
             i < revealed ? (
               <li key={i} className="reveal reveal--open">
-                {entry}
+                <RichText text={entry} />
               </li>
             ) : (
               <li key={i}>
