@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 16.11.2026 – Code-Darstellung eingebaut (Phase A des Webdesign-Plans, siehe unten), noch **nicht committet**. Als Nächstes: Kurs „Webdesign“ aus Vorlesungen und Laboren (Phase B, privates Kurs-Repo) und Lernmodus fürs Vibe-Coding (Phase C). Die Phasen 13–15 sind seit Commit `d4e5dad` veröffentlicht.
+**Stand:** 16.11.2026 – Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) fertig, noch **nicht committet**. Als Nächstes: testen, committen, dann Lernmodus fürs Vibe-Coding (Phase C). Die Phasen 13–15 sind seit Commit `d4e5dad` veröffentlicht.
 
 ## Erledigt
 
@@ -173,6 +173,15 @@ Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur
 - **Claude-Vorlage** und README um einen Abschnitt „Code“ ergänzt (README per Skript aktualisiert).
 - **Geprüft:** `npm test` 159 Tests (12 neu in [markup.test.ts](src/lib/markup.test.ts)), `npm run build` fehlerfrei. Im Browser (Firefox, 360 px hell, 1280 px dunkel) mit einem Testkurs: Leseseite mit breitem Block (scrollt im Block, nicht die Seite), Auswahlfrage mit Codeblock, Reihenfolge mit eingerückten Code-Zeilen, Karteikarte mit Code in der Antwort; keine Konsolenfehler.
 
+### Eingebauter Kurs „Webdesign“ – Phase B (16.11.2026)
+- **Wunsch des Nutzers:** Der Webdesign-Kurs soll nicht wie ABWL & Co. als Datei importiert werden, sondern über GitHub immer aktuell auf Handy und PC sein. Deshalb ist er **fest in die App eingebaut** (wie „Lernen lernen“): [src/content/webdesign/](src/content/webdesign/), eingetragen in `BUILTIN_COURSES` ([store.ts](src/lib/store.ts)). Jeder Push veröffentlicht eine neue App-Version, der Kurs kommt mit dem Update mit.
+- **Inhalt:** 30 Kacheln, 90 Seiten, 120 Fragen (~7100 Wörter, 102 KB). Grundlagen aus den Vorlesungen 1–8 **in eigenen Worten** (Web/URI/DNS/HTTP, HTML-Gerüst und Semantik, Formulare, CSS-Selektoren, Kaskade, Box-Modell, Grid, Flexbox, Responsive) und „Dein Labor“ 1–7 mit dem Code der eigenen Abgaben – inklusive der echten Fehler (Inhalte im head, footer nach body, Links ohne li, falscher Dateiname im Link, `align-content: right`, Layout per margin). Jedes Labor steht direkt hinter seinem Thema (`ORDER` in [index.ts](src/content/webdesign/index.ts)).
+- **Öffentlich:** Das Repo und die App sind öffentlich. Deshalb keine Folien-Texte oder -Bilder, und die persönlichen Angaben aus den Abgaben (Name, Adresse, E-Mail, Matrikelnummer) sind durch „Max Muster“ ersetzt. Ein Test ([builtin.test.ts](src/lib/builtin.test.ts)) schlägt fehl, falls solche Angaben doch hineingeraten.
+- **Fachliche Korrekturen gegenüber den Folien** (im Kurs erwähnt): `label for` verweist auf die `id` (Folie: name); URI = „Uniform“ Resource Identifier (Folie: „Unified“). Nicht übernommen: „PATCH ist idempotent“.
+- **Erweitern:** Neue Kacheln in die passende Datei und in `ORDER` eintragen. Kurs-ID `webdesign-ws2627`, Kachel-IDs (`v<Vorlesung>-<n>`, `l<Labor>-<n>`) und **Fragetexte nie ändern**, sonst geht der Lernstand dieser Fragen verloren. Antworten, Erklärungen und Seiten dürfen geändert werden.
+- **Oberfläche:** „Inhalte“ spricht jetzt von „eingebauten Kursen“ statt vom Beispielkurs.
+- **Geprüft:** `npm test` 164 Tests (5 neu für den Kurs: Import-Prüfung ohne Hinweise, eindeutige IDs und Fragen, Aufbau jeder Kachel, Seitenlänge und Codeblöcke ≤ 12 Zeilen, keine persönlichen Angaben), `npm run build` fehlerfrei. Im Browser (Firefox, 390 px): Karte mit beiden eingebauten Kursen, Kursblatt, Labor-Kachel 2 mit Code-Seite, Auswahl- und Reihenfolge-Frage; keine Konsolenfehler, kein seitliches Scrollen.
+
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.
 - **Sicherung ersetzt, sie mischt nicht:** Einspielen überschreibt Kurse, Lernstand und Einstellungen des Geräts (nach Rückfrage). Zwei Geräte lassen sich damit nicht zusammenführen – das wäre Synchronisierung, und die ist laut Plan nicht gewollt.
@@ -217,7 +226,7 @@ Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur
 - **Neue Styles** stehen in [learning.css](src/styles/learning.css), die Grundlagen weiter in global.css.
 
 ## Als Nächstes
-- **Webdesign Phase B:** Kurs `webdesign-ws2627` (Präfix `wd-`) im privaten Kurs-Repo: Grundlagen-Kacheln aus den Vorlesungen 02–08 (`v<n>-<k>`), dann „Dein Labor“ je Labor 1–7 mit der eigenen Abgabe (`l<n>-<k>`)
+- **Webdesign weiter ausbauen:** neue Vorlesungen und Labore als neue Kacheln in [src/content/webdesign/](src/content/webdesign/) ergänzen (siehe „Erweitern“ oben)
 - **Webdesign Phase C:** Arbeitsordner für die Labore mit `CLAUDE.md` im Lernmodus (Plan vor Code, `TODO(du)`-Stellen, vorhersagen, zurückerklären, Fragen für Topos sammeln)
 - **Auf dem iPhone testen:** Drehen und Zoomen mit zwei Fingern (flüssig?), Nachgleiten, Sicherung über das Teilen-Menü, Datumsfeld für den Prüfungstermin, Reihenfolge-Frage und Karteikarte
 - **Kurse erweitern:** Claude mit der neuen Vorlage bitten, in die Studienkurse Karteikarten und Reihenfolge-Fragen einzubauen (IDs beibehalten) und ihnen bei Bedarf ein `group` zu geben

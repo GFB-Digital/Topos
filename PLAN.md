@@ -135,5 +135,5 @@ Auftrag: Die App auf Basis einer vollständigen Analyse gezielt verbessern. Kinn
 
 Der Nutzer bearbeitet die Webdesign-Labore teils mit KI und will den Code trotzdem verstehen. Freigegebener Plan:
 - **A – Code in Topos:** `Code` im Satz und Codeblöcke in allen Kurstexten (außer Lückentext), Code-Seiten nur im normalen Lesemodus, Reihenfolge-Aufgaben mit Code-Zeilen. Keine neue Schrift, keine Bibliothek, kein Syntax-Highlighting.
-- **B – Kurs „Webdesign“** im privaten Kurs-Repo: Grundlagen aus den Vorlesungen, dann je Labor die eigene Abgabe erklärt und abgefragt.
+- **B – Kurs „Webdesign“**, auf Wunsch des Nutzers **fest in die App eingebaut** (kommt mit jedem Update, kein Import): Grundlagen aus den Vorlesungen in eigenen Worten, dazu je Labor die eigene Abgabe erklärt und abgefragt. Keine Folieninhalte und keine persönlichen Daten, weil App und Repo öffentlich sind.
 - **C – Lernmodus fürs Vibe-Coding:** Regeln für Claude im Arbeitsordner der Labore (erst erklären, kleine Stellen selbst schreiben, vorhersagen, zurückerklären).

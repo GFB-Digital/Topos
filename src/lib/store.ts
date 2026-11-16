@@ -4,6 +4,7 @@
 
 import { useSyncExternalStore } from 'react'
 import { SAMPLE_COURSE } from '../content/sample-course.ts'
+import { WEBDESIGN_COURSE } from '../content/webdesign/index.ts'
 import { getItem, getStorageMode, removeItem, setItem, type StorageMode } from './db.ts'
 import { validateCourses } from './importer.ts'
 import { cardKey, tileQuestions } from './model.ts'
@@ -20,7 +21,7 @@ import {
 } from './types.ts'
 
 /** Fest eingebaute Kurse – können durch einen Import ersetzt, aber nicht gelöscht werden */
-export const BUILTIN_COURSES: Course[] = [SAMPLE_COURSE]
+export const BUILTIN_COURSES: Course[] = [SAMPLE_COURSE, WEBDESIGN_COURSE]
 
 const KEYS = {
   courses: 'courses',

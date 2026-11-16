@@ -351,9 +351,9 @@ export function ContentScreen({ nav }: { nav: Navigation }) {
             {courses.map((course) => {
               const imported = importedIds.has(course.id)
               const origin = !imported
-                ? 'Beispielkurs'
+                ? 'eingebaut'
                 : isBuiltinCourse(course.id)
-                  ? 'ersetzt den Beispielkurs'
+                  ? 'ersetzt den eingebauten Kurs'
                   : 'importiert'
               return (
                 <li key={course.id} className="manage-row">
@@ -375,9 +375,9 @@ export function ContentScreen({ nav }: { nav: Navigation }) {
               )
             })}
           </ul>
-          {importedCourses.length === 0 && (
-            <p className="small muted">Der Beispielkurs ist fest eingebaut und kann nicht gelöscht werden.</p>
-          )}
+          <p className="small muted">
+            Eingebaute Kurse kommen mit jedem App-Update auf den neuesten Stand und lassen sich nicht löschen.
+          </p>
         </section>
       </main>
 
@@ -403,8 +403,8 @@ export function ContentScreen({ nav }: { nav: Navigation }) {
             </p>
             {conflictBuiltin && (
               <p>
-                Der eingebaute Beispielkurs wird durch deine Version ersetzt. Löschst du sie später,
-                kommt der Beispielkurs zurück.
+                Der eingebaute Kurs wird durch deine Version ersetzt. Löschst du sie später,
+                kommt der eingebaute Kurs zurück.
               </p>
             )}
           </>
@@ -452,7 +452,7 @@ export function ContentScreen({ nav }: { nav: Navigation }) {
         message={
           <p>
             Der Kurs und dein Fortschritt darin werden von diesem Gerät entfernt.
-            {deleteRestoresBuiltin && ' Danach ist wieder der eingebaute Beispielkurs da.'}
+            {deleteRestoresBuiltin && ' Danach ist wieder der eingebaute Kurs da.'}
           </p>
         }
         confirmLabel="Löschen"
