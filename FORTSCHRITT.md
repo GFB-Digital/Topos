@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 16.11.2026 – Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) fertig, noch **nicht committet**. Als Nächstes: testen, committen, dann Lernmodus fürs Vibe-Coding (Phase C). Die Phasen 13–15 sind seit Commit `d4e5dad` veröffentlicht.
+**Stand:** 16.11.2026 – Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“ – noch **nicht committet**. Als Nächstes: testen, committen; JavaScript und der Lernmodus fürs Vibe-Coding (Phase C) kommen später.
 
 ## Erledigt
 
@@ -181,6 +181,13 @@ Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur
 - **Erweitern:** Neue Kacheln in die passende Datei und in `ORDER` eintragen. Kurs-ID `webdesign-ws2627`, Kachel-IDs (`v<Vorlesung>-<n>`, `l<Labor>-<n>`) und **Fragetexte nie ändern**, sonst geht der Lernstand dieser Fragen verloren. Antworten, Erklärungen und Seiten dürfen geändert werden.
 - **Oberfläche:** „Inhalte“ spricht jetzt von „eingebauten Kursen“ statt vom Beispielkurs.
 - **Geprüft:** `npm test` 164 Tests (5 neu für den Kurs: Import-Prüfung ohne Hinweise, eindeutige IDs und Fragen, Aufbau jeder Kachel, Seitenlänge und Codeblöcke ≤ 12 Zeilen, keine persönlichen Angaben), `npm run build` fehlerfrei. Im Browser (Firefox, 390 px): Karte mit beiden eingebauten Kursen, Kursblatt, Labor-Kachel 2 mit Code-Seite, Auswahl- und Reihenfolge-Frage; keine Konsolenfehler, kein seitliches Scrollen.
+
+### Aufteilung in „Webdesign“ und „World Wide Web“ (16.11.2026)
+- **Wunsch des Nutzers:** nicht erst alle Wissens-Kacheln über das Web durcharbeiten müssen, bevor das Programmieren beginnt. Deshalb zwei eingebaute Kurse (beide `group: 'Web'`, stehen auf der Karte beieinander):
+  - **Webdesign** (`webdesign-ws2627`, 24 Kacheln): beginnt direkt mit HTML (`v3-1`), dann CSS, Layout und die Labore 2–7. JavaScript folgt später hier.
+  - **World Wide Web** (`www-ws2627`, 7 Kacheln): Internet und Web, URI, DNS, HTTP, Methoden/Cookies, Labor 1 und die neue Kachel **„Vom Code zur Seite“** (`w-browser`: statisch/dynamisch, DOM, Layout und Paint, Aufgaben von HTML, CSS und JavaScript).
+- **Lernstand zieht mit:** Die sechs umgezogenen Kacheln (`v2-1` … `v2-5`, `l1-1`) waren schon veröffentlicht. [moves.ts](src/lib/moves.ts) (`applyTileMoves`) verschiebt ihren Kachel-Status und ihre Gedächtnis-Stände beim Start einmalig in den neuen Kurs – auch beim Einspielen einer älteren Sicherung; neuere Stände im Zielkurs werden nie überschrieben. Die Liste steht als `MOVED_TILES` in [index.ts](src/content/webdesign/index.ts).
+- **Geprüft:** `npm test` 170 Tests (neu: [moves.test.ts](src/lib/moves.test.ts), [builtin.test.ts](src/lib/builtin.test.ts) für beide Kurse), `npm run build` fehlerfrei. Im Browser: alter Lernstand von „Internet und Web“ unter Webdesign → nach dem Neuladen unter World Wide Web (Häkchen auf der Karte), angefangene HTML-Kachel bleibt in Webdesign; keine Konsolenfehler.
 
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.

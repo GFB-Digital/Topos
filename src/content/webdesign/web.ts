@@ -338,4 +338,80 @@ export const WEB_TILES: Tile[] = [
       'Mit curl -i und dem Netzwerk-Reiter der Entwicklerwerkzeuge siehst du HTTP live.',
     ],
   },
+  {
+    id: 'w-browser',
+    title: 'Vom Code zur Seite',
+    intro: ['Was macht der Browser mit dem Code, den er bekommt?', 'Welche Aufgabe haben HTML, CSS und JavaScript?'],
+    steps: [
+      {
+        type: 'text',
+        title: 'Code ist einfacher Text',
+        text: page(
+          'Eine Webseite besteht aus gewöhnlichen **Textdateien**: HTML, CSS und JavaScript. Du kannst sie mit jedem Editor öffnen. Der Server schickt sie per HTTP an den Browser – zuerst die HTML-Datei.',
+          'Beim Lesen stößt der Browser auf Verweise wie `<link href="style.css">`, `<img src="foto.png">` oder `<script src="app.js">` und lädt jede dieser Dateien mit einer eigenen Anfrage nach.',
+          'Liegen die Dateien fertig auf dem Server und sind für alle gleich, spricht man von einer **statischen** Seite – genau das baust du in Webdesign. Erzeugt der Server die Seite bei jeder Anfrage neu, etwa aus einer Datenbank, ist sie **dynamisch** (Backend). Ändert JavaScript die Seite erst im Browser, ist das dynamisch im Frontend.',
+        ),
+      },
+      {
+        type: 'binary',
+        question: 'Deine Labor-Seite besteht aus fertigen HTML- und CSS-Dateien, die für jeden Besucher gleich sind. Was ist sie?',
+        options: ['Eine statische Seite', 'Eine dynamische Seite'],
+        answer: 0,
+        explanation: 'Statisch heißt: Die Dateien liegen fertig auf dem Server und werden unverändert ausgeliefert.',
+      },
+      {
+        type: 'text',
+        title: 'Aus Text wird ein Baum',
+        text: page(
+          'Der Browser liest das HTML Zeichen für Zeichen und baut daraus einen Baum im Speicher: das **DOM** (Document Object Model). Jedes Element wird ein Knoten mit Eltern, Kindern und Geschwistern – genau der Baum, den du aus HTML kennst.',
+          'Dabei ist der Browser sehr **fehlertolerant**: Steht eine Überschrift im head oder fehlt ein schließender Tag, repariert er das stillschweigend. Darum sieht fehlerhafter Code oft trotzdem richtig aus.',
+          'Danach geht es in Schritten weiter: Der Browser ordnet jedem Knoten die passenden **CSS-Regeln** zu, berechnet Größe und Position jedes Elements (**Layout**) und malt schließlich die Pixel auf den Bildschirm (**Paint**).',
+        ),
+      },
+      {
+        type: 'order',
+        question: 'Wie wird aus Code eine sichtbare Seite? Bring die Schritte des Browsers in die richtige Reihenfolge.',
+        items: [
+          'HTML-Datei per HTTP laden',
+          'HTML lesen und den DOM-Baum bauen',
+          'CSS-Regeln den Elementen zuordnen',
+          'Größe und Position berechnen (Layout)',
+          'Pixel auf den Bildschirm malen (Paint)',
+        ],
+        explanation: 'Erst laden, dann den Baum bauen, dann die Styles zuordnen, dann das Layout berechnen und zuletzt malen.',
+      },
+      {
+        type: 'text',
+        title: 'Drei Sprachen, drei Aufgaben',
+        text: page(
+          '**HTML** legt die Struktur fest: Was steht auf der Seite, und welche Rolle hat es? **CSS** legt das Aussehen fest: Farben, Schriften, Abstände, Layout. **JavaScript** legt das Verhalten fest: Was passiert bei einem Klick, beim Tippen, beim Laden neuer Daten?',
+          'Genau genommen sind HTML und CSS keine Programmiersprachen: HTML ist eine Auszeichnungssprache, CSS eine Stylesheet-Sprache. Mit ihnen beschreibst du, *was* da sein und *wie* es aussehen soll. Erst JavaScript kennt Variablen, Bedingungen und Schleifen – damit beschreibst du, was Schritt für Schritt *passieren* soll. JavaScript kann den DOM-Baum lesen und verändern, also die Seite ändern, während sie schon angezeigt wird.',
+          code('html', '<button onclick="alert(\'Hallo!\')">Klick mich</button>'),
+        ),
+      },
+      {
+        type: 'choice',
+        question: 'Auf deiner Seite soll beim Klick auf einen Knopf ein Menü aufgehen. Welche Sprache ist dafür üblicherweise zuständig?',
+        options: ['JavaScript', 'HTML', 'CSS', 'HTTP'],
+        answer: 0,
+        explanation: 'Verhalten bei Klicks ist die Aufgabe von JavaScript. (Für einfache Fälle gibt es auch reine CSS-Tricks, etwa mit einer versteckten Checkbox.)',
+      },
+      {
+        type: 'truefalse',
+        statement: 'HTML ist im engeren Sinn eine Programmiersprache.',
+        answer: false,
+        explanation: 'HTML ist eine Auszeichnungssprache: Es beschreibt Struktur, kennt aber keine Variablen, Bedingungen oder Schleifen. Das kann erst JavaScript.',
+      },
+      {
+        type: 'recall',
+        question: 'Was ist das DOM?',
+        answer: 'Der Baum aus Knoten, den der Browser aus dem HTML im Speicher aufbaut. CSS wird darauf angewendet, und JavaScript kann ihn lesen und verändern.',
+      },
+    ],
+    recap: [
+      'Webseiten sind Textdateien; der Browser lädt erst das HTML und dann alles, worauf es verweist.',
+      'Aus dem HTML baut der Browser den DOM-Baum, ordnet CSS zu, berechnet das Layout und malt.',
+      'HTML = Struktur, CSS = Aussehen, JavaScript = Verhalten.',
+    ],
+  },
 ]

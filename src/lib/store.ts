@@ -4,7 +4,8 @@
 
 import { useSyncExternalStore } from 'react'
 import { SAMPLE_COURSE } from '../content/sample-course.ts'
-import { WEBDESIGN_COURSE } from '../content/webdesign/index.ts'
+import { MOVED_TILES, WEBDESIGN_COURSE, WWW_COURSE } from '../content/webdesign/index.ts'
+import { applyTileMoves } from './moves.ts'
 import { getItem, getStorageMode, removeItem, setItem, type StorageMode } from './db.ts'
 import { validateCourses } from './importer.ts'
 import { cardKey, tileQuestions } from './model.ts'
@@ -21,7 +22,7 @@ import {
 } from './types.ts'
 
 /** Fest eingebaute Kurse – können durch einen Import ersetzt, aber nicht gelöscht werden */
-export const BUILTIN_COURSES: Course[] = [SAMPLE_COURSE, WEBDESIGN_COURSE]
+export const BUILTIN_COURSES: Course[] = [SAMPLE_COURSE, WEBDESIGN_COURSE, WWW_COURSE]
 
 const KEYS = {
   courses: 'courses',
@@ -124,6 +125,9 @@ export async function loadAppState() {
   let learn = sanitizeLearn(storedLearn)
   const migrate = !learn && legacy !== undefined
   if (!learn) learn = migrate ? migrateLegacyProgress(legacy, combineCourses(imported)) : EMPTY_LEARN
+  // Kacheln, die in einen anderen eingebauten Kurs umgezogen sind, nehmen ihren Lernstand mit
+  const moved = applyTileMoves(learn, MOVED_TILES)
+  learn = moved.learn
 
   setState({
     loaded: true,
@@ -137,6 +141,8 @@ export async function loadAppState() {
   if (migrate) {
     await persist(KEYS.learn, learn)
     await removeItem(KEYS.legacyProgress)
+  } else if (moved.changed) {
+    await persist(KEYS.learn, learn)
   }
 }
 
@@ -333,9 +339,11 @@ export async function deleteCourse(courseId: string) {
 
 /** Sicherung einspielen: ersetzt importierte Kurse, Lernstand und Einstellungen */
 export async function restoreBackup(data: { courses: Course[]; learn: LearnState; settings: Settings }) {
-  setState({ importedCourses: data.courses, learn: data.learn, settings: data.settings })
+  // Eine ältere Sicherung kennt umgezogene Kacheln noch unter dem alten Kurs
+  const learn = applyTileMoves(data.learn, MOVED_TILES).learn
+  setState({ importedCourses: data.courses, learn, settings: data.settings })
   await persist(KEYS.courses, data.courses)
-  await persist(KEYS.learn, data.learn)
+  await persist(KEYS.learn, learn)
   await persist(KEYS.settings, data.settings)
 }
 
