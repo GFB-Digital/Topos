@@ -292,8 +292,10 @@ button {
   font-size: var(--reading-size);
   line-height: var(--reading-line);
   max-width: var(--reading-measure);
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  /* Keine Silbentrennung: Wörter springen ganz in die nächste Zeile (Wunsch des Nutzers).
+     Nur ein einzelnes Wort, das breiter als die ganze Zeile ist, bricht notfalls ohne Strich um. */
+  hyphens: none;
+  -webkit-hyphens: none;
   overflow-wrap: break-word;
 }
 
@@ -912,8 +914,8 @@ button {
   font-size: var(--reading-size);
   line-height: var(--reading-line);
   max-width: var(--reading-measure);
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: none;
+  -webkit-hyphens: none;
   overflow-wrap: break-word;
   text-wrap: pretty;
 }

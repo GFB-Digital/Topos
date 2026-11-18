@@ -22,7 +22,7 @@ export const SAMPLE_COURSE: Course = {
           type: 'text',
           title: 'Ein Forscher lernt Unsinn',
           text:
-            'Im Jahr 1885 veröffentlichte der deutsche Psychologe **Hermann Ebbinghaus** ein Buch mit dem schlichten Titel „Über das Gedächtnis“. Darin beschrieb er Versuche, die er an sich selbst durchgeführt hatte. Er lernte lange Listen **sinnloser Silben** wie „DAX“ oder „BUP“ auswendig – bewusst ohne Bedeutung, damit Vorwissen das Ergebnis nicht verfälscht.\n\n' +
+            'Im Jahr 1885 veröffentlichte der deutsche Psychologe **Hermann Ebbinghaus** ein Buch mit dem schlichten Titel „Über das Gedächtnis“. Darin beschrieb er Versuche, die er an sich selbst durchgeführt hatte. Er lernte lange Listen **sinnloser Silben** wie „DAX“ oder „BUP“ auswendig, bewusst ohne Bedeutung, damit Vorwissen das Ergebnis nicht verfälscht.\n\n' +
             'Später prüfte er, wie viel Zeit er brauchte, um dieselbe Liste erneut zu lernen. Je mehr Zeit er dabei im Vergleich zum ersten Mal sparte, desto mehr war offenbar noch im Gedächtnis. So konnte er das Vergessen zum ersten Mal messen.',
           image: {
             src: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Ebbinghaus2.jpg',
@@ -53,7 +53,7 @@ export const SAMPLE_COURSE: Course = {
                 'Er verglich seine Ergebnisse mit denen anderer Forscher',
               ],
               answer: 0,
-              explanation: 'Je mehr Zeit er beim Wiederlernen sparte, desto mehr war offenbar noch da – so wurde Vergessen messbar.',
+              explanation: 'Je mehr Zeit er beim Wiederlernen sparte, desto mehr war offenbar noch da. So wurde Vergessen messbar.',
             },
           ],
         },
@@ -89,7 +89,7 @@ export const SAMPLE_COURSE: Course = {
           type: 'text',
           title: 'Der Abstandseffekt',
           text:
-            'Ebbinghaus bemerkte noch etwas: Wiederholungen, die er über mehrere Tage verteilte, brachten deutlich mehr als dieselbe Mühe an einem Stück. Heute heißt das **Abstandseffekt**, englisch „spacing effect“. Hunderte Studien haben ihn bestätigt – bei Vokabeln ebenso wie bei Fakten und Fertigkeiten.\n\n' +
+            'Ebbinghaus bemerkte noch etwas: Wiederholungen, die er über mehrere Tage verteilte, brachten deutlich mehr als dieselbe Mühe an einem Stück. Heute heißt das **Abstandseffekt**, englisch „spacing effect“. Hunderte Studien haben ihn bestätigt, bei Vokabeln ebenso wie bei Fakten und Fertigkeiten.\n\n' +
             'Praktisch heißt das: lieber dreimal zwanzig Minuten an verschiedenen Tagen als eine Stunde am Stück. Je länger du etwas behalten willst, desto größer dürfen die Abstände zwischen den Wiederholungen werden. Lernkarteien wie das **Leitner-System** aus den 1970er-Jahren und viele Lern-Apps nutzen genau dieses Prinzip.',
         },
         {
@@ -125,7 +125,7 @@ export const SAMPLE_COURSE: Course = {
         },
       ],
       recap: [
-        'Ebbinghaus maß 1885 das Vergessen – an sich selbst und mit sinnlosen Silben.',
+        'Ebbinghaus maß 1885 das Vergessen, an sich selbst und mit sinnlosen Silben.',
         'Direkt nach dem Lernen vergessen wir am meisten, danach immer langsamer.',
         'Über mehrere Tage verteilte Wiederholungen wirken besser als Lernen am Stück.',
       ],
@@ -143,7 +143,7 @@ export const SAMPLE_COURSE: Course = {
           type: 'text',
           title: 'Ein einfaches Experiment',
           text:
-            '2006 veröffentlichten die Psychologen **Henry Roediger** und **Jeffrey Karpicke** eine viel beachtete Studie. Studierende lasen kurze Sachtexte, etwa über Seeotter. Danach wurden sie aufgeteilt: Die einen lasen den Text noch einmal, die anderen schrieben ohne Vorlage auf, woran sie sich erinnerten – ein Test ohne Note und ohne Rückmeldung.\n\n' +
+            '2006 veröffentlichten die Psychologen **Henry Roediger** und **Jeffrey Karpicke** eine viel beachtete Studie. Studierende lasen kurze Sachtexte, etwa über Seeotter. Danach wurden sie aufgeteilt: Die einen lasen den Text noch einmal, die anderen schrieben ohne Vorlage auf, woran sie sich erinnerten. Das war ein Test ohne Note und ohne Rückmeldung.\n\n' +
             'Wurde nach fünf Minuten geprüft, lag die Wiederlese-Gruppe leicht vorn. Nach zwei Tagen und nach einer Woche drehte sich das Bild: Wer sich selbst abgefragt hatte, erinnerte sich deutlich besser. Dieser Vorteil heißt **Testeffekt**.',
         },
         {
@@ -173,7 +173,7 @@ export const SAMPLE_COURSE: Course = {
           title: 'Warum Abrufen wirkt',
           text:
             'Wenn du dich an etwas erinnerst, liest dein Gehirn nicht einfach einen Speicher aus. Der Abruf selbst verändert das Gedächtnis: Die Erinnerung wird gefestigt und lässt sich beim nächsten Mal leichter wiederfinden. Abrufen ist also nicht nur eine Prüfung des Lernens, sondern selbst ein Lernvorgang.\n\n' +
-            'Wiederlesen fühlt sich dagegen produktiv an, weil der Text **vertraut** wirkt. Doch Vertrautheit ist nicht dasselbe wie Erinnern. In einem zweiten Versuch derselben Studie schätzten Studierende, die nur gelesen hatten, ihr Wissen sogar höher ein – und schnitten später trotzdem schlechter ab.',
+            'Wiederlesen fühlt sich dagegen produktiv an, weil der Text **vertraut** wirkt. Doch Vertrautheit ist nicht dasselbe wie Erinnern. In einem zweiten Versuch derselben Studie schätzten Studierende, die nur gelesen hatten, ihr Wissen sogar höher ein und schnitten später trotzdem schlechter ab.',
         },
         {
           type: 'truefalse',
@@ -187,8 +187,8 @@ export const SAMPLE_COURSE: Course = {
               type: 'choice',
               question: 'Wie schätzten Studierende, die nur wiedergelesen hatten, ihr eigenes Wissen ein?',
               options: [
-                'Höher – und schnitten später trotzdem schlechter ab',
-                'Niedriger – und schnitten später besser ab',
+                'Höher, und sie schnitten später trotzdem schlechter ab',
+                'Niedriger, und sie schnitten später besser ab',
                 'Genau richtig',
                 'Genauso wie die Abruf-Gruppe',
               ],
@@ -202,7 +202,7 @@ export const SAMPLE_COURSE: Course = {
           title: 'So nutzt du den Testeffekt',
           text:
             'Der Testeffekt lässt sich leicht in den Alltag einbauen. Klappe nach einem Abschnitt das Buch zu und fasse in eigenen Worten zusammen, was drinstand. Beantworte Übungsfragen, bevor du die Lösung ansiehst. Nutze Karteikarten und sprich die Antwort aus, bevor du die Karte umdrehst.\n\n' +
-            'Fehler sind dabei kein Problem, sondern Teil des Lernens – besonders dann, wenn du anschließend die richtige Antwort siehst. **Rückmeldung** verstärkt den Effekt. Genau deshalb folgt in ΤΟΠΟΣ auf jeden Leseabschnitt eine Frage: Du liest, rufst ab und bekommst sofort eine Rückmeldung.',
+            'Fehler sind dabei kein Problem, sondern Teil des Lernens, besonders dann, wenn du anschließend die richtige Antwort siehst. **Rückmeldung** verstärkt den Effekt. Genau deshalb folgt in ΤΟΠΟΣ auf jeden Leseabschnitt eine Frage: Du liest, rufst ab und bekommst sofort eine Rückmeldung.',
         },
         {
           type: 'choice',
@@ -235,7 +235,7 @@ export const SAMPLE_COURSE: Course = {
           variants: [
             {
               type: 'truefalse',
-              statement: 'Abrufen prüft nur, was man schon gelernt hat – dabei selbst lernt man nichts.',
+              statement: 'Abrufen prüft nur, was man schon gelernt hat. Dabei selbst lernt man nichts.',
               answer: false,
               explanation: 'Der Abruf verändert das Gedächtnis: Die Erinnerung wird gefestigt und lässt sich später leichter wiederfinden.',
             },
@@ -284,7 +284,7 @@ export const SAMPLE_COURSE: Course = {
       ],
       recap: [
         'Sich selbst abzufragen festigt Wissen stärker als Wiederlesen.',
-        'Wiederlesen erzeugt Vertrautheit – und damit leicht Selbstüberschätzung.',
+        'Wiederlesen erzeugt Vertrautheit und damit leicht Selbstüberschätzung.',
         'Fehler beim Abrufen helfen, besonders mit anschließender Rückmeldung.',
       ],
     },
@@ -292,7 +292,7 @@ export const SAMPLE_COURSE: Course = {
       id: 'speed-reading',
       title: 'Was beim Speed Reading passiert',
       emoji: '👁️',
-      intro: ['Wie bewegen sich die Augen beim Lesen?', 'Was macht ein Speed-Reader anders – und was nicht?'],
+      intro: ['Wie bewegen sich die Augen beim Lesen?', 'Was macht ein Speed-Reader anders, und was nicht?'],
       steps: [
         {
           type: 'text',
@@ -368,16 +368,16 @@ export const SAMPLE_COURSE: Course = {
           variants: [
             {
               type: 'truefalse',
-              statement: 'Die meiste Lesezeit steckt in den Augenbewegungen – deshalb macht RSVP das Lesen ohne Nachteil schneller.',
+              statement: 'Die meiste Lesezeit steckt in den Augenbewegungen. Deshalb macht RSVP das Lesen ohne Nachteil schneller.',
               answer: false,
-              explanation: 'Die meiste Zeit kostet das Verstehen. Das lässt sich nicht beliebig beschleunigen – bei hohem Tempo sinkt das Verständnis.',
+              explanation: 'Die meiste Zeit kostet das Verstehen. Das lässt sich nicht beliebig beschleunigen. Bei hohem Tempo sinkt das Verständnis.',
             },
           ],
         },
         {
           type: 'binary',
           question: 'Du liest einen schwierigen Fachtext zum Lernen. Welches Vorgehen ist sinnvoller?',
-          options: ['Angenehmes Tempo, an schweren Stellen bremsen', 'So schnell wie möglich – Hauptsache durch'],
+          options: ['Angenehmes Tempo, an schweren Stellen bremsen', 'So schnell wie möglich, Hauptsache durch'],
           answer: 0,
           explanation: 'Bei Lernstoff zählt das Verstehen. Zu hohes Tempo kostet Verständnis.',
           variants: [
@@ -386,7 +386,7 @@ export const SAMPLE_COURSE: Course = {
               question: 'Wie viele Wörter pro Minute lesen Erwachsene still meist?',
               options: ['200 bis 300', '50 bis 100', '600 bis 800', 'Über 1000'],
               answer: 0,
-              explanation: 'Das ist auch ein guter Ausgangspunkt für den Speed-Reader – an schwierigen Stellen lieber bremsen.',
+              explanation: 'Das ist auch ein guter Ausgangspunkt für den Speed-Reader. An schwierigen Stellen lieber bremsen.',
             },
           ],
         },
@@ -394,7 +394,7 @@ export const SAMPLE_COURSE: Course = {
       recap: [
         'Die Augen springen in Sakkaden und nehmen Text in Fixationen auf.',
         'RSVP zeigt Wörter nacheinander an einer Stelle, der rote Buchstabe markiert den Blickpunkt.',
-        'Schneller lesen kostet Verständnis – für Lernstoff lieber ein moderates Tempo.',
+        'Schneller lesen kostet Verständnis. Für Lernstoff lieber ein moderates Tempo.',
       ],
     },
   ],

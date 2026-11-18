@@ -186,8 +186,8 @@ export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigatio
           spec.kind === 'exam'
             ? 'Dieser Kurs hat noch keine Fragen, die sich prüfen lassen.'
             : spec.hard
-              ? 'Keine schwierigen Fragen – bisher lag keine Frage mehrfach daneben.'
-              : 'Noch nichts zu wiederholen. Lerne zuerst eine Kachel – danach kannst du dein Wissen hier stärken.'
+              ? 'Keine schwierigen Fragen. Bisher lag keine Frage mehrfach daneben.'
+              : 'Noch nichts zu wiederholen. Lerne zuerst eine Kachel, danach kannst du dein Wissen hier stärken.'
         }
         onDone={nav.back}
       />

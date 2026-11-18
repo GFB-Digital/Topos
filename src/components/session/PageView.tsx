@@ -20,7 +20,7 @@ function Figure({ image }: { image: ImageRef }) {
     <figure className="page-figure">
       {failed ? (
         <button type="button" className="page-image-missing" onClick={() => { setFailed(false); setAttempt(attempt + 1) }}>
-          Bild konnte nicht geladen werden – antippen für neuen Versuch
+          Bild konnte nicht geladen werden. Antippen für neuen Versuch
         </button>
       ) : (
         <img

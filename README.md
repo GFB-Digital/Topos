@@ -159,18 +159,20 @@ So ist ein Kurs aufgebaut:
 Inhalt:
 - Sprache: Deutsch, lebendig und anschaulich, wie ein gutes Sachbuch.
 - Jede Seite hat 80 bis 140 Wörter. Absätze innerhalb einer Seite trennst du mit \n\n.
-- Erzähle Hintergründe: Wer hat etwas entdeckt, erfunden oder erforscht – wann, wie und warum? Beschreibe Experimente, Geschichten und konkrete Beispiele.
+- Erzähle Hintergründe: Wer hat etwas entdeckt, erfunden oder erforscht, wann, wie und warum? Beschreibe Experimente, Geschichten und konkrete Beispiele.
 - Markiere 1 bis 2 Schlüsselbegriffe pro Seite mit **zwei Sternchen** (fett).
 - Nur gesicherte Fakten, nichts erfinden. Bei Unsicherheit lieber weglassen.
-- Fragen prüfen das Verständnis, nicht den genauen Wortlaut. Jede Frage bekommt eine kurze Erklärung (1–2 Sätze).
+- Keine Gedankenstriche (– oder —). Schreibe stattdessen kurze Sätze und nutze Punkt, Komma, Doppelpunkt oder Klammern. Bereiche schreibst du mit „bis“ (z. B. „80 bis 140“).
+- Keine Verweise auf die Quelle im Text, also nicht „laut Vorlesung“, „die Vorlesung zeigt“, „in der Übung“, „laut Folie“. Schreib den Inhalt einfach direkt hin. Nur wenn die Quelle fachlich wichtig ist (z. B. weil sie vom Standard abweicht), darf ein kurzer Hinweis stehen.
+- Fragen prüfen das Verständnis, nicht den genauen Wortlaut. Jede Frage bekommt eine kurze Erklärung (1 bis 2 Sätze).
 - Mische die Fragetypen:
   - "choice": Auswahlfrage mit 3 oder 4 plausiblen Antworten, genau eine richtig. Die richtige steht nicht immer an derselben Stelle.
-  - "binary": Entweder-oder mit genau 2 Antworten, gut für Fallbeispiele („Anna macht … – was passiert?“).
+  - "binary": Entweder-oder mit genau 2 Antworten, gut für Fallbeispiele („Anna macht … Was passiert?“).
   - "truefalse": eine Aussage, die stimmt oder nicht stimmt.
   - "cloze": ein Satz mit genau einer Lücke ___ und 3 Antworten zum Einsetzen.
-  - "recall": Karteikarte. Eine offene Frage ("question") und die Musterantwort ("answer", 1–2 Sätze). Man überlegt sich die Antwort selbst, deckt sie auf und bewertet sich. Gut für „Warum …?“, „Erkläre …“, Definitionen und Formeln. Etwa eine pro Kachel, am besten als letzte Frage.
-  - "order": Reihenfolge. Eine Aufgabe ("question") und 3 bis 5 kurze Einträge ("items") in der RICHTIGEN Reihenfolge – die App mischt sie. Gut für Abläufe, Prozessketten und zeitliche Abfolgen. Nur verwenden, wenn die Reihenfolge eindeutig ist.
-- Varianten: Gib jeder Frage 1 bis 2 Varianten in "variants". Eine Variante fragt dasselbe Wissen anders ab – mit einem anderen Beispiel, aus einer anderen Richtung oder als anderer Fragetyp. Bei jeder Wiederholung zeigt die App eine andere Variante, so lernt man den Inhalt statt den Wortlaut. Varianten haben dieselben Felder wie Fragen, aber keine eigenen "variants". Die Antwort darf nicht schon in der Hauptfrage stehen und umgekehrt.
+  - "recall": Karteikarte. Eine offene Frage ("question") und die Musterantwort ("answer", 1 bis 2 Sätze). Man überlegt sich die Antwort selbst, deckt sie auf und bewertet sich. Gut für „Warum …?“, „Erkläre …“, Definitionen und Formeln. Etwa eine pro Kachel, am besten als letzte Frage.
+  - "order": Reihenfolge. Eine Aufgabe ("question") und 3 bis 5 kurze Einträge ("items") in der RICHTIGEN Reihenfolge. Die App mischt sie. Gut für Abläufe, Prozessketten und zeitliche Abfolgen. Nur verwenden, wenn die Reihenfolge eindeutig ist.
+- Varianten: Gib jeder Frage 1 bis 2 Varianten in "variants". Eine Variante fragt dasselbe Wissen anders ab, mit einem anderen Beispiel, aus einer anderen Richtung oder als anderer Fragetyp. Bei jeder Wiederholung zeigt die App eine andere Variante, so lernt man den Inhalt statt den Wortlaut. Varianten haben dieselben Felder wie Fragen, aber keine eigenen "variants". Die Antwort darf nicht schon in der Hauptfrage stehen und umgekehrt.
 
 Bilder (freiwillig):
 - Nur wenn du dir sicher bist, dass es das Bild gibt: "image" mit einer direkten Adresse von upload.wikimedia.org und einer Quellenangabe in "credit" (Wer, Lizenz, „via Wikimedia Commons“).
@@ -204,12 +206,12 @@ Antworte ausschließlich mit gültigem JSON in einem ```json-Codeblock, ohne Tex
           { "type": "truefalse", "statement": "Eine Aussage, die dasselbe Wissen prüft.", "answer": true, "explanation": "Warum." }
         ] },
         { "type": "text", "title": "Nächste Seite", "text": "…", "image": { "src": "https://upload.wikimedia.org/…", "credit": "Bild: Name, Lizenz, via Wikimedia Commons" } },
-        { "type": "binary", "question": "Ein Fallbeispiel – was ist richtig?", "options": ["Erste Möglichkeit", "Zweite Möglichkeit"], "answer": 0, "explanation": "Warum." },
+        { "type": "binary", "question": "Ein Fallbeispiel: Was ist richtig?", "options": ["Erste Möglichkeit", "Zweite Möglichkeit"], "answer": 0, "explanation": "Warum." },
         { "type": "text", "title": "Dritte Seite", "text": "…" },
         { "type": "cloze", "text": "Ein Satz mit einer ___ darin.", "options": ["Lücke", "Wand", "Tür"], "answer": 0, "explanation": "Warum." },
         { "type": "truefalse", "statement": "Eine Aussage zur ganzen Kachel.", "answer": false, "explanation": "Warum sie nicht stimmt." },
         { "type": "order", "question": "Bringe die Schritte in die richtige Reihenfolge.", "items": ["Erster Schritt", "Zweiter Schritt", "Dritter Schritt"], "explanation": "Warum diese Reihenfolge." },
-        { "type": "recall", "question": "Eine offene Frage zur ganzen Kachel – warum ist das so?", "answer": "Die Musterantwort in ein bis zwei Sätzen.", "explanation": "Optional: ein zusätzlicher Hinweis." }
+        { "type": "recall", "question": "Eine offene Frage zur ganzen Kachel: Warum ist das so?", "answer": "Die Musterantwort in ein bis zwei Sätzen.", "explanation": "Optional: ein zusätzlicher Hinweis." }
       ],
       "recap": ["Erste Kernaussage.", "Zweite Kernaussage.", "Dritte Kernaussage."]
     }
@@ -226,10 +228,10 @@ Regeln für das JSON:
 - Der Lückentext enthält genau eine Lücke aus drei Unterstrichen: ___
 - "recall" hat "question" und "answer" (beides Text), keine "options". "order" hat "question" und "items" (3 bis 6 verschiedene Einträge in der richtigen Reihenfolge), kein "answer".
 - "variants" ist eine Liste mit 1 bis 5 Fragen (keine Seiten) und steht nur bei Fragen.
-- Gehören mehrere Kurse zum selben Themengebiet (z. B. mehrere Teile einer Vorlesung), gib ihnen dasselbe "group" (z. B. "group": "Fertigungstechnik") – sie stehen dann auf der Karte beieinander. Sonst lass "group" weg.
+- Gehören mehrere Kurse zum selben Themengebiet (z. B. mehrere Teile einer Vorlesung), gib ihnen dasselbe "group" (z. B. "group": "Fertigungstechnik"). Sie stehen dann auf der Karte beieinander. Sonst lass "group" weg.
 - Nur gerade Anführungszeichen ("), keine Kommentare, kein Komma nach dem letzten Element einer Liste.
 
-Wenn ich dich später bitte, einen bestehenden Kurs zu überarbeiten, behalte seine "id", die IDs der Kacheln und den Wortlaut der bestehenden Fragen bei – dann ersetzt die App den alten Kurs und mein Fortschritt bleibt erhalten. Neue Varianten darfst du jederzeit ergänzen; sie ändern den Fortschritt nicht.
+Wenn ich dich später bitte, einen bestehenden Kurs zu überarbeiten, behalte seine "id", die IDs der Kacheln und den Wortlaut der bestehenden Fragen bei. Dann ersetzt die App den alten Kurs und mein Fortschritt bleibt erhalten. Neue Varianten darfst du jederzeit ergänzen; sie ändern den Fortschritt nicht.
 ````
 <!-- VORLAGE:ENDE -->
 

@@ -30,7 +30,7 @@ export interface QuestionSnapshot {
 
 const KIND_LABEL: Record<QuestionStep['type'], string> = {
   choice: 'Frage',
-  binary: 'Entweder – oder',
+  binary: 'Entweder oder',
   truefalse: 'Stimmt das?',
   cloze: 'Lückentext',
   recall: 'Karteikarte',
@@ -213,7 +213,7 @@ export function QuestionCard({
         <h2 className="q-title"><RichText text={step.question} /></h2>
         {!revealed ? (
           <>
-            <p className="q-hint">Sag dir die Antwort erst selbst – am besten laut. Dann decke sie auf.</p>
+            <p className="q-hint">Sag dir die Antwort erst selbst, am besten laut. Dann decke sie auf.</p>
             <button type="button" className="q-reveal" onClick={reveal}>
               Antwort zeigen
             </button>
@@ -256,7 +256,7 @@ export function QuestionCard({
                   className="q-order-slot"
                   data-state={state}
                   disabled={item === undefined || result !== null}
-                  aria-label={item === undefined ? `Platz ${position + 1}, noch frei` : `${stripMarkup(step.items[item])} – wieder entfernen`}
+                  aria-label={item === undefined ? `Platz ${position + 1}, noch frei` : `${stripMarkup(step.items[item])}, wieder entfernen`}
                   onClick={() => item !== undefined && unpick(item)}
                 >
                   <span className="q-order-number">{position + 1}</span>
@@ -326,7 +326,7 @@ export function QuestionCard({
         ? 'Gewusst!'
         : 'Richtig!'
       : result.selected === null || step.type === 'recall'
-        ? 'Kein Problem – jetzt weißt du es.'
+        ? 'Kein Problem, jetzt weißt du es.'
         : 'Nicht ganz.'
 
   return (

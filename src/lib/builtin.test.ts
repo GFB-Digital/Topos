@@ -86,6 +86,24 @@ describe('Eingebaute Kurse Webdesign und World Wide Web', () => {
     }
   })
 
+  it('haben keine Gedankenstriche und keine Verweise auf Vorlesung oder Übung', () => {
+    // Wunsch des Nutzers: ruhiger Lesefluss, Inhalt direkt statt „laut Vorlesung“.
+    // Erlaubt sind nur Hinweise, wo die Folie fachlich vom Standard abweicht.
+    const erlaubt = ['In den Folien steht, `for` verweise', 'In den Folien steht „Unified']
+    const texte: string[] = []
+    const sammeln = (wert: unknown) => {
+      if (typeof wert === 'string') texte.push(wert)
+      else if (Array.isArray(wert)) wert.forEach(sammeln)
+      else if (wert && typeof wert === 'object') Object.values(wert).forEach(sammeln)
+    }
+    sammeln([SAMPLE_COURSE, ...COURSES])
+    for (const text of texte) {
+      assert.ok(!/[–—]/.test(text), `Gedankenstrich in: „${text.slice(0, 80)}“`)
+      if (erlaubt.some((stelle) => text.includes(stelle))) continue
+      assert.ok(!/Vorlesung|Folie|Probeklausur|\bÜbung\b/.test(text), `Verweis in: „${text.slice(0, 80)}“`)
+    }
+  })
+
   it('enthalten keine persönlichen Angaben aus den Laborabgaben', () => {
     // Die Kurse sind öffentlich (GitHub, App) – Namen, Adressen und Matrikelnummern gehören nicht hinein
     const text = JSON.stringify(COURSES)

@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) und Phase E (Fragen-Varianten, freies Abrufen) sind fertig, ebenso Phase F (Varianten für alle 139 Fragen der eingebauten Kurse) und Phase G (Varianten für alle 288 Fragen der Studienkurse in `kurse/`). Als Nächstes: Studienkurse in der App neu importieren („Ersetzen“). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
+**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) und Phase E (Fragen-Varianten, freies Abrufen) sind fertig, ebenso Phase F (Varianten für alle 139 Fragen der eingebauten Kurse) und Phase G (Varianten für alle 288 Fragen der Studienkurse in `kurse/`). Danach die Sprache aller Kurse überarbeitet (keine Gedankenstriche, keine Vorlesungsverweise, keine Silbentrennung). Als Nächstes: Studienkurse in der App neu importieren („Ersetzen“). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
 
 ## Erledigt
 
@@ -232,6 +232,15 @@ Wunsch des Nutzers: Die Wiederholungsfragen sollen sich ändern (andere Beispiel
 - **Technik:** Ein Hilfsskript hat die Varianten direkt in die Zeile der jeweiligen Frage in `kurse/teile/*.json` geschrieben und dabei geprüft, dass sich sonst nichts ändert und jede Kachel genau so viele Varianten wie Fragen bekommt. `kurse/werkzeuge/bauen.mjs` warnt jetzt bei Fragen ohne Variante; die Regel steht in `kurse/LIESMICH.md`.
 - **Lernstand:** `bauen.mjs` meldete für alle drei Kurse keine FORTSCHRITT-Warnung – alle Fragetexte und IDs sind gleich. Die neuen `kurse/fertig/*.json` müssen in der App importiert und mit „Ersetzen“ übernommen werden (auf jedem Gerät).
 - **Nicht geprüft:** Import der neuen Dateien in der App auf PC und iPhone (macht der Nutzer).
+
+### Sprache überarbeitet: keine Gedankenstriche, keine Verweise, keine Silbentrennung (18.11.2026)
+Wunsch des Nutzers: Die vielen Gedankenstriche und Verweise wie „laut Vorlesung“ stören den Lesefluss. Ausdrücklich keine App-Erweiterung, um den Lernstand geänderter Fragen umzuziehen.
+- **Silbentrennung aus:** `hyphens: none` im Lesetext ([global.css](src/styles/global.css)). Wörter springen ganz in die nächste Zeile; nur ein einzelnes Wort, das breiter als die Zeile ist, bricht notfalls ohne Strich um.
+- **Alle Kurse überarbeitet** (eingebaute und Studienkurse): jeder Satz mit Gedankenstrich oder Verweis einzeln neu formuliert (eingebaut 165, Konstruktion 164, Fertigungstechnik 236, ABWL 148), Zahlenbereiche mit „bis“ (40). Verweise auf Vorlesung, Übung, Folien, Übersichtstabellen und Probeklausur sind raus. Echte Quellen (Normen, Studien, Zeitungen) und die zwei fachlich wichtigen Hinweise, wo die Folie vom Standard abweicht (`label for` und „Uniform“ Resource Identifier), bleiben. Bildnachweise der Studienkurse nur noch mit der eigentlichen Quelle.
+- **Fragekarten:** auch die App-Texte auf den Karten ohne Gedankenstrich („Entweder oder“, „Kein Problem, jetzt weißt du es.“).
+- **Lernstand:** Bei 24 Hauptfragen änderte sich der Wortlaut (eingebaut 2, Konstruktion 6, Fertigungstechnik 13, ABWL 3). Deren Lernstand beginnt neu; in gelernten Kacheln sind sie sofort fällig. Alle anderen Fragen behalten ihren Stand.
+- **Für die Zukunft:** Regeln in der Claude-Vorlage (README per Skript aktualisiert), in [CLAUDE.md](CLAUDE.md) und in `kurse/LIESMICH.md`; [builtin.test.ts](src/lib/builtin.test.ts) prüft die eingebauten Kurse auf Gedankenstriche und Verweise.
+- **Geprüft:** `npm test` 184 Tests, `npm run build` fehlerfrei, alle drei Studienkurse mit `bauen.mjs` ohne Fehler gebaut; ein Suchskript über alle sichtbaren Kurstexte findet nur noch die zwei erlaubten Hinweise. Im Browser nicht eigens angesehen.
 
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.

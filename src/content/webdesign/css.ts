@@ -15,7 +15,7 @@ export const CSS_TILES: Tile[] = [
         text: page(
           'HTML sagt, *was* auf der Seite steht. **CSS** (Cascading Style Sheets) sagt, *wie* es aussieht: Farben, Schriften, Abstände, Layout. Eine CSS-Regel sieht so aus:',
           code('css', 'p {', '  color: red;', '}'),
-          '`p` ist der **Selektor**: Er wählt aus, für welche Elemente die Regel gilt – hier alle Absätze. In den geschweiften Klammern stehen **Deklarationen**. Jede besteht aus einer **Eigenschaft** (`color`) und einem **Wert** (`red`), getrennt durch einen Doppelpunkt und abgeschlossen mit einem Semikolon.',
+          '`p` ist der **Selektor**: Er wählt aus, für welche Elemente die Regel gilt, hier alle Absätze. In den geschweiften Klammern stehen **Deklarationen**. Jede besteht aus einer **Eigenschaft** (`color`) und einem **Wert** (`red`), getrennt durch einen Doppelpunkt und abgeschlossen mit einem Semikolon.',
         ),
       },
       {
@@ -38,9 +38,9 @@ export const CSS_TILES: Tile[] = [
         type: 'text',
         title: 'CSS einbinden',
         text: page(
-          'Es gibt zwei übliche Wege: CSS direkt in einem `style`-Element im **head** – oder, besser für größere Seiten, in einer eigenen Datei, die du mit `link` einbindest:',
+          'Es gibt zwei übliche Wege: CSS direkt in einem `style`-Element im **head** oder, besser für größere Seiten, in einer eigenen Datei, die du mit `link` einbindest:',
           code('html', '<head>', '  <link rel="stylesheet" href="style.css">', '</head>'),
-          'Die eigene Datei hat Vorteile: Mehrere Seiten können dasselbe Stylesheet nutzen, und HTML und Gestaltung bleiben getrennt. Beide Wege gehören in den head – ein `style`-Element mitten im Dokument oder nach dem body ist falsch, auch wenn der Browser es oft trotzdem anwendet.',
+          'Die eigene Datei hat Vorteile: Mehrere Seiten können dasselbe Stylesheet nutzen, und HTML und Gestaltung bleiben getrennt. Beide Wege gehören in den head. Ein `style`-Element mitten im Dokument oder nach dem body ist falsch, auch wenn der Browser es oft trotzdem anwendet.',
         ),
       },
       {
@@ -130,7 +130,7 @@ export const CSS_TILES: Tile[] = [
             question: 'Welche Farbe ergibt `rgb(0, 255, 0)`?',
             options: ['Grün', 'Rot', 'Blau', 'Schwarz'],
             answer: 0,
-            explanation: 'Die Reihenfolge ist Rot, Grün, Blau – hier ist nur der Grün-Kanal voll.',
+            explanation: 'Die Reihenfolge ist Rot, Grün, Blau. Hier ist nur der Grün-Kanal voll.',
           },
         ],
       },
@@ -138,7 +138,7 @@ export const CSS_TILES: Tile[] = [
         type: 'text',
         title: 'Schrift',
         text: page(
-          '`font-family` wählt die Schriftart. Gib eine Liste an – der Browser nimmt die erste, die er hat. Am Ende steht eine allgemeine Familie als Rückfall: `serif`, `sans-serif` oder `monospace`.',
+          '`font-family` wählt die Schriftart. Gib eine Liste an. Der Browser nimmt die erste, die er hat. Am Ende steht eine allgemeine Familie als Rückfall: `serif`, `sans-serif` oder `monospace`.',
           code('css', 'body {', '  font-family: Arial, sans-serif;', '}'),
           '`font-size` setzt die Größe. **px** sind feste Pixel. **em** bezieht sich auf die Schriftgröße des Elternelements: `2em` ist doppelt so groß. **rem** bezieht sich immer auf die Schriftgröße des Wurzelelements `html` und ist darum leichter vorherzusagen.',
           '`font-weight` regelt die Strichstärke: `normal`, `bold` oder Zahlen in Hunderterschritten von 100 bis 900.',
@@ -174,7 +174,7 @@ export const CSS_TILES: Tile[] = [
         type: 'order',
         question: 'In welcher Reihenfolge stehen die Werte bei `text-shadow`?',
         items: ['horizontaler Versatz', 'vertikaler Versatz', 'Unschärfe (Blur)', 'Farbe'],
-        explanation: 'Beispiel: `text-shadow: 2px 2px 4px gray;` – erst x, dann y, dann Unschärfe, dann Farbe.',
+        explanation: 'Beispiel: `text-shadow: 2px 2px 4px gray;`. Erst x, dann y, dann Unschärfe, dann Farbe.',
         variants: [
           {
             type: 'choice',
@@ -225,7 +225,7 @@ export const CSS_TILES: Tile[] = [
         question: 'Ein `p` steckt in einer `section`, die im `footer` steht. Welcher Selektor trifft es?',
         options: ['`footer p`', '`footer > p`'],
         answer: 0,
-        explanation: 'Mit Leerzeichen zählen alle Nachfahren. `>` verlangt, dass p ein direktes Kind von footer ist – hier liegt die section dazwischen.',
+        explanation: 'Mit Leerzeichen zählen alle Nachfahren. `>` verlangt, dass p ein direktes Kind von footer ist. Hier liegt die section dazwischen.',
         variants: [
           {
             type: 'choice',
@@ -237,7 +237,7 @@ export const CSS_TILES: Tile[] = [
               'Alle nav-Elemente, die einen Link enthalten',
             ],
             answer: 0,
-            explanation: '`>` verlangt ein direktes Kind. Ein Link in einem li innerhalb von nav wird also nicht getroffen – dafür bräuchte es `nav a`.',
+            explanation: '`>` verlangt ein direktes Kind. Ein Link in einem li innerhalb von nav wird also nicht getroffen. Dafür bräuchte es `nav a`.',
           },
         ],
       },
@@ -255,14 +255,14 @@ export const CSS_TILES: Tile[] = [
         question: 'Im body stehen nacheinander `header`, `aside`, `main`, `aside`. Was trifft `body > aside:last-of-type`?',
         options: ['Das zweite aside', 'Das erste aside', 'Nichts, weil aside nicht das letzte Kind ist', 'Beide aside'],
         answer: 0,
-        explanation: 'last-of-type zählt nur die aside-Geschwister. Das letzte davon ist das zweite aside – auch wenn danach noch andere Elemente kämen.',
+        explanation: 'last-of-type zählt nur die aside-Geschwister. Das letzte davon ist das zweite aside, auch wenn danach noch andere Elemente kämen.',
         variants: [
           {
             type: 'choice',
             question: 'In einer Liste stehen fünf `li`. Welche trifft `li:nth-child(2n)`?',
             options: ['Das zweite und das vierte', 'Das erste, dritte und fünfte', 'Nur das zweite', 'Alle ab dem zweiten'],
             answer: 0,
-            explanation: '2n heißt 2, 4, 6 … – also jedes zweite li, beginnend beim zweiten.',
+            explanation: '2n heißt 2, 4, 6 … also jedes zweite li, beginnend beim zweiten.',
           },
         ],
       },
@@ -271,7 +271,7 @@ export const CSS_TILES: Tile[] = [
         title: 'Attribute und Pseudo-Elemente',
         text: page(
           'Auch nach Attributen lässt sich auswählen: `[href]` trifft alles mit einem href, `[href^="https"]` alles, dessen href mit „https“ beginnt, `$=` heißt „endet mit“, `*=` heißt „enthält“.',
-          'Mit zwei Doppelpunkten wählst du **Pseudo-Elemente** – Teile, die nicht als eigenes Element im HTML stehen: `::first-letter` (erster Buchstabe), `::first-line`, `::selection` (markierter Text). Mit `::before` und `::after` fügst du über die Eigenschaft `content` etwas ein:',
+          'Mit zwei Doppelpunkten wählst du **Pseudo-Elemente**, also Teile, die nicht als eigenes Element im HTML stehen: `::first-letter` (erster Buchstabe), `::first-line`, `::selection` (markierter Text). Mit `::before` und `::after` fügst du über die Eigenschaft `content` etwas ein:',
           code('css', 'a[href^="https"]::after {', '  content: " ↗";', '}'),
         ),
       },
@@ -286,7 +286,7 @@ export const CSS_TILES: Tile[] = [
             type: 'truefalse',
             statement: '`a:hover` ist ein Pseudo-Element.',
             answer: false,
-            explanation: 'hover beschreibt einen Zustand – eine Pseudo-Klasse mit einem Doppelpunkt. Pseudo-Elemente wie ::before haben zwei.',
+            explanation: 'hover beschreibt einen Zustand, ist also eine Pseudo-Klasse mit einem Doppelpunkt. Pseudo-Elemente wie ::before haben zwei.',
           },
         ],
       },
@@ -298,7 +298,7 @@ export const CSS_TILES: Tile[] = [
           {
             type: 'choice',
             question: 'Was trifft `p:first-child` hier?\n\n' + code('html', '<section>', '  <h2>Titel</h2>', '  <p>Eins</p>', '  <p>Zwei</p>', '</section>'),
-            options: ['Nichts – das erste Kind ist das h2', 'Den Absatz „Eins“', 'Den Absatz „Zwei“', 'Beide Absätze'],
+            options: ['Nichts, denn das erste Kind ist das h2', 'Den Absatz „Eins“', 'Den Absatz „Zwei“', 'Beide Absätze'],
             answer: 0,
             explanation: 'first-child verlangt, dass das p das allererste Kind ist. Hier steht das h2 davor. `p:first-of-type` würde „Eins“ treffen.',
           },
@@ -320,7 +320,7 @@ export const CSS_TILES: Tile[] = [
         type: 'text',
         title: 'Spätere Regeln gewinnen',
         text: page(
-          'Oft treffen mehrere Regeln dasselbe Element und widersprechen sich. Welche gilt, entscheidet die **Kaskade** – das „C“ in CSS.',
+          'Oft treffen mehrere Regeln dasselbe Element und widersprechen sich. Welche gilt, entscheidet die **Kaskade**, das „C“ in CSS.',
           'Die einfachste Regel: Sind zwei Selektoren gleich spezifisch, gewinnt die **spätere**:',
           code('css', 'p { color: blue; }', 'p { color: green; }   /* gewinnt */'),
           'Außerdem zählt die **Herkunft**: Der Browser hat eigene Standard-Styles (deshalb sind Überschriften ohne CSS schon groß und fett). Deine Regeln als Autor der Seite überschreiben diese.',
@@ -345,7 +345,7 @@ export const CSS_TILES: Tile[] = [
         type: 'text',
         title: 'Spezifität',
         text: page(
-          'Wichtiger als die Reihenfolge ist die **Spezifität**: Je genauer ein Selektor ein Element trifft, desto stärker ist er – auch wenn er früher steht.',
+          'Wichtiger als die Reihenfolge ist die **Spezifität**: Je genauer ein Selektor ein Element trifft, desto stärker ist er, auch wenn er früher steht.',
           'Die Rangfolge: **ID** schlägt **Klasse**, Klasse schlägt **Typ**. Mehrere Klassen schlagen eine Klasse.',
           code('css', '#start { color: red; }     /* gewinnt: ID */', '.titel { color: blue; }', 'h1 { color: green; }'),
           'Mit `!important` hinter einem Wert drehst du die Kaskade um. Das solltest du vermeiden: Es macht CSS schwer durchschaubar, und am Ende kämpfen mehrere `!important` gegeneinander.',
@@ -364,7 +364,7 @@ export const CSS_TILES: Tile[] = [
             question: 'Welche Farbe hat der Absatz?\n\n' + code('html', '<p class="hinweis">Achtung</p>') + '\n\n' + code('css', '.hinweis { color: orange; }', 'p { color: gray; }'),
             options: ['Orange', 'Grau', 'Schwarz'],
             answer: 0,
-            explanation: 'Der Klassen-Selektor ist spezifischer als der Typ-Selektor – dass `p` später steht, hilft ihm nicht.',
+            explanation: 'Der Klassen-Selektor ist spezifischer als der Typ-Selektor. Dass `p` später steht, hilft ihm nicht.',
           },
         ],
       },
@@ -372,7 +372,7 @@ export const CSS_TILES: Tile[] = [
         type: 'text',
         title: 'Vererbung',
         text: page(
-          'Manche Eigenschaften **erben** Kinder von ihren Eltern. Setzt du `font-family` oder `color` am body, gilt das für die ganze Seite – außer ein Element bekommt etwas anderes.',
+          'Manche Eigenschaften **erben** Kinder von ihren Eltern. Setzt du `font-family` oder `color` am body, gilt das für die ganze Seite, außer ein Element bekommt etwas anderes.',
           'Vererbt werden vor allem Texteigenschaften: Farbe, Schrift, Schriftgröße, Zeilenhöhe. **Nicht** vererbt werden Eigenschaften der Box: `margin`, `padding`, `border`, `width`, `background-color`. Sonst hätte jedes Kind denselben Rahmen wie sein Elternelement.',
           code('css', 'html {', '  font-family: Arial;   /* gilt für alles */', '}'),
         ),
@@ -382,14 +382,14 @@ export const CSS_TILES: Tile[] = [
         question: 'Du gibst dem body einen `border`. Bekommen alle Absätze darin auch einen Rahmen?',
         options: ['Nein, border wird nicht vererbt', 'Ja, alle Kinder erben den Rahmen'],
         answer: 0,
-        explanation: 'Box-Eigenschaften wie border, margin und padding werden nicht vererbt – Texteigenschaften wie color und font-family schon.',
+        explanation: 'Box-Eigenschaften wie border, margin und padding werden nicht vererbt, Texteigenschaften wie color und font-family schon.',
         variants: [
           {
             type: 'binary',
             question: 'Du setzt `color: navy` am body. Werden die Absätze darin auch dunkelblau?',
             options: ['Ja, color wird vererbt', 'Nein, Farben werden nicht vererbt'],
             answer: 0,
-            explanation: 'Texteigenschaften wie color werden vererbt – solange kein Absatz eine eigene Farbe bekommt.',
+            explanation: 'Texteigenschaften wie color werden vererbt, solange kein Absatz eine eigene Farbe bekommt.',
           },
         ],
       },
@@ -409,7 +409,7 @@ export const CSS_TILES: Tile[] = [
     ],
     recap: [
       'Bei gleicher Spezifität gewinnt die spätere Regel.',
-      'Spezifität: ID > Klasse > Typ; !important dreht die Kaskade um – vermeiden.',
+      'Spezifität: ID > Klasse > Typ; !important dreht die Kaskade um und sollte vermieden werden.',
       'Texteigenschaften werden vererbt, Box-Eigenschaften wie margin, padding, border nicht.',
     ],
   },
@@ -449,9 +449,9 @@ export const CSS_TILES: Tile[] = [
         title: 'Innen, Rand, außen',
         text: page(
           'Jedes Element ist eine **Box** aus vier Schichten, von innen nach außen:',
-          '**Inhalt** – der Text oder das Bild. **Padding** – Innenabstand zwischen Inhalt und Rahmen. **Border** – der Rahmen. **Margin** – Außenabstand zu anderen Elementen.',
+          '**Inhalt**: der Text oder das Bild. **Padding**: Innenabstand zwischen Inhalt und Rahmen. **Border**: der Rahmen. **Margin**: Außenabstand zu anderen Elementen.',
           code('css', 'section {', '  padding: 10px;', '  border: 5px solid beige;', '  border-radius: 2rem;   /* runde Ecken */', '  margin-bottom: 20px;', '}'),
-          'Ein Hintergrund reicht bis zum Rahmen, also auch unter das padding – aber nicht in den margin.',
+          'Ein Hintergrund reicht bis zum Rahmen, also auch unter das padding, aber nicht in den margin.',
         ),
       },
       {
@@ -476,7 +476,7 @@ export const CSS_TILES: Tile[] = [
           '`padding` und `margin` nehmen bis zu vier Werte, **im Uhrzeigersinn ab oben**: oben, rechts, unten, links. Bei zwei Werten gilt der erste für oben und unten, der zweite für rechts und links.',
           code('css', 'margin: 10px 20px 30px 40px;  /* oben rechts unten links */', 'margin: 0 auto;                /* oben/unten 0, links/rechts automatisch */'),
           '`margin: 0 auto` **zentriert** ein Block-Element mit fester Breite: Links und rechts wird gleich viel freier Platz verteilt.',
-          'Und noch ein Stolperstein: Normalerweise kommen padding und border zur `width` **dazu** (`box-sizing: content-box`). Mit `box-sizing: border-box` sind sie in der Breite schon enthalten – das rechnet sich viel leichter, deshalb stellen es die meisten Entwickler für alle Elemente so ein.',
+          'Und noch ein Stolperstein: Normalerweise kommen padding und border zur `width` **dazu** (`box-sizing: content-box`). Mit `box-sizing: border-box` sind sie in der Breite schon enthalten. Das rechnet sich viel leichter, deshalb stellen es die meisten Entwickler für alle Elemente so ein.',
         ),
       },
       {

@@ -17,7 +17,7 @@ export const LAB_TILES: Tile[] = [
           'In Labor 1 hast du drei Websites untersucht: mit `nslookup` ihre DNS-Einträge, mit `curl` die HTTP-Antworten und mit den Entwicklerwerkzeugen des Browsers alle Anfragen beim Laden der Seite. Dazu solltest du HTTP und den Aufbau einer URI in eigenen Worten beschreiben.',
           'So läuft eine Abfrage mit nslookup in der PowerShell:',
           code('text', 'nslookup', '> set q=MX', '> hs-flensburg.de'),
-          'Ohne `set q=…` fragt nslookup nach dem A-Record. Manchmal bekommst du statt einer IP erst einen anderen Namen (CNAME) zurück – dann musst du diesem Namen weiter folgen, bis eine IP-Adresse kommt.',
+          'Ohne `set q=…` fragt nslookup nach dem A-Record. Manchmal bekommst du statt einer IP erst einen anderen Namen (CNAME) zurück. Dann musst du diesem Namen weiter folgen, bis eine IP-Adresse kommt.',
         ),
       },
       {
@@ -56,7 +56,7 @@ export const LAB_TILES: Tile[] = [
             type: 'truefalse',
             statement: 'curl folgt einer Umleitung (301 mit Location) ohne Zusatzoption automatisch.',
             answer: false,
-            explanation: 'Der Browser folgt automatisch, curl nicht – es zeigt nur die Umleitung. Mit der Option `-L` folgt auch curl.',
+            explanation: 'Der Browser folgt automatisch, curl nicht. Es zeigt nur die Umleitung. Mit der Option `-L` folgt auch curl.',
           },
         ],
       },
@@ -64,7 +64,7 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Viele Anfragen für eine Seite',
         text: page(
-          'Im Netzwerk-Reiter der Entwicklerwerkzeuge siehst du beim Aufruf einer einzigen Seite oft Dutzende Anfragen. Der Grund: Die HTML-Datei verweist auf viele weitere Dateien – Stylesheets, Bilder, Schriften, Skripte. Jede wird mit einer eigenen HTTP-Anfrage geladen, teils von ganz anderen Servern, etwa für Schriften, Videos oder Statistik-Dienste.',
+          'Im Netzwerk-Reiter der Entwicklerwerkzeuge siehst du beim Aufruf einer einzigen Seite oft Dutzende Anfragen. Der Grund: Die HTML-Datei verweist auf viele weitere Dateien wie Stylesheets, Bilder, Schriften und Skripte. Jede wird mit einer eigenen HTTP-Anfrage geladen, teils von ganz anderen Servern, etwa für Schriften, Videos oder Statistik-Dienste.',
           'Für jede Anfrage zeigen die Entwicklerwerkzeuge Methode, Statuscode, Dateityp, Größe und Ladezeit. Klickst du eine an, siehst du dieselben Header wie bei curl.',
         ),
       },
@@ -84,7 +84,7 @@ export const LAB_TILES: Tile[] = [
               'Der Server schickt die Seite in vielen kleinen Teilen',
             ],
             answer: 0,
-            explanation: 'Für jede verknüpfte Datei schickt der Browser eine eigene HTTP-Anfrage – teils an ganz andere Server.',
+            explanation: 'Für jede verknüpfte Datei schickt der Browser eine eigene HTTP-Anfrage, teils an ganz andere Server.',
           },
         ],
       },
@@ -102,7 +102,7 @@ export const LAB_TILES: Tile[] = [
               'Der Server antwortet mit Statuscode, Headern und HTML',
               'Der Browser lädt CSS, Bilder und Skripte nach',
             ],
-            explanation: 'Ohne IP-Adresse keine Verbindung, ohne Anfrage keine Antwort – und erst im HTML stehen die Verweise auf die weiteren Dateien.',
+            explanation: 'Ohne IP-Adresse keine Verbindung, ohne Anfrage keine Antwort. Und erst im HTML stehen die Verweise auf die weiteren Dateien.',
           },
         ],
       },
@@ -122,9 +122,9 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Überschrift und Foto im head',
         text: page(
-          'In Labor 2 hast du eine „Über mich“-Seite mit reinem HTML gebaut und die Wahl jedes Elements in einem Kommentar begründet – das hast du gut gemacht. Am Anfang deiner Abgabe stand allerdings:',
+          'In Labor 2 hast du eine „Über mich“-Seite mit reinem HTML gebaut und die Wahl jedes Elements in einem Kommentar begründet. Das hast du gut gemacht. Am Anfang deiner Abgabe stand allerdings:',
           code('html', '<head>', '<h1>Lebenslauf</h1>', '<p>Dies ist mein Lebenslauf</p>', '<figure>', '<img src="foto.png" alt="" width="150">', '</figure>', '</head>'),
-          'Überschrift, Absatz und Bild sind sichtbare Inhalte und gehören in den **body**. Der Browser merkt das, schließt den head beim h1 automatisch und schiebt alles in den body. Deshalb sah die Seite trotzdem richtig aus – der Code ist aber falsch. Richtig wäre ein `header` am Anfang des body.',
+          'Überschrift, Absatz und Bild sind sichtbare Inhalte und gehören in den **body**. Der Browser merkt das, schließt den head beim h1 automatisch und schiebt alles in den body. Deshalb sah die Seite trotzdem richtig aus, der Code ist aber falsch. Richtig wäre ein `header` am Anfang des body.',
         ),
       },
       {
@@ -151,7 +151,7 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Was sonst noch fehlte',
         text: page(
-          'Im Gerüst fehlten drei Dinge, die jede Seite haben sollte: `lang="de"` am html-Element (damit Screenreader deutsch vorlesen), `<meta charset="UTF-8">` (damit Umlaute sicher stimmen) und ein `<title>` (der Text im Browser-Tab – er ist sogar Pflicht).',
+          'Im Gerüst fehlten drei Dinge, die jede Seite haben sollte: `lang="de"` am html-Element (damit Screenreader deutsch vorlesen), `<meta charset="UTF-8">` (damit Umlaute sicher stimmen) und ein `<title>` (der Text im Browser-Tab, er ist sogar Pflicht).',
           'Und dein Foto hatte `alt=""`. Ein leerer alt-Text sagt: „Reine Dekoration, bitte ignorieren.“ Ein Porträt auf einer Lebenslauf-Seite ist aber Inhalt. Besser:',
           code('html', '<img src="foto.png" alt="Porträt von Max Muster" width="150">'),
         ),
@@ -167,7 +167,7 @@ export const LAB_TILES: Tile[] = [
             question: 'Welches Element fehlte in deinem head und ist sogar Pflicht?',
             options: ['`<title>`', '`<link>`', '`<style>`', '`<script>`'],
             answer: 0,
-            explanation: 'Jedes HTML-Dokument braucht einen title – das ist der Text im Browser-Tab. link, style und script sind freiwillig.',
+            explanation: 'Jedes HTML-Dokument braucht einen title. Das ist der Text im Browser-Tab. link, style und script sind freiwillig.',
           },
         ],
       },
@@ -177,8 +177,8 @@ export const LAB_TILES: Tile[] = [
         text: page(
           'Deine vorbereitete Navigation sah so aus:',
           code('html', '<nav>', '<ul>', '<a href="#"></a>', '<a href="#"></a>', '</ul>', '</nav>'),
-          'In einem `ul` dürfen nur `li` stehen – jeder Link braucht also ein li drumherum. Außerdem sind die Links leer: Ohne Text kann man sie weder sehen noch anklicken.',
-          'Weiter unten standen `aside` und `nav` **in einem p** – ein Absatz darf aber keine solchen Bereiche enthalten, der Browser beendet das p davor einfach. Und der `footer` stand **nach** `</body>`. Nach dem body darf nichts mehr kommen; auch der footer gehört in den body.',
+          'In einem `ul` dürfen nur `li` stehen. Jeder Link braucht also ein li drumherum. Außerdem sind die Links leer: Ohne Text kann man sie weder sehen noch anklicken.',
+          'Weiter unten standen `aside` und `nav` **in einem p**. Ein Absatz darf aber keine solchen Bereiche enthalten, der Browser beendet das p davor einfach. Und der `footer` stand **nach** `</body>`. Nach dem body darf nichts mehr kommen; auch der footer gehört in den body.',
         ),
       },
       {
@@ -190,7 +190,7 @@ export const LAB_TILES: Tile[] = [
           code('html', '<nav>', '  <li>', '    <a href="#ausbildung">Ausbildung</a>', '  </li>', '</nav>'),
         ],
         answer: 0,
-        explanation: 'li gehört direkt in ul, der Link in das li – und ein Link braucht sichtbaren Text.',
+        explanation: 'li gehört direkt in ul, der Link in das li. Und ein Link braucht sichtbaren Text.',
         variants: [
           {
             type: 'truefalse',
@@ -212,7 +212,7 @@ export const LAB_TILES: Tile[] = [
               'Er beendet das p vor dem aside bzw. nav',
               'Er zeigt aside und nav kursiv an',
               'Er macht aus dem p einen Link',
-              'Nichts – das ist erlaubt',
+              'Nichts, das ist erlaubt',
             ],
             answer: 0,
             explanation: 'Ein Absatz darf keine Bereiche wie aside oder nav enthalten. Der Browser schließt das p deshalb vorher.',
@@ -221,7 +221,7 @@ export const LAB_TILES: Tile[] = [
       },
     ],
     recap: [
-      'Sichtbares gehört in den body – der Browser repariert Fehler heimlich, verlassen sollte man sich darauf nicht.',
+      'Sichtbares gehört in den body. Der Browser repariert Fehler heimlich, verlassen sollte man sich darauf nicht.',
       'Jede Seite braucht lang, meta charset und title; Porträts brauchen einen echten alt-Text.',
       'In ul nur li, kein aside oder nav in einem p, nach </body> nichts mehr.',
     ],
@@ -260,16 +260,16 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Wo das CSS stand',
         text: page(
-          'Dein `<style>`-Element stand ganz am Ende der Datei, nach `</body>`. Der Browser hat es trotzdem angewendet – richtig ist aber: `style` gehört in den **head**.',
+          'Dein `<style>`-Element stand ganz am Ende der Datei, nach `</body>`. Der Browser hat es trotzdem angewendet. Richtig ist aber: `style` gehört in den **head**.',
           'In Labor 4 hast du das CSS dann in eine eigene Datei `style.css` ausgelagert und mit `<link rel="stylesheet" href="style.css">` im head eingebunden. Das ist der bessere Weg: HTML und Gestaltung sind getrennt, und mehrere Seiten können dasselbe Stylesheet nutzen.',
         ),
       },
       {
         type: 'choice',
         question: 'Wo sollte ein `<style>`-Element stehen?',
-        options: ['Im head', 'Direkt nach `</body>`', 'Am Ende des body', 'Egal – der Browser findet es überall'],
+        options: ['Im head', 'Direkt nach `</body>`', 'Am Ende des body', 'Egal, der Browser findet es überall'],
         answer: 0,
-        explanation: 'style gehört in den head. Dass der Browser es auch anderswo anwendet, ist Fehlertoleranz – kein gültiges HTML.',
+        explanation: 'style gehört in den head. Dass der Browser es auch anderswo anwendet, ist Fehlertoleranz und kein gültiges HTML.',
         variants: [
           {
             type: 'choice',
@@ -281,7 +281,7 @@ export const LAB_TILES: Tile[] = [
               '`<a href="style.css">` im body',
             ],
             answer: 0,
-            explanation: 'Eine CSS-Datei bindet link mit rel="stylesheet" ein – im head. style hat kein src-Attribut.',
+            explanation: 'Eine CSS-Datei bindet link mit rel="stylesheet" ein, und zwar im head. style hat kein src-Attribut.',
           },
         ],
       },
@@ -289,10 +289,10 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Kleinigkeiten mit Wirkung',
         text: page(
-          '**Blau und unterstrichen** – so sehen für fast alle Menschen Links aus. Dein Impressum-Text ist aber kein Link. Wer ihn anklickt, wundert sich. Nutze diese Kombination nur für echte Links.',
+          '**Blau und unterstrichen**: So sehen für fast alle Menschen Links aus. Dein Impressum-Text ist aber kein Link. Wer ihn anklickt, wundert sich. Nutze diese Kombination nur für echte Links.',
           '**Klassennamen** wie `.Fähigkeiten` funktionieren zwar, üblich sind aber Kleinbuchstaben ohne Umlaute und mit Bindestrichen, etwa `.faehigkeiten` oder `.kontakt-info`. Das vermeidet Probleme mit Zeichensätzen und Tippfehlern bei der Groß- und Kleinschreibung.',
           '**font-size: 11px** ist sehr klein und wächst nicht mit, wenn jemand im Browser eine größere Grundschrift einstellt. Mit `rem` (z. B. `0.75rem`) bleibt die Größe relativ zur Grundschrift.',
-          '`font-weight: 1000` funktioniert in modernen Browsern, üblich sind aber Werte von 100 bis 900 – `bold` entspricht 700.',
+          '`font-weight: 1000` funktioniert in modernen Browsern, üblich sind aber Werte von 100 bis 900. `bold` entspricht 700.',
         ),
       },
       {
@@ -313,7 +313,7 @@ export const LAB_TILES: Tile[] = [
       {
         type: 'recall',
         question: 'Warum ist `font-size: 0.75rem` oft besser als `font-size: 11px`?',
-        answer: 'rem richtet sich nach der Grundschriftgröße. Stellt jemand im Browser größere Schrift ein, wächst der Text mit – feste Pixel bleiben klein.',
+        answer: 'rem richtet sich nach der Grundschriftgröße. Stellt jemand im Browser größere Schrift ein, wächst der Text mit. Feste Pixel bleiben klein.',
         variants: [
           {
             type: 'choice',
@@ -326,7 +326,7 @@ export const LAB_TILES: Tile[] = [
       },
     ],
     recap: [
-      'Vererbung nutzen: Schrift einmal am html oder body setzen – mit Rückfall wie sans-serif.',
+      'Vererbung nutzen: Schrift einmal am html oder body setzen, mit Rückfall wie sans-serif.',
       'CSS gehört in den head oder in eine eigene Datei, eingebunden mit link.',
       'Blau + unterstrichen nur für Links; Klassennamen klein und ohne Umlaute; Schriftgrößen in rem.',
     ],
@@ -340,7 +340,7 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Dein Raster',
         text: page(
-          'Das **Holy-Grail-Layout** ist ein Klassiker: Kopf oben, Fuß unten, dazwischen der Hauptinhalt mit je einer Seitenleiste links und rechts. Lange war es mit CSS schwer zu bauen – daher der Name „heiliger Gral“. Mit Grid ist es einfach. Dein Container:',
+          'Das **Holy-Grail-Layout** ist ein Klassiker: Kopf oben, Fuß unten, dazwischen der Hauptinhalt mit je einer Seitenleiste links und rechts. Lange war es mit CSS schwer zu bauen, daher der Name „heiliger Gral“. Mit Grid ist es einfach. Dein Container:',
           code('css', 'body {', '  display: grid;', '  grid-template-columns: 100px 1fr 100px;', '  grid-template-rows: 100px 1fr 100px;', '  height: 100vh;', '  gap: 0.5rem;', '}'),
           'Drei Spalten (links und rechts fest, Mitte flexibel) und drei Zeilen (oben und unten fest, Mitte flexibel). `height: 100vh` gibt dem Grid die volle Fensterhöhe, damit `1fr` bei den Zeilen etwas zu verteilen hat.',
         ),
@@ -359,7 +359,7 @@ export const LAB_TILES: Tile[] = [
         variants: [
           {
             type: 'truefalse',
-            statement: 'Ohne `height` ist dein Holy-Grail-Grid nur so hoch wie sein Inhalt – und `1fr` bei den Zeilen hat nichts zu verteilen.',
+            statement: 'Ohne `height` ist dein Holy-Grail-Grid nur so hoch wie sein Inhalt, und `1fr` bei den Zeilen hat nichts zu verteilen.',
             answer: true,
             explanation: 'fr verteilt nur Platz, der übrig ist. Erst height: 100vh schafft diesen Platz in der Höhe.',
           },
@@ -371,14 +371,14 @@ export const LAB_TILES: Tile[] = [
         text: page(
           'Jeden Bereich hast du mit Linien platziert:',
           code('css', 'header { grid-column: 1 / 4; grid-row: 1 / 2; }', 'body > aside:first-of-type { grid-column: 1 / 2; grid-row: 2 / 3; }', 'main { grid-column: 2 / 3; grid-row: 2 / 3; }', 'body > aside:last-of-type { grid-column: 3 / 4; grid-row: 2 / 3; }', 'footer { grid-column: 1 / 4; grid-row: 3 / 4; }'),
-          'Header und footer reichen von Linie 1 bis 4, also über alle drei Spalten. Die beiden asides unterscheidest du mit `:first-of-type` und `:last-of-type`. Das ist sauber gelöst! Mit `grid-template-areas` ginge es noch lesbarer – das kommt in Labor 5.',
+          'Header und footer reichen von Linie 1 bis 4, also über alle drei Spalten. Die beiden asides unterscheidest du mit `:first-of-type` und `:last-of-type`. Das ist sauber gelöst! Mit `grid-template-areas` ginge es noch lesbarer. Das kommt in Labor 5.',
         ),
       },
       {
         type: 'order',
         question: 'Bring die Zeilen der Holy-Grail-Fläche in die richtige Reihenfolge (von oben nach unten).',
         items: ['`"kopf kopf kopf"`', '`"links mitte rechts"`', '`"fuss fuss fuss"`'],
-        explanation: 'Oben der Kopf über drei Spalten, in der Mitte Seitenleiste – Inhalt – Seitenleiste, unten der Fuß über drei Spalten.',
+        explanation: 'Oben der Kopf über drei Spalten, in der Mitte Seitenleiste, Inhalt, Seitenleiste, unten der Fuß über drei Spalten.',
         variants: [
           {
             type: 'choice',
@@ -395,7 +395,7 @@ export const LAB_TILES: Tile[] = [
         text: page(
           'In deiner `Holygrail.html` stand:',
           code('html', '<head>', '<nav>', '<link rel="stylesheet" href="Holygrail.css">', '</nav>', '</head>'),
-          'Ein `nav` hat im head nichts zu suchen – es ist ein sichtbarer Bereich für Links. Das CSS wurde trotzdem geladen, weil der Browser nav und link in den body verschoben hat und dort ein link ebenfalls wirkt. Richtig ist das link-Element allein im head.',
+          'Ein `nav` hat im head nichts zu suchen. Es ist ein sichtbarer Bereich für Links. Das CSS wurde trotzdem geladen, weil der Browser nav und link in den body verschoben hat und dort ein link ebenfalls wirkt. Richtig ist das link-Element allein im head.',
           'Und noch ein Stolperstein aus Labor 4: Auf deiner Lebenslauf-Seite zeigte der Link auf `holy-grail.html`, die Datei hieß aber `Holygrail.html`. Der Link führt so ins Leere (Fehler 404).',
         ),
       },
@@ -404,7 +404,7 @@ export const LAB_TILES: Tile[] = [
         question: 'Deine Datei heißt `Holygrail.html`. Welcher Link funktioniert?',
         options: ['`<a href="Holygrail.html">`', '`<a href="holy-grail.html">`'],
         answer: 0,
-        explanation: 'Der Dateiname im href muss exakt stimmen – Bindestriche und auf vielen Servern auch Groß- und Kleinschreibung.',
+        explanation: 'Der Dateiname im href muss exakt stimmen, mit Bindestrichen und auf vielen Servern auch mit Groß- und Kleinschreibung.',
         variants: [
           {
             type: 'truefalse',
@@ -446,7 +446,7 @@ export const LAB_TILES: Tile[] = [
         text: page(
           'Für deine Lebenslauf-Seite hast du dasselbe Raster wie beim Holy Grail benutzt. Die Bereiche hast du dann so platziert:',
           code('css', 'body > aside:last-of-type {', '  grid-column: 2 / 4;', '  grid-row: 2 / 3;', '  margin-left: 300px;', '}', 'main {', '  grid-column: 2 / 3;', '  grid-row: 1 / 3;', '  margin-left: 85px;', '}'),
-          'Das zweite aside reicht über die Spalten 2 bis 4 und überlappt dadurch main. Erst `margin-left: 300px` schiebt seinen Inhalt aus dem Weg. Auf deinem Bildschirm sah das gut aus – in einem schmaleren Fenster passt es nicht mehr, weil 300 px dann zu viel oder zu wenig sind.',
+          'Das zweite aside reicht über die Spalten 2 bis 4 und überlappt dadurch main. Erst `margin-left: 300px` schiebt seinen Inhalt aus dem Weg. Auf deinem Bildschirm sah das gut aus. In einem schmaleren Fenster passt es nicht mehr, weil 300 px dann zu viel oder zu wenig sind.',
         ),
       },
       {
@@ -465,7 +465,7 @@ export const LAB_TILES: Tile[] = [
               'Damit es über die volle Breite geht',
             ],
             answer: 0,
-            explanation: 'Durch `grid-column: 2 / 4` lag das aside über main. Der margin schob seinen Inhalt nur aus dem Weg – die eigentliche Ursache war die Überlappung.',
+            explanation: 'Durch `grid-column: 2 / 4` lag das aside über main. Der margin schob seinen Inhalt nur aus dem Weg. Die eigentliche Ursache war die Überlappung.',
           },
         ],
       },
@@ -495,7 +495,7 @@ export const LAB_TILES: Tile[] = [
             text: 'Bei `grid-template-areas` bekommt jeder Bereich über die Eigenschaft ___ seinen Namen.',
             options: ['`grid-area`', '`grid-name`', '`area-name`'],
             answer: 0,
-            explanation: 'Zum Beispiel `main { grid-area: foto; }` – der Name muss dann im Flächenplan des Containers vorkommen.',
+            explanation: 'Zum Beispiel `main { grid-area: foto; }`. Der Name muss dann im Flächenplan des Containers vorkommen.',
           },
         ],
       },
@@ -513,12 +513,12 @@ export const LAB_TILES: Tile[] = [
         question: 'Dein footer ist ein Item im Grid des body. Darf er selbst `display: grid` haben?',
         options: ['Ja, Grids lassen sich verschachteln', 'Nein, ein Grid-Item kann kein Container sein'],
         answer: 0,
-        explanation: 'Jedes Element kann Container für seine eigenen Kinder sein – auch wenn es selbst in einem Grid liegt.',
+        explanation: 'Jedes Element kann Container für seine eigenen Kinder sein, auch wenn es selbst in einem Grid liegt.',
         variants: [
           {
             type: 'choice',
             question: 'Dein footer ist Item im body-Grid und hat selbst `display: grid`. Für welche Elemente ist er der Grid-Container?',
-            options: ['Für seine eigenen direkten Kinder, die sections', 'Für header und main', 'Für alle Elemente der Seite', 'Für gar keine – Items können keine Container sein'],
+            options: ['Für seine eigenen direkten Kinder, die sections', 'Für header und main', 'Für alle Elemente der Seite', 'Für gar keine, Items können keine Container sein'],
             answer: 0,
             explanation: 'Ein Grid wirkt immer auf die direkten Kinder seines Containers. Für den footer sind das seine sections.',
           },
@@ -540,7 +540,7 @@ export const LAB_TILES: Tile[] = [
       },
     ],
     recap: [
-      'Überlappen und mit margin zurechtschieben ist zerbrechlich – es passt nur bei einer Breite.',
+      'Überlappen und mit margin zurechtschieben ist zerbrechlich. Es passt nur bei einer Breite.',
       'grid-template-areas gibt jedem Bereich eine eigene Zelle und macht das Layout lesbar.',
       'Grids lassen sich verschachteln: Ein Item kann selbst Grid-Container sein.',
     ],
@@ -554,7 +554,7 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Variante 1: Linien',
         text: page(
-          'In Labor 5 solltest du ein 3×3-Raster mit vier Elementen bauen – einmal ohne und einmal mit `grid-area`. Deine erste Variante:',
+          'In Labor 5 solltest du ein 3×3-Raster mit vier Elementen bauen, einmal ohne und einmal mit `grid-area`. Deine erste Variante:',
           code('css', '.grid1 p:first-of-type { grid-column: 1 / 3; grid-row: 1 / 2; }', '.grid1 p:nth-of-type(2) { grid-column: 3 / 4; grid-row: 1 / 3; }', '.grid1 p:nth-of-type(3) { grid-column: 2 / 4; grid-row: 3 / 4; }', '.grid1 p:nth-of-type(4) { grid-column: 1 / 2; grid-row: 2 / 4; }'),
           'Die vier Elemente drehen sich wie ein Windrad um die Mitte: p1 oben über zwei Spalten, p2 rechts über zwei Zeilen, p3 unten, p4 links. Die Zelle in der Mitte bleibt frei.',
         ),
@@ -581,7 +581,7 @@ export const LAB_TILES: Tile[] = [
               'Nur die Zelle unten rechts',
             ],
             answer: 0,
-            explanation: 'Spalten von Linie 2 bis 4 sind die zweite und dritte Spalte, Zeile von 3 bis 4 die unterste – das ist dein p3.',
+            explanation: 'Spalten von Linie 2 bis 4 sind die zweite und dritte Spalte, Zeile von 3 bis 4 die unterste. Das ist dein p3.',
           },
         ],
       },
@@ -589,7 +589,7 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Variante 2: Flächen',
         text: page(
-          'Dasselbe mit benannten Flächen – hier sieht man das Windrad direkt:',
+          'Dasselbe mit benannten Flächen. Hier sieht man das Windrad direkt:',
           code('css', '.grid2 {', '  display: grid;', '  grid-template-areas:', '    "p1 p1 p2"', '    "p4 .  p2"', '    "p4 p3 p3";', '}', '.grid2 p:first-of-type { grid-area: p1; }'),
           'Der Punkt in der Mitte ist die leere Zelle. Ein Tipp für weniger Tipparbeit: Rahmen, Hintergrund und `margin: 0` waren bei dir für jedes p einzeln wiederholt. Eine gemeinsame Regel `.grid2 p { … }` setzt sie für alle vier auf einmal. Einzeln steht dann nur noch das, was sich unterscheidet: die Fläche.',
         ),
@@ -615,7 +615,7 @@ export const LAB_TILES: Tile[] = [
         text: page(
           'Die Aufgabe verlangte außerdem, das Grid zu zentrieren. In deinem Code stand dazu:',
           code('css', '.grid2 {', '  align-content: right;', '}'),
-          '`right` ist kein gültiger Wert – der Browser ignoriert die Zeile. Und `align-content` am Grid selbst würde ohnehin nur dessen eigene Zeilen verschieben. Um die beiden Raster auf der Seite zu zentrieren, braucht es eine Angabe am **Container**, also am body:',
+          '`right` ist kein gültiger Wert. Der Browser ignoriert die Zeile. Und `align-content` am Grid selbst würde ohnehin nur dessen eigene Zeilen verschieben. Um die beiden Raster auf der Seite zu zentrieren, braucht es eine Angabe am **Container**, also am body:',
           code('css', 'body {', '  display: grid;', '  grid-template-columns: 360px 360px;', '  place-content: center;', '  min-height: 100vh;', '}'),
         ),
       },
@@ -635,7 +635,7 @@ export const LAB_TILES: Tile[] = [
             type: 'truefalse',
             statement: '`align-content: right;` verschiebt ein Grid nach rechts.',
             answer: false,
-            explanation: 'right ist für align-content kein gültiger Wert – der Browser ignoriert die Zeile. Außerdem wirkt align senkrecht, nicht waagerecht.',
+            explanation: 'right ist für align-content kein gültiger Wert. Der Browser ignoriert die Zeile. Außerdem wirkt align senkrecht, nicht waagerecht.',
           },
         ],
       },
@@ -669,7 +669,7 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Zwei Flex-Ebenen',
         text: page(
-          'In Labor 6 gab es das HTML vor, und du solltest es nur mit Flexbox gestalten – ohne Grid. Deine Lösung arbeitet mit zwei Ebenen:',
+          'In Labor 6 gab es das HTML vor, und du solltest es nur mit Flexbox gestalten, ohne Grid. Deine Lösung arbeitet mit zwei Ebenen:',
           code('css', 'body {', '  margin: 0;', '  min-height: 100vh;', '  display: flex;', '  flex-direction: column;', '}', '.container {', '  display: flex;', '  flex: 1;', '}'),
           'Der body stellt header, `.container` und footer **untereinander**. Der Container bekommt `flex: 1` und wächst damit in die ganze restliche Höhe. Er ist selbst ein Flex-Container und stellt aside, main und aside **nebeneinander**.',
         ),
@@ -701,7 +701,7 @@ export const LAB_TILES: Tile[] = [
         text: page(
           'In der Reihe sorgen diese Regeln für feste Seitenleisten und eine flexible Mitte:',
           code('css', 'aside {', '  flex: 0 0 200px;', '}', 'main {', '  flex: 1 1 0;', '}'),
-          '`flex: 0 0 200px` heißt: nicht wachsen, nicht schrumpfen, Grundgröße 200 px – die asides bleiben genau 200 px breit. `flex: 1 1 0` lässt main bei einer Grundgröße von 0 wachsen und schrumpfen, also nimmt es sich allen Platz, der übrig bleibt.',
+          '`flex: 0 0 200px` heißt: nicht wachsen, nicht schrumpfen, Grundgröße 200 px. Die asides bleiben genau 200 px breit. `flex: 1 1 0` lässt main bei einer Grundgröße von 0 wachsen und schrumpfen, also nimmt es sich allen Platz, der übrig bleibt.',
         ),
       },
       {
@@ -759,7 +759,7 @@ export const LAB_TILES: Tile[] = [
             question: 'main hat `flex: 1 1 0`. Was bestimmt seine Breite?',
             options: ['Der Platz, der neben den asides übrig bleibt', 'Die Länge seines Textes'],
             answer: 0,
-            explanation: 'Mit Grundgröße 0 zählt der Inhalt nicht für den Start – main wächst einfach in den ganzen Rest.',
+            explanation: 'Mit Grundgröße 0 zählt der Inhalt nicht für den Start. main wächst einfach in den ganzen Rest.',
           },
         ],
       },
@@ -779,9 +779,9 @@ export const LAB_TILES: Tile[] = [
         type: 'text',
         title: 'Zwei oder vier Spalten',
         text: page(
-          'Aufgabe 1 in Labor 7: zwölf Karten, zwei pro Zeile – ab einer Breite von mehr als 500 px vier pro Zeile. Deine Lösung:',
+          'Aufgabe 1 in Labor 7: zwölf Karten, zwei pro Zeile, ab einer Breite von mehr als 500 px vier pro Zeile. Deine Lösung:',
           code('css', 'body {', '  display: grid;', '  grid-template-columns: repeat(2, 1fr);', '  gap: 1rem;', '}', '@media (width > 500px) {', '  body {', '    grid-template-columns: repeat(4, 1fr);', '  }', '}'),
-          'Das ist genau richtig und **Mobile First**: Erst die schmale Variante als Standard, dann die Media Query für breite Bildschirme. Gut ist auch das `viewport`-meta-Tag in deinem head – ohne es würde das Handy die Media Query falsch auswerten.',
+          'Das ist genau richtig und **Mobile First**: Erst die schmale Variante als Standard, dann die Media Query für breite Bildschirme. Gut ist auch das `viewport`-meta-Tag in deinem head. Ohne es würde das Handy die Media Query falsch auswerten.',
         ),
       },
       {
@@ -796,7 +796,7 @@ export const LAB_TILES: Tile[] = [
             question: 'Wie viele Karten stehen mit deinem CSS auf einem 390 px breiten Handy nebeneinander?',
             options: ['2', '4', '1', '3'],
             answer: 0,
-            explanation: '390 px ist nicht breiter als 500 px. Es gilt der Standard `repeat(2, 1fr)` – Mobile First.',
+            explanation: '390 px ist nicht breiter als 500 px. Es gilt der Standard `repeat(2, 1fr)`, also Mobile First.',
           },
         ],
       },
@@ -855,7 +855,7 @@ export const LAB_TILES: Tile[] = [
               'Karten dürfen nur in main stehen',
             ],
             answer: 0,
-            explanation: 'Alle direkten Kinder des Grid-Containers werden Items – im body also auch header und footer.',
+            explanation: 'Alle direkten Kinder des Grid-Containers werden Items, im body also auch header und footer.',
           },
         ],
       },
@@ -866,7 +866,7 @@ export const LAB_TILES: Tile[] = [
         variants: [
           {
             type: 'truefalse',
-            statement: 'Für die Netflix-Reihe reicht `overflow-x: auto` allein – die Karten ragen von selbst über den Rand.',
+            statement: 'Für die Netflix-Reihe reicht `overflow-x: auto` allein, die Karten ragen von selbst über den Rand.',
             answer: false,
             explanation: 'Ohne flex-shrink: 0 schrumpfen die Karten, bis alle hineinpassen. Dann gibt es nichts zu scrollen.',
           },

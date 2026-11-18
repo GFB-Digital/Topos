@@ -13,7 +13,7 @@ export const WEB_TILES: Tile[] = [
         type: 'text',
         title: 'Zwei verschiedene Dinge',
         text: page(
-          'Das **Internet** ist das weltweite Netz aus verbundenen Computern. Über dieses Netz laufen viele verschiedene Dienste: E-Mail, Online-Spiele, Dateiübertragung per FTP – und eben das **World Wide Web**, kurz Web.',
+          'Das **Internet** ist das weltweite Netz aus verbundenen Computern. Über dieses Netz laufen viele verschiedene Dienste: E-Mail, Online-Spiele, Dateiübertragung per FTP und eben das **World Wide Web**, kurz Web.',
           'Das Web ist also nur ein Dienst im Internet, wenn auch der bekannteste. Wer „Internet“ sagt, meint im Alltag meistens das Web. Für Webentwickler lohnt sich die Unterscheidung: Das Internet sorgt dafür, dass Daten überhaupt von A nach B kommen. Das Web legt fest, wie Seiten aussehen, wie man sie anfragt und wie sie aufeinander verweisen.',
         ),
       },
@@ -37,7 +37,7 @@ export const WEB_TILES: Tile[] = [
         title: 'Hypertext vom CERN',
         text: page(
           'Ende der 1980er-Jahre arbeitete **Tim Berners-Lee** am Forschungszentrum CERN bei Genf. Wissenschaftler wollten Dokumente austauschen, doch das war mühsam: Dateien lagen auf FTP-Servern, und von einem Dokument auf ein anderes zu verweisen, ging kaum.',
-          'Berners-Lee schlug 1989 ein System aus **Hypertext** vor: Texte, die über Links miteinander verbunden sind. Ein Buch liest man von vorne nach hinten – Hypertext dagegen springt man hin und her. 1990 liefen der erste Webserver und der erste Browser. Übrigens: Das „www.“ vor vielen Adressen stammt aus dieser Zeit, als man Dienste noch am Namen unterschied. Technisch nötig ist es nicht.',
+          'Berners-Lee schlug 1989 ein System aus **Hypertext** vor: Texte, die über Links miteinander verbunden sind. Ein Buch liest man von vorne nach hinten. Im Hypertext dagegen springt man hin und her. 1990 liefen der erste Webserver und der erste Browser. Übrigens: Das „www.“ vor vielen Adressen stammt aus dieser Zeit, als man Dienste noch am Namen unterschied. Technisch nötig ist es nicht.',
         ),
       },
       {
@@ -66,7 +66,7 @@ export const WEB_TILES: Tile[] = [
         text: page(
           'Das Web ruht auf drei Standards, die Berners-Lee von Anfang an mitgedacht hat:',
           '**HTML** (HyperText Markup Language) beschreibt, woraus eine Seite besteht: Überschriften, Absätze, Bilder, Links.',
-          '**HTTP** (HyperText Transfer Protocol) regelt, wie ein Client – meistens der Browser – eine Seite bei einem Server anfragt und wie der Server antwortet.',
+          '**HTTP** (HyperText Transfer Protocol) regelt, wie ein Client (meistens der Browser) eine Seite bei einem Server anfragt und wie der Server antwortet.',
           '**URI** (Uniform Resource Identifier) gibt jeder Seite und jeder Datei eine eindeutige Adresse. Ohne Adresse könnte man nichts verlinken.',
           'Merksatz: HTML ist der Inhalt, HTTP der Transport, die URI die Adresse.',
         ),
@@ -88,7 +88,7 @@ export const WEB_TILES: Tile[] = [
       },
       {
         type: 'recall',
-        question: 'Wofür stehen HTML, HTTP und URI – und was macht jeder dieser Standards?',
+        question: 'Wofür stehen HTML, HTTP und URI, und was macht jeder dieser Standards?',
         answer: 'HTML beschreibt den Inhalt einer Seite, HTTP regelt Anfrage und Antwort zwischen Browser und Server, die URI ist die eindeutige Adresse einer Ressource.',
         variants: [
           {
@@ -96,7 +96,7 @@ export const WEB_TILES: Tile[] = [
             text: 'Merksatz: HTML ist der Inhalt, HTTP der Transport, die ___ die Adresse.',
             options: ['URI', 'DNS', 'IP'],
             answer: 0,
-            explanation: 'Die URI gibt jeder Ressource eine eindeutige Adresse – ohne sie könnte man nichts verlinken.',
+            explanation: 'Die URI gibt jeder Ressource eine eindeutige Adresse. Ohne sie könnte man nichts verlinken.',
           },
         ],
       },
@@ -116,7 +116,7 @@ export const WEB_TILES: Tile[] = [
         type: 'text',
         title: 'Eine Adresse für Maschinen',
         text: page(
-          '„Frag den Server der Hochschule auf Port 443 verschlüsselt nach der Startseite“ – das verstehen Menschen, für Programme ist es zu ungenau. Deshalb gibt es ein festes Format: die **URI**. Die bekannte Bezeichnung **URL** meint im Alltag dasselbe. Fachlich korrekt ist heute URI, Fachleute verstehen aber beides.',
+          '„Frag den Server der Hochschule auf Port 443 verschlüsselt nach der Startseite“: Das verstehen Menschen, für Programme ist es zu ungenau. Deshalb gibt es ein festes Format: die **URI**. Die bekannte Bezeichnung **URL** meint im Alltag dasselbe. Fachlich korrekt ist heute URI, Fachleute verstehen aber beides.',
           'Eine URI beginnt immer mit dem **Schema**, zum Beispiel `https`. Das Schema legt fest, wie der Rest nach dem Doppelpunkt zu lesen ist. Für uns sind `http` und `https` am wichtigsten. Das „s“ steht für eine verschlüsselte Verbindung.',
           'Hinweis: In den Folien steht „Unified Resource Identifier“, im Standard (RFC 3986) heißt es „Uniform“.',
         ),
@@ -151,7 +151,7 @@ export const WEB_TILES: Tile[] = [
         type: 'order',
         question: 'Bring die Teile der URI in die richtige Reihenfolge.',
         items: ['Schema `https://`', 'Host `hs-flensburg.de`', 'Pfad `/hochschule/personen`', 'Query `?lang=de`', 'Fragment `#lehre`'],
-        explanation: 'Schema, Host (mit Port), Pfad, Query, Fragment – in dieser Reihenfolge steht es immer.',
+        explanation: 'Schema, Host (mit Port), Pfad, Query, Fragment: In dieser Reihenfolge steht es immer.',
         variants: [
           {
             type: 'choice',
@@ -205,13 +205,13 @@ export const WEB_TILES: Tile[] = [
     ],
     recap: [
       'Eine URI besteht aus Schema, Host, Port, Pfad, Query und Fragment.',
-      'Standard-Ports: 443 für HTTPS, 80 für HTTP – man lässt sie meist weg.',
+      'Standard-Ports: 443 für HTTPS, 80 für HTTP. Man lässt sie meist weg.',
       'Fachlich korrekt ist „URI“, „URL“ wird als Alltagswort verstanden.',
     ],
   },
   {
     id: 'v2-3',
-    title: 'DNS – das Telefonbuch des Internets',
+    title: 'DNS, das Telefonbuch des Internets',
     intro: ['Wie wird aus einem Namen wie hs-flensburg.de eine IP-Adresse?', 'Welche DNS-Einträge gibt es?'],
     steps: [
       {
@@ -325,7 +325,7 @@ export const WEB_TILES: Tile[] = [
         type: 'text',
         title: 'Client fragt, Server antwortet',
         text: page(
-          'Das Web folgt dem **Client-Server-Modell**: Der Client – meistens dein Browser – stellt eine Anfrage (**Request**), der Server schickt eine Antwort (**Response**). Die Regeln dafür legt **HTTP** fest.',
+          'Das Web folgt dem **Client-Server-Modell**: Der Client (meistens dein Browser) stellt eine Anfrage (**Request**), der Server schickt eine Antwort (**Response**). Die Regeln dafür legt **HTTP** fest.',
           'Ruft du eine Seite auf, passiert Folgendes: Der Browser holt sich per DNS die IP des Servers. Dann schickt er eine HTTP-Anfrage. Gibt es die Seite, antwortet der Server mit „200 OK“ und schickt die Daten in kleinen Paketen. Der Browser setzt sie zusammen und zeigt die Seite an. Den eigentlichen Transport der Pakete übernehmen die Protokolle **TCP/IP**.',
         ),
       },
@@ -355,7 +355,7 @@ export const WEB_TILES: Tile[] = [
         text: page(
           'HTTP ist ein **textbasiertes** Protokoll. Eine Anfrage nach der Startseite sieht so aus:',
           code('http', 'GET / HTTP/1.1', 'Host: hs-flensburg.de'),
-          '`GET` ist das Kommando, `/` der Pfad, `HTTP/1.1` die Version. Die Zeile `Host` nennt die Domain – wichtig, wenn ein Server mehrere Domains bedient. Eine Leerzeile schickt die Anfrage ab.',
+          '`GET` ist das Kommando, `/` der Pfad, `HTTP/1.1` die Version. Die Zeile `Host` nennt die Domain. Das ist wichtig, wenn ein Server mehrere Domains bedient. Eine Leerzeile schickt die Anfrage ab.',
           'Außerdem ist HTTP **zustandslos**: Nach der Antwort hat der Server die Anfrage vergessen. Jede neue Anfrage beginnt bei null.',
         ),
       },
@@ -416,7 +416,7 @@ export const WEB_TILES: Tile[] = [
       },
     ],
     recap: [
-      'Der Browser (Client) schickt eine Anfrage, der Server eine Antwort – geregelt durch HTTP.',
+      'Der Browser (Client) schickt eine Anfrage, der Server eine Antwort. Das regelt HTTP.',
       'Eine Antwort hat einen Kopf (Statuscode, Metadaten) und einen Rumpf (die Daten).',
       'HTTP ist textbasiert und zustandslos.',
     ],
@@ -447,7 +447,7 @@ export const WEB_TILES: Tile[] = [
             question: 'Mit welcher Methode bittet ein Client den Server, eine Ressource zu löschen?',
             options: ['DELETE', 'POST', 'GET', 'HEAD'],
             answer: 0,
-            explanation: 'DELETE löscht – sofern der Client das darf. GET liest, POST schickt Daten, HEAD holt nur den Kopf.',
+            explanation: 'DELETE löscht, sofern der Client das darf. GET liest, POST schickt Daten, HEAD holt nur den Kopf.',
           },
         ],
       },
@@ -456,7 +456,7 @@ export const WEB_TILES: Tile[] = [
         title: 'Cookies',
         text: page(
           'Weil HTTP zustandslos ist, braucht es einen Trick, um einen Browser wiederzuerkennen: **Cookies**. Der Server schickt im Kopf seiner Antwort ein Cookie mit. Der Browser speichert es und schickt es bei jeder weiteren Anfrage an diesen Server automatisch zurück.',
-          'Der Browser muss nicht wissen, was im Cookie steht. Oft ist es nur eine ID, zu der der Server in seiner Datenbank Dinge speichert – zum Beispiel, dass du eingeloggt bist. So entsteht eine **Session**.',
+          'Der Browser muss nicht wissen, was im Cookie steht. Oft ist es nur eine ID, zu der der Server in seiner Datenbank Dinge speichert, zum Beispiel, dass du eingeloggt bist. So entsteht eine **Session**.',
         ),
       },
       {
@@ -486,7 +486,7 @@ export const WEB_TILES: Tile[] = [
           'Mit dem Kommandozeilenwerkzeug **curl** kannst du HTTP-Anfragen von Hand schicken:',
           code('bash', 'curl -i -X GET https://hs-flensburg.de'),
           '`-X GET` wählt das Kommando, `-i` zeigt zusätzlich den Kopf der Antwort mit Statuscode und Cookies.',
-          'Noch bequemer sind die **Entwicklerwerkzeuge** im Browser: Rechtsklick auf die Seite, „Untersuchen“, dann der Reiter **Netzwerk**. Dort siehst du jede einzelne Anfrage – meistens viele, denn Bilder, CSS-Dateien, Schriften und Skripte werden jeweils extra geladen.',
+          'Noch bequemer sind die **Entwicklerwerkzeuge** im Browser: Rechtsklick auf die Seite, „Untersuchen“, dann der Reiter **Netzwerk**. Dort siehst du jede einzelne Anfrage. Meistens sind es viele, denn Bilder, CSS-Dateien, Schriften und Skripte werden jeweils extra geladen.',
         ),
       },
       {
@@ -514,14 +514,14 @@ export const WEB_TILES: Tile[] = [
             type: 'truefalse',
             statement: 'Bilder und CSS-Dateien einer Seite kommen in derselben HTTP-Antwort wie das HTML.',
             answer: false,
-            explanation: 'Jede Datei wird mit einer eigenen Anfrage geladen – deshalb stehen im Netzwerk-Reiter so viele Einträge.',
+            explanation: 'Jede Datei wird mit einer eigenen Anfrage geladen. Deshalb stehen im Netzwerk-Reiter so viele Einträge.',
           },
         ],
       },
     ],
     recap: [
       'GET liest, POST schickt Daten, PUT speichert, PATCH ändert teilweise, DELETE löscht.',
-      'Cookies speichert der Browser und schickt sie bei jeder Anfrage mit – so entstehen Sessions.',
+      'Cookies speichert der Browser und schickt sie bei jeder Anfrage mit. So entstehen Sessions.',
       'Mit curl -i und dem Netzwerk-Reiter der Entwicklerwerkzeuge siehst du HTTP live.',
     ],
   },
@@ -534,9 +534,9 @@ export const WEB_TILES: Tile[] = [
         type: 'text',
         title: 'Code ist einfacher Text',
         text: page(
-          'Eine Webseite besteht aus gewöhnlichen **Textdateien**: HTML, CSS und JavaScript. Du kannst sie mit jedem Editor öffnen. Der Server schickt sie per HTTP an den Browser – zuerst die HTML-Datei.',
+          'Eine Webseite besteht aus gewöhnlichen **Textdateien**: HTML, CSS und JavaScript. Du kannst sie mit jedem Editor öffnen. Der Server schickt sie per HTTP an den Browser, zuerst die HTML-Datei.',
           'Beim Lesen stößt der Browser auf Verweise wie `<link href="style.css">`, `<img src="foto.png">` oder `<script src="app.js">` und lädt jede dieser Dateien mit einer eigenen Anfrage nach.',
-          'Liegen die Dateien fertig auf dem Server und sind für alle gleich, spricht man von einer **statischen** Seite – genau das baust du in Webdesign. Erzeugt der Server die Seite bei jeder Anfrage neu, etwa aus einer Datenbank, ist sie **dynamisch** (Backend). Ändert JavaScript die Seite erst im Browser, ist das dynamisch im Frontend.',
+          'Liegen die Dateien fertig auf dem Server und sind für alle gleich, spricht man von einer **statischen** Seite. Genau das baust du in Webdesign. Erzeugt der Server die Seite bei jeder Anfrage neu, etwa aus einer Datenbank, ist sie **dynamisch** (Backend). Ändert JavaScript die Seite erst im Browser, ist das dynamisch im Frontend.',
         ),
       },
       {
@@ -551,7 +551,7 @@ export const WEB_TILES: Tile[] = [
             question: 'Ein Onlineshop erzeugt jede Seite beim Aufruf auf dem Server neu aus seiner Datenbank. Was ist sie?',
             options: ['Eine dynamische Seite', 'Eine statische Seite'],
             answer: 0,
-            explanation: 'Wird die Seite bei jeder Anfrage neu erzeugt, ist sie dynamisch – das passiert im Backend.',
+            explanation: 'Wird die Seite bei jeder Anfrage neu erzeugt, ist sie dynamisch. Das passiert im Backend.',
           },
         ],
       },
@@ -559,7 +559,7 @@ export const WEB_TILES: Tile[] = [
         type: 'text',
         title: 'Aus Text wird ein Baum',
         text: page(
-          'Der Browser liest das HTML Zeichen für Zeichen und baut daraus einen Baum im Speicher: das **DOM** (Document Object Model). Jedes Element wird ein Knoten mit Eltern, Kindern und Geschwistern – genau der Baum, den du aus HTML kennst.',
+          'Der Browser liest das HTML Zeichen für Zeichen und baut daraus einen Baum im Speicher: das **DOM** (Document Object Model). Jedes Element wird ein Knoten mit Eltern, Kindern und Geschwistern, genau der Baum, den du aus HTML kennst.',
           'Dabei ist der Browser sehr **fehlertolerant**: Steht eine Überschrift im head oder fehlt ein schließender Tag, repariert er das stillschweigend. Darum sieht fehlerhafter Code oft trotzdem richtig aus.',
           'Danach geht es in Schritten weiter: Der Browser ordnet jedem Knoten die passenden **CSS-Regeln** zu, berechnet Größe und Position jedes Elements (**Layout**) und malt schließlich die Pixel auf den Bildschirm (**Paint**).',
         ),
@@ -590,7 +590,7 @@ export const WEB_TILES: Tile[] = [
         title: 'Drei Sprachen, drei Aufgaben',
         text: page(
           '**HTML** legt die Struktur fest: Was steht auf der Seite, und welche Rolle hat es? **CSS** legt das Aussehen fest: Farben, Schriften, Abstände, Layout. **JavaScript** legt das Verhalten fest: Was passiert bei einem Klick, beim Tippen, beim Laden neuer Daten?',
-          'Genau genommen sind HTML und CSS keine Programmiersprachen: HTML ist eine Auszeichnungssprache, CSS eine Stylesheet-Sprache. Mit ihnen beschreibst du, *was* da sein und *wie* es aussehen soll. Erst JavaScript kennt Variablen, Bedingungen und Schleifen – damit beschreibst du, was Schritt für Schritt *passieren* soll. JavaScript kann den DOM-Baum lesen und verändern, also die Seite ändern, während sie schon angezeigt wird.',
+          'Genau genommen sind HTML und CSS keine Programmiersprachen: HTML ist eine Auszeichnungssprache, CSS eine Stylesheet-Sprache. Mit ihnen beschreibst du, *was* da sein und *wie* es aussehen soll. Erst JavaScript kennt Variablen, Bedingungen und Schleifen. Damit beschreibst du, was Schritt für Schritt *passieren* soll. JavaScript kann den DOM-Baum lesen und verändern, also die Seite ändern, während sie schon angezeigt wird.',
           code('html', '<button onclick="alert(\'Hallo!\')">Klick mich</button>'),
         ),
       },

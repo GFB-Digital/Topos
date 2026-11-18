@@ -50,7 +50,7 @@ export const WEBDESIGN_COURSE: Course = {
   emoji: '💻',
   color: 'tuerkis',
   group: 'Web',
-  description: 'HTML und CSS programmieren – an deinen eigenen Laboraufgaben. JavaScript folgt.',
+  description: 'HTML und CSS programmieren, an deinen eigenen Laboraufgaben. JavaScript folgt.',
   tiles: pick(WEBDESIGN_ORDER),
 }
 
