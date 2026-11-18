@@ -10,6 +10,7 @@ import type {
   Course,
   ImageRef,
   OrderStep,
+  QuestionStep,
   RecallStep,
   Step,
   TextStep,
@@ -230,8 +231,13 @@ function validateImage(value: unknown, where: string, ctx: Context): ImageRef | 
   return result
 }
 
-/** Alle Texte eines Schritts, in denen Code stehen darf */
+/** Alle Texte eines Schritts (samt Varianten), in denen Code stehen darf */
 function stepTexts(step: Step): string[] {
+  const variants = step.type === 'text' ? [] : (step.variants ?? []).flatMap(stepTexts)
+  return [...ownTexts(step), ...variants]
+}
+
+function ownTexts(step: Step): string[] {
   switch (step.type) {
     case 'text':
       return [step.text]
@@ -255,7 +261,39 @@ function checkFences(texts: string[], where: string, ctx: Context): boolean {
   return false
 }
 
-function validateStep(value: unknown, where: string, ctx: Context): Step | null {
+/** Höchstzahl an Varianten je Frage */
+const MAX_VARIANTS = 5
+
+/** Schritt prüfen – bei Fragen auch die Varianten ("variants") */
+function validateStep(value: unknown, where: string, ctx: Context, isVariant = false): Step | null {
+  const step = validateStepFields(value, where, ctx)
+  if (!isObject(value) || isEmpty(value.variants)) return step
+  if (isVariant) {
+    ctx.errors.push(`${where}: Eine Variante kann keine eigenen Varianten haben.`)
+    return null
+  }
+  if (value.type === 'text') {
+    ctx.errors.push(`${where}: Seiten haben keine Varianten – „variants“ gibt es nur bei Fragen.`)
+    return null
+  }
+  const list = value.variants
+  if (!Array.isArray(list) || list.length === 0 || list.length > MAX_VARIANTS) {
+    ctx.errors.push(`${where}: „variants“ muss eine Liste mit 1 bis ${MAX_VARIANTS} Fragen sein.`)
+    return null
+  }
+  const variants = list.map((item, i) => {
+    const variantWhere = `${where} › Variante ${i + 1}`
+    if (isObject(item) && item.type === 'text') {
+      ctx.errors.push(`${variantWhere}: Eine Variante muss eine Frage sein, keine Seite.`)
+      return null
+    }
+    return validateStep(item, variantWhere, ctx, true)
+  })
+  if (!step || step.type === 'text' || variants.some((variant) => variant === null)) return null
+  return { ...step, variants: variants as QuestionStep[] }
+}
+
+function validateStepFields(value: unknown, where: string, ctx: Context): Step | null {
   if (!isObject(value)) {
     ctx.errors.push(`${where}: Erwartet wird ein Objekt { … }.`)
     return null

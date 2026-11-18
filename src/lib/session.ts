@@ -13,7 +13,7 @@ interface Base {
 export type SessionItem =
   | (Base & { kind: 'intro' })
   | (Base & { kind: 'page'; step: number })
-  | (Base & { kind: 'question'; step: number; retry: boolean })
+  | (Base & { kind: 'question'; step: number; retry: boolean; variant?: number; recall?: boolean })
   | (Base & { kind: 'recap' })
 
 export type TileMode = 'learn' | 'read'
@@ -33,10 +33,13 @@ export function tileItems(courseId: string, tile: Tile, mode: TileMode): Session
 
 export interface QuestionRef extends Base {
   step: number
+  /** Wie die Frage gezeigt wird (siehe variants.ts); ohne Angabe: Hauptfrage */
+  variant?: number
+  recall?: boolean
 }
 
 export function reviewItems(refs: QuestionRef[]): SessionItem[] {
-  return refs.map((ref) => ({ ...ref, kind: 'question', retry: false }))
+  return refs.map(({ courseId, tileId, step, variant, recall }) => ({ courseId, tileId, step, variant, recall, kind: 'question', retry: false }))
 }
 
 export interface SessionState {

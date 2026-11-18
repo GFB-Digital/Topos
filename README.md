@@ -75,10 +75,13 @@ Nach einer Sitzung siehst du die betroffenen Säulen wachsen. Die Zeichen in ein
 2. **Seiten mit Fragen** – nach jeder Seite eine Frage. Die Leiste oben zeigt Kreise (Seiten) und Schilde (Fragen).
 3. **Rückblick** – die Kernaussagen zum Aufdecken
 4. **Falsch beantwortete Fragen** (auch „Weiß ich nicht“) werden hinten angehängt und kommen so lange wieder, bis sie sitzen. Oben rechts zeigt ein oranges Schild, wie viele noch offen sind.
+5. **Zurückblättern:** Finger von links nach rechts wischen (oder der Pfeil oben) zeigt die vorherige Seite oder Frage. Beantwortete Fragen lassen sich nur ansehen, nicht neu beantworten. In Prüfungen gibt es kein Zurück.
 
 **Fragetypen:** Auswahl, Entweder-oder (eine Antwort oben, eine unten – tippen oder wischen), Richtig/Falsch, Lückentext, **Reihenfolge** (Einträge in der richtigen Reihenfolge antippen) und **Karteikarte** (Antwort erst selbst überlegen, dann aufdecken und ehrlich bewerten – das festigt am stärksten, weil du frei abrufst statt wiederzuerkennen).
 
 **Wiederholen (Spaced Repetition).** Nach einer Kachel bekommt jede ihrer Fragen einen Gedächtnis-Stand. ΤΟΠΟΣ rechnet aus, wann du sie voraussichtlich vergisst, und holt sie kurz vorher wieder. Richtig beantwortet → der Abstand wächst (Tage → Wochen → Monate). Falsch → er schrumpft deutlich. Die Kachel musst du dafür nicht noch einmal lesen. Bei Fragen, die man hätte raten können (zwei Antworten), wächst der Abstand etwas langsamer. Brichst du eine Runde ab, zählen die schon gegebenen Antworten trotzdem.
+
+**Abwechslung beim Wiederholen.** Eine Runde geht Kurs für Kurs vor; die Schilder oben haben die Farbe ihres Kurses. Hat eine Frage **Varianten**, kommt bei jeder Wiederholung eine andere – so lernst du den Inhalt, nicht den Wortlaut. Sitzt eine Auswahl- oder Lückentext-Frage schon gut (ab einer Woche Abstand), kommt sie jedes zweite Mal als Karteikarte ohne Antworten zum Wiedererkennen.
 
 **Prüfung** (im Kursblatt ganz unten):
 
@@ -167,6 +170,7 @@ Inhalt:
   - "cloze": ein Satz mit genau einer Lücke ___ und 3 Antworten zum Einsetzen.
   - "recall": Karteikarte. Eine offene Frage ("question") und die Musterantwort ("answer", 1–2 Sätze). Man überlegt sich die Antwort selbst, deckt sie auf und bewertet sich. Gut für „Warum …?“, „Erkläre …“, Definitionen und Formeln. Etwa eine pro Kachel, am besten als letzte Frage.
   - "order": Reihenfolge. Eine Aufgabe ("question") und 3 bis 5 kurze Einträge ("items") in der RICHTIGEN Reihenfolge – die App mischt sie. Gut für Abläufe, Prozessketten und zeitliche Abfolgen. Nur verwenden, wenn die Reihenfolge eindeutig ist.
+- Varianten: Gib jeder Frage 1 bis 2 Varianten in "variants". Eine Variante fragt dasselbe Wissen anders ab – mit einem anderen Beispiel, aus einer anderen Richtung oder als anderer Fragetyp. Bei jeder Wiederholung zeigt die App eine andere Variante, so lernt man den Inhalt statt den Wortlaut. Varianten haben dieselben Felder wie Fragen, aber keine eigenen "variants". Die Antwort darf nicht schon in der Hauptfrage stehen und umgekehrt.
 
 Bilder (freiwillig):
 - Nur wenn du dir sicher bist, dass es das Bild gibt: "image" mit einer direkten Adresse von upload.wikimedia.org und einer Quellenangabe in "credit" (Wer, Lizenz, „via Wikimedia Commons“).
@@ -195,7 +199,10 @@ Antworte ausschließlich mit gültigem JSON in einem ```json-Codeblock, ohne Tex
       "intro": ["Erste Leitfrage?", "Zweite Leitfrage?"],
       "steps": [
         { "type": "text", "title": "Überschrift der Seite", "text": "Erster Absatz mit einem **Schlüsselbegriff** …\n\nZweiter Absatz …" },
-        { "type": "choice", "question": "Frage zur Seite?", "options": ["Antwort A", "Antwort B", "Antwort C"], "answer": 1, "explanation": "Warum Antwort B stimmt." },
+        { "type": "choice", "question": "Frage zur Seite?", "options": ["Antwort A", "Antwort B", "Antwort C"], "answer": 1, "explanation": "Warum Antwort B stimmt.", "variants": [
+          { "type": "choice", "question": "Dieselbe Sache an einem anderen Beispiel?", "options": ["Antwort X", "Antwort Y", "Antwort Z"], "answer": 2, "explanation": "Warum Z stimmt." },
+          { "type": "truefalse", "statement": "Eine Aussage, die dasselbe Wissen prüft.", "answer": true, "explanation": "Warum." }
+        ] },
         { "type": "text", "title": "Nächste Seite", "text": "…", "image": { "src": "https://upload.wikimedia.org/…", "credit": "Bild: Name, Lizenz, via Wikimedia Commons" } },
         { "type": "binary", "question": "Ein Fallbeispiel – was ist richtig?", "options": ["Erste Möglichkeit", "Zweite Möglichkeit"], "answer": 0, "explanation": "Warum." },
         { "type": "text", "title": "Dritte Seite", "text": "…" },
@@ -218,10 +225,11 @@ Regeln für das JSON:
 - "answer" bei "truefalse" ist true oder false (ohne Anführungszeichen).
 - Der Lückentext enthält genau eine Lücke aus drei Unterstrichen: ___
 - "recall" hat "question" und "answer" (beides Text), keine "options". "order" hat "question" und "items" (3 bis 6 verschiedene Einträge in der richtigen Reihenfolge), kein "answer".
+- "variants" ist eine Liste mit 1 bis 5 Fragen (keine Seiten) und steht nur bei Fragen.
 - Gehören mehrere Kurse zum selben Themengebiet (z. B. mehrere Teile einer Vorlesung), gib ihnen dasselbe "group" (z. B. "group": "Fertigungstechnik") – sie stehen dann auf der Karte beieinander. Sonst lass "group" weg.
 - Nur gerade Anführungszeichen ("), keine Kommentare, kein Komma nach dem letzten Element einer Liste.
 
-Wenn ich dich später bitte, einen bestehenden Kurs zu überarbeiten, behalte seine "id" und die IDs der Kacheln bei – dann ersetzt die App den alten Kurs und mein Fortschritt bleibt erhalten.
+Wenn ich dich später bitte, einen bestehenden Kurs zu überarbeiten, behalte seine "id", die IDs der Kacheln und den Wortlaut der bestehenden Fragen bei – dann ersetzt die App den alten Kurs und mein Fortschritt bleibt erhalten. Neue Varianten darfst du jederzeit ergänzen; sie ändern den Fortschritt nicht.
 ````
 <!-- VORLAGE:ENDE -->
 
@@ -304,6 +312,15 @@ Absätze werden mit einer Leerzeile getrennt – im JSON als `\n\n` geschrieben.
 ```
 
 `answer` ist bei `choice`, `binary` und `cloze` die Nummer der richtigen Antwort, **gezählt ab 0**. Bei `truefalse` ist es `true` oder `false` – ohne Anführungszeichen. Bei `recall` ist es der Antworttext; `order` hat kein `answer`.
+
+**Varianten** (freiwillig, bei jeder Frage): `"variants"` ist eine Liste mit 1 bis 5 Fragen, die dasselbe Wissen anders abfragen. Der Lernstand gehört zur Hauptfrage, Varianten lassen sich also jederzeit ergänzen.
+
+```json
+{ "type": "cloze", "text": "Die Lernkartei mit Fächern stammt von ___.", "options": ["Leitner", "Ebbinghaus", "Karpicke"], "answer": 0,
+  "variants": [
+    { "type": "truefalse", "statement": "Die Lernkartei mit Fächern hat Ebbinghaus erfunden.", "answer": false }
+  ] }
+```
 
 ---
 

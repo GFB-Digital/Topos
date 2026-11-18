@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) ist fertig, als Nächstes Phase E (Fragen-Varianten). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
+**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) und Phase E (Fragen-Varianten, freies Abrufen) sind fertig, als Nächstes Phase F (Varianten für die eingebauten Kurse). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
 
 ## Erledigt
 
@@ -206,6 +206,15 @@ Wünsche des Nutzers: in einer Sitzung zurück zum Text oder zur vorherigen Frag
 - **Geprüft:** `npm test` 173 Tests (neu: Zurück/Vor, offene Wiederholungen nach dem Zurückblättern, kursweise Ordnung), `npm run build` fehlerfrei. Im Browser (Firefox, 390 px hell, 360 px dunkel): Kachel mit Einleitung → Seite → Frage, zurück per Pfeil und per Wischen, wieder vor (gleiche Antwort sichtbar), zu kurzer Wisch bleibt, bis zur Einleitung zurück (Pfeil dann aus); Wiederholung mit zwei Kursen am Stück in zwei Farben; Prüfung ohne Pfeil; keine Konsolenfehler.
 - **Nicht geprüft:** echtes Wischen auf dem iPhone (im Test mit nachgestellten Touch-Ereignissen).
 
+### Phase E – Fragen-Varianten und freies Abrufen (18.11.2026)
+Wunsch des Nutzers: Die Wiederholungsfragen sollen sich ändern (andere Beispiele, andere Fragen), damit man nicht den Wortlaut auswendig lernt.
+- **Kursformat:** Jede Frage kann `variants` haben – 1 bis 5 Fragen beliebigen Typs (keine Seiten, keine verschachtelten Varianten), die dasselbe Wissen anders abfragen ([types.ts](src/lib/types.ts), `QuestionBase`). Der Lernstand gehört zur Hauptfrage: Der Schlüssel entsteht weiter nur aus deren Text, Varianten lassen sich also jederzeit ergänzen, ohne Fortschritt zu verlieren.
+- **Reihum:** Beim ersten Lernen der Kachel kommt die Hauptfrage, bei jeder Wiederholung die nächste Variante (Hauptfrage → 1 → 2 → Hauptfrage …). Die zuletzt gezeigte steht als `v` im Gedächtnis-Stand (`CardState.v`). Logik in [variants.ts](src/lib/variants.ts), festgelegt einmal pro Runde (`withPresentation` in [SessionScreen.tsx](src/screens/SessionScreen.tsx)); falsch beantwortete Fragen kommen am Ende in derselben Variante wieder. Gilt für Wiederholungen und Prüfungen.
+- **Freies Abrufen (ohne neue Inhalte, wirkt in allen Kursen):** Ab 7 Tagen Stabilität kommt eine Frage jede zweite Wiederholung (ungerade `reps`) als Karteikarte – ohne Antworten zum Wiedererkennen, mit Selbstbewertung und ohne Ratekorrektur. Nur, wo das Sinn ergibt (`recallForm`): Lückentext immer; Auswahl nur bei kurzer Antwort (≤ 6 Wörter, kein Code) und wenn die Frage nicht auf die Antworten verweist („Welche Aussage …“, „folgende“, Verneinungen). Entweder-oder, Stimmt-das und Reihenfolge nie. In Prüfungen nie.
+- **Import** prüft Varianten wie Fragen und meldet Fehler mit Ort („Schritt 2 (Frage) › Variante 1: …“), auch offene Codeblöcke. **Claude-Vorlage** bittet um 1–2 Varianten je Frage; README per Skript aktualisiert (Vorlage, Zurückblättern, Abwechslung, Kursformat). Die Suche findet weiter nur die Hauptfrage.
+- **Geprüft:** `npm test` 182 Tests (9 neu in [variants.test.ts](src/lib/variants.test.ts)), `npm run build` fehlerfrei. Im Browser (Firefox, 390 px) mit einem Testkurs: vier Runden nacheinander zeigten Hauptfrage → Stimmt-das-Variante → Auswahl-Variante → Hauptfrage, `v` wurde jeweils gespeichert; gefestigte Frage erschien als Karteikarte; keine Konsolenfehler.
+- **Noch ohne Varianten:** die eingebauten Kurse und die Studienkurse (Phasen F und G).
+
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.
 - **Sicherung ersetzt, sie mischt nicht:** Einspielen überschreibt Kurse, Lernstand und Einstellungen des Geräts (nach Rückfrage). Zwei Geräte lassen sich damit nicht zusammenführen – das wäre Synchronisierung, und die ist laut Plan nicht gewollt.
@@ -250,7 +259,7 @@ Wünsche des Nutzers: in einer Sitzung zurück zum Text oder zur vorherigen Frag
 - **Neue Styles** stehen in [learning.css](src/styles/learning.css), die Grundlagen weiter in global.css.
 
 ## Als Nächstes
-- **Phase E – Fragen-Varianten:** Feld `variants` an Fragen (gleicher Lernstand, bei jeder Wiederholung eine andere Variante) und freies Abrufen gefestigter Auswahlfragen als Karteikarte. Danach **F** (Varianten für die eingebauten Kurse) und **G** (Studienkurse in `kurse/`)
+- **Phase F – Varianten schreiben** für „Webdesign“, „World Wide Web“ und „Lernen lernen“ (je Frage eine Variante, in mehreren Schritten; Fragetexte nie ändern), danach **G** für die Studienkurse in `kurse/` (dann in der App „Ersetzen“)
 - **Webdesign weiter ausbauen:** neue Vorlesungen und Labore als neue Kacheln in [src/content/webdesign/](src/content/webdesign/) ergänzen (siehe „Erweitern“ oben)
 - **Lernmodus ausprobieren** beim nächsten Labor (Ordner `C:\Users\PCUser\Webdesign`) und die Regeln in dessen `CLAUDE.md` nachschärfen
 - **JavaScript** in den Kurs „Webdesign“, sobald es in Vorlesung und Labor drankommt

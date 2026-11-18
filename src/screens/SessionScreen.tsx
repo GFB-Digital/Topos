@@ -33,6 +33,7 @@ import { addReadingTime, finishReview, finishTile, getAppState, startTile, useAp
 import { currentStreak, dayKey, hasStamp } from '../lib/streak.ts'
 import { isQuestion, type Course, type ReadingMode, type Tile } from '../lib/types.ts'
 import { useSwipe } from '../lib/useSwipe.ts'
+import { presentedStep, withPresentation } from '../lib/variants.ts'
 
 export type SessionSpec =
   | { kind: 'tile'; course: Course; tile: Tile; mode: TileMode }
@@ -51,7 +52,8 @@ function toResults(firstTry: Record<string, boolean>, refs: QuestionRef[]): Revi
       key: found.key,
       courseId: ref.courseId,
       correct: firstTry[found.key],
-      guess: guessChance(found.step),
+      guess: guessChance(presentedStep(found.step, ref)),
+      variant: ref.variant,
       learned: tileStatus(learn, ref.courseId, ref.tileId) === 'done',
     })
   }
@@ -63,8 +65,12 @@ const MAX_STEP_MS = 180_000
 
 export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigation }) {
   const app = useAppState()
+  // Wiederholung und Prüfung: einmal festlegen, welche Variante kommt und ob als Karteikarte
+  const [refs] = useState<QuestionRef[]>(() =>
+    spec.kind === 'tile' ? [] : withPresentation(spec.refs, app.courses, app.learn, spec.kind === 'review'),
+  )
   const [session, setSession] = useState(() =>
-    startSession(spec.kind === 'tile' ? tileItems(spec.course.id, spec.tile, spec.mode) : reviewItems(spec.refs)),
+    startSession(spec.kind === 'tile' ? tileItems(spec.course.id, spec.tile, spec.mode) : reviewItems(refs)),
   )
   const [mode, setMode] = useState<ReadingMode>(app.settings.readingMode)
   const [confirmClose, setConfirmClose] = useState(false)
@@ -99,23 +105,23 @@ export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigatio
       if (spec.mode === 'learn') void finishTile(spec.course.id, spec.tile.id, session.firstTry, ms)
       else void addReadingTime(spec.course.id, ms)
     } else {
-      void finishReview(toResults(session.firstTry, spec.refs), ms, {
+      void finishReview(toResults(session.firstTry, refs), ms, {
         examOf: spec.kind === 'exam' ? spec.course.id : undefined,
       })
     }
-  }, [finished, spec, session.firstTry])
+  }, [finished, spec, refs, session.firstTry])
 
   // Runde vorzeitig verlassen (Schließen oder Zurück-Taste): Was schon beantwortet
   // ist, zählt trotzdem für die Wiederholung – nur der Lerntag-Stempel entfällt.
   useEffect(
     () => () => {
       if (saved.current || spec.kind === 'tile') return
-      const results = toResults(sessionRef.current.firstTry, spec.refs)
+      const results = toResults(sessionRef.current.firstTry, refs)
       if (results.length === 0) return
       saved.current = true
       void finishReview(results, activeMs.current, { complete: false })
     },
-    [spec],
+    [spec, refs],
   )
 
   // Neuer Schritt beginnt oben
@@ -223,7 +229,7 @@ export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigatio
       content = found ? (
         <QuestionCard
           key={session.index}
-          step={found.step}
+          step={presentedStep(found.step, item)}
           context={
             spec.kind === 'review'
               ? `${itemCourse.title} · ${itemTile.title}`

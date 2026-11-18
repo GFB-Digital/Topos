@@ -35,6 +35,7 @@ Inhalt:
   - "cloze": ein Satz mit genau einer Lücke ___ und 3 Antworten zum Einsetzen.
   - "recall": Karteikarte. Eine offene Frage ("question") und die Musterantwort ("answer", 1–2 Sätze). Man überlegt sich die Antwort selbst, deckt sie auf und bewertet sich. Gut für „Warum …?“, „Erkläre …“, Definitionen und Formeln. Etwa eine pro Kachel, am besten als letzte Frage.
   - "order": Reihenfolge. Eine Aufgabe ("question") und 3 bis 5 kurze Einträge ("items") in der RICHTIGEN Reihenfolge – die App mischt sie. Gut für Abläufe, Prozessketten und zeitliche Abfolgen. Nur verwenden, wenn die Reihenfolge eindeutig ist.
+- Varianten: Gib jeder Frage 1 bis 2 Varianten in "variants". Eine Variante fragt dasselbe Wissen anders ab – mit einem anderen Beispiel, aus einer anderen Richtung oder als anderer Fragetyp. Bei jeder Wiederholung zeigt die App eine andere Variante, so lernt man den Inhalt statt den Wortlaut. Varianten haben dieselben Felder wie Fragen, aber keine eigenen "variants". Die Antwort darf nicht schon in der Hauptfrage stehen und umgekehrt.
 
 Bilder (freiwillig):
 - Nur wenn du dir sicher bist, dass es das Bild gibt: "image" mit einer direkten Adresse von upload.wikimedia.org und einer Quellenangabe in "credit" (Wer, Lizenz, „via Wikimedia Commons“).
@@ -63,7 +64,10 @@ Antworte ausschließlich mit gültigem JSON in einem \`\`\`json-Codeblock, ohne 
       "intro": ["Erste Leitfrage?", "Zweite Leitfrage?"],
       "steps": [
         { "type": "text", "title": "Überschrift der Seite", "text": "Erster Absatz mit einem **Schlüsselbegriff** …\\n\\nZweiter Absatz …" },
-        { "type": "choice", "question": "Frage zur Seite?", "options": ["Antwort A", "Antwort B", "Antwort C"], "answer": 1, "explanation": "Warum Antwort B stimmt." },
+        { "type": "choice", "question": "Frage zur Seite?", "options": ["Antwort A", "Antwort B", "Antwort C"], "answer": 1, "explanation": "Warum Antwort B stimmt.", "variants": [
+          { "type": "choice", "question": "Dieselbe Sache an einem anderen Beispiel?", "options": ["Antwort X", "Antwort Y", "Antwort Z"], "answer": 2, "explanation": "Warum Z stimmt." },
+          { "type": "truefalse", "statement": "Eine Aussage, die dasselbe Wissen prüft.", "answer": true, "explanation": "Warum." }
+        ] },
         { "type": "text", "title": "Nächste Seite", "text": "…", "image": { "src": "https://upload.wikimedia.org/…", "credit": "Bild: Name, Lizenz, via Wikimedia Commons" } },
         { "type": "binary", "question": "Ein Fallbeispiel – was ist richtig?", "options": ["Erste Möglichkeit", "Zweite Möglichkeit"], "answer": 0, "explanation": "Warum." },
         { "type": "text", "title": "Dritte Seite", "text": "…" },
@@ -86,8 +90,9 @@ Regeln für das JSON:
 - "answer" bei "truefalse" ist true oder false (ohne Anführungszeichen).
 - Der Lückentext enthält genau eine Lücke aus drei Unterstrichen: ___
 - "recall" hat "question" und "answer" (beides Text), keine "options". "order" hat "question" und "items" (3 bis 6 verschiedene Einträge in der richtigen Reihenfolge), kein "answer".
+- "variants" ist eine Liste mit 1 bis 5 Fragen (keine Seiten) und steht nur bei Fragen.
 - Gehören mehrere Kurse zum selben Themengebiet (z. B. mehrere Teile einer Vorlesung), gib ihnen dasselbe "group" (z. B. "group": "Fertigungstechnik") – sie stehen dann auf der Karte beieinander. Sonst lass "group" weg.
 - Nur gerade Anführungszeichen ("), keine Kommentare, kein Komma nach dem letzten Element einer Liste.
 
-Wenn ich dich später bitte, einen bestehenden Kurs zu überarbeiten, behalte seine "id" und die IDs der Kacheln bei – dann ersetzt die App den alten Kurs und mein Fortschritt bleibt erhalten.`
+Wenn ich dich später bitte, einen bestehenden Kurs zu überarbeiten, behalte seine "id", die IDs der Kacheln und den Wortlaut der bestehenden Fragen bei – dann ersetzt die App den alten Kurs und mein Fortschritt bleibt erhalten. Neue Varianten darfst du jederzeit ergänzen; sie ändern den Fortschritt nicht.`
 }

@@ -20,8 +20,18 @@ export interface TextStep {
   image?: ImageRef
 }
 
+/**
+ * Gemeinsam für alle Fragen: Varianten = dasselbe Wissen, anders gefragt oder mit
+ * anderem Beispiel. Bei jeder Wiederholung kommt eine andere; der Lernstand gehört
+ * zur Hauptfrage (Schlüssel aus deren Text, siehe cardKey). Varianten haben keine
+ * eigenen Varianten.
+ */
+export interface QuestionBase {
+  variants?: QuestionStep[]
+}
+
 /** Auswahlfrage mit 2–6 Antworten (werden beim Anzeigen gemischt) */
-export interface ChoiceStep {
+export interface ChoiceStep extends QuestionBase {
   type: 'choice'
   question: string
   options: string[]
@@ -31,7 +41,7 @@ export interface ChoiceStep {
 }
 
 /** Entweder-oder: eine Antwort oben, eine unten (z. B. Fallbeispiel) */
-export interface BinaryStep {
+export interface BinaryStep extends QuestionBase {
   type: 'binary'
   question: string
   options: [string, string]
@@ -39,7 +49,7 @@ export interface BinaryStep {
   explanation?: string
 }
 
-export interface TrueFalseStep {
+export interface TrueFalseStep extends QuestionBase {
   type: 'truefalse'
   statement: string
   answer: boolean
@@ -47,7 +57,7 @@ export interface TrueFalseStep {
 }
 
 /** Lückentext: `text` enthält genau eine Lücke „___“ */
-export interface ClozeStep {
+export interface ClozeStep extends QuestionBase {
   type: 'cloze'
   text: string
   options: string[]
@@ -56,7 +66,7 @@ export interface ClozeStep {
 }
 
 /** Karteikarte: Antwort erst im Kopf abrufen, dann aufdecken und selbst bewerten */
-export interface RecallStep {
+export interface RecallStep extends QuestionBase {
   type: 'recall'
   question: string
   answer: string
@@ -64,7 +74,7 @@ export interface RecallStep {
 }
 
 /** Reihenfolge: `items` stehen in der richtigen Reihenfolge (3–6), die App mischt sie */
-export interface OrderStep {
+export interface OrderStep extends QuestionBase {
   type: 'order'
   question: string
   items: string[]
@@ -123,6 +133,8 @@ export interface CardState {
   due: number
   reps: number
   lapses: number
+  /** zuletzt gezeigte Variante (0 = Hauptfrage, 1 = erste Variante …) */
+  v?: number
 }
 
 export interface DayActivity {

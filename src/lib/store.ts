@@ -230,6 +230,8 @@ export interface ReviewResult {
   guess?: number
   /** Die Kachel der Frage ist gelernt → fehlt ihr Gedächtnis-Stand, wird er angelegt */
   learned?: boolean
+  /** gezeigte Variante (0 = Hauptfrage), damit beim nächsten Mal die nächste kommt */
+  variant?: number
 }
 
 /**
@@ -244,9 +246,10 @@ export function finishReview(results: ReviewResult[], ms: number, options: { com
   const now = Date.now()
   return updateLearn((learn) => {
     const cards = { ...learn.cards }
-    for (const { key, correct, guess, learned } of results) {
+    for (const { key, correct, guess, learned, variant } of results) {
       if (cards[key]) cards[key] = reviewCard(cards[key], correct, now, guess)
       else if (learned) cards[key] = newCard(correct, now)
+      if (cards[key] && variant !== undefined) cards[key] = { ...cards[key], v: variant }
     }
     // Lernzeit gleichmäßig auf die beteiligten Kurse verteilen
     const courseMs = { ...learn.courseMs }
