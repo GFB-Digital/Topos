@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) und Phase E (Fragen-Varianten, freies Abrufen) sind fertig, ebenso Phase F (Varianten für alle 139 Fragen der eingebauten Kurse). Als Nächstes Phase G (Varianten für die Studienkurse in `kurse/`). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
+**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) und Phase E (Fragen-Varianten, freies Abrufen) sind fertig, ebenso Phase F (Varianten für alle 139 Fragen der eingebauten Kurse) und Phase G (Varianten für alle 288 Fragen der Studienkurse in `kurse/`). Als Nächstes: Studienkurse in der App neu importieren („Ersetzen“). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
 
 ## Erledigt
 
@@ -227,6 +227,12 @@ Wunsch des Nutzers: Die Wiederholungsfragen sollen sich ändern (andere Beispiel
 - **Test** gilt jetzt für alle eingebauten Kurse: Jede Frage braucht eine Variante, die anders fragt.
 - **Geprüft:** `npm test` 183 Tests, `npm run build` fehlerfrei. Im Browser nicht eigens angesehen (gleiche Darstellung wie in Teil 1).
 
+### Phase G – Varianten für die Studienkurse (18.11.2026, privates Repo `kurse/`)
+- **Alle 288 Fragen** der Studienkurse haben eine Variante: Konstruktion 75, Fertigungstechnik 133, ABWL 80. Inhaltlich nur Fakten, die in der jeweiligen Kachel stehen (Fragen, Erklärungen, Rückblick); Rechenaufgaben mit neuen Zahlen und Rechenweg in der Erklärung.
+- **Technik:** Ein Hilfsskript hat die Varianten direkt in die Zeile der jeweiligen Frage in `kurse/teile/*.json` geschrieben und dabei geprüft, dass sich sonst nichts ändert und jede Kachel genau so viele Varianten wie Fragen bekommt. `kurse/werkzeuge/bauen.mjs` warnt jetzt bei Fragen ohne Variante; die Regel steht in `kurse/LIESMICH.md`.
+- **Lernstand:** `bauen.mjs` meldete für alle drei Kurse keine FORTSCHRITT-Warnung – alle Fragetexte und IDs sind gleich. Die neuen `kurse/fertig/*.json` müssen in der App importiert und mit „Ersetzen“ übernommen werden (auf jedem Gerät).
+- **Nicht geprüft:** Import der neuen Dateien in der App auf PC und iPhone (macht der Nutzer).
+
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.
 - **Sicherung ersetzt, sie mischt nicht:** Einspielen überschreibt Kurse, Lernstand und Einstellungen des Geräts (nach Rückfrage). Zwei Geräte lassen sich damit nicht zusammenführen – das wäre Synchronisierung, und die ist laut Plan nicht gewollt.
@@ -271,7 +277,8 @@ Wunsch des Nutzers: Die Wiederholungsfragen sollen sich ändern (andere Beispiel
 - **Neue Styles** stehen in [learning.css](src/styles/learning.css), die Grundlagen weiter in global.css.
 
 ## Als Nächstes
-- **Phase G – Varianten für die Studienkurse** (ABWL, Konstruktion, Fertigungstechnik) im privaten Repo `kurse/`: Fragetexte und IDs beibehalten, je Frage eine Variante, mit `kurse/werkzeuge/bauen.mjs` prüfen, dann in der App importieren und „Ersetzen“ wählen
+- **Studienkurse neu importieren:** `kurse/fertig/abwl.json`, `konstruktion.json`, `fertigungstechnik.json` auf PC und iPhone über „Inhalte → Datei wählen“ laden und „Ersetzen“ wählen
+- **Varianten beobachten:** Bei „Wissen stärken“ prüfen, ob die Varianten fachlich passen; unpassende melden
 - **Neue Kacheln in eingebauten Kursen** bekommen gleich eine Variante je Frage (der Test verlangt das)
 - **Webdesign weiter ausbauen:** neue Vorlesungen und Labore als neue Kacheln in [src/content/webdesign/](src/content/webdesign/) ergänzen (siehe „Erweitern“ oben)
 - **Lernmodus ausprobieren** beim nächsten Labor (Ordner `C:\Users\PCUser\Webdesign`) und die Regeln in dessen `CLAUDE.md` nachschärfen
