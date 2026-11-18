@@ -42,12 +42,14 @@ export function reviewItems(refs: QuestionRef[]): SessionItem[] {
 export interface SessionState {
   items: SessionItem[]
   index: number
+  /** weitester bisher erreichter Schritt (nach dem Zurückblättern) */
+  furthest: number
   /** Ergebnis beim ersten Versuch je Frage (Schlüssel siehe cardKey) */
   firstTry: Record<string, boolean>
 }
 
 export function startSession(items: SessionItem[]): SessionState {
-  return { items, index: 0, firstTry: {} }
+  return { items, index: 0, furthest: 0, firstTry: {} }
 }
 
 /**
@@ -63,7 +65,28 @@ export function answer(state: SessionState, key: string, correct: boolean, retry
 }
 
 export function advance(state: SessionState): SessionState {
-  return { ...state, index: Math.min(state.items.length, state.index + 1) }
+  const index = Math.min(state.items.length, state.index + 1)
+  return { ...state, index, furthest: Math.max(state.furthest, index) }
+}
+
+/** Zurückblättern geht, solange die Sitzung läuft und es einen vorherigen Schritt gibt */
+export function canGoBack(state: SessionState): boolean {
+  return state.index > 0 && !isFinished(state)
+}
+
+/** Einen Schritt zurück – nur zum Ansehen, beantwortete Fragen bleiben gewertet */
+export function back(state: SessionState): SessionState {
+  return canGoBack(state) ? { ...state, index: state.index - 1 } : state
+}
+
+/** Nach dem Zurückblättern: Wischen nach vorn führt wieder bis zum weitesten Schritt */
+export function canGoForward(state: SessionState): boolean {
+  return state.index < state.furthest && !isFinished(state)
+}
+
+/** Ist der aktuelle Schritt schon einmal erledigt worden (also nur zum Ansehen)? */
+export function isRevisit(state: SessionState): boolean {
+  return state.index < state.furthest
 }
 
 export function isFinished(state: SessionState): boolean {
@@ -72,7 +95,7 @@ export function isFinished(state: SessionState): boolean {
 
 /** Noch offene Wiederholungen (angehängt, aber noch nicht dran gewesen) */
 export function pendingRetries(state: SessionState): number {
-  return state.items.slice(state.index + 1).filter((item) => item.kind === 'question' && item.retry).length
+  return state.items.slice(state.furthest + 1).filter((item) => item.kind === 'question' && item.retry).length
 }
 
 export function firstTryStats(state: SessionState) {

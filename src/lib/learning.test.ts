@@ -7,8 +7,12 @@ import { cardKey, tileQuestions } from './model.ts'
 import {
   advance,
   answer,
+  back,
+  canGoBack,
+  canGoForward,
   firstTryStats,
   isFinished,
+  isRevisit,
   lookupQuestion,
   pendingRetries,
   reviewItems,
@@ -22,6 +26,7 @@ import {
   dueForecast,
   examPlan,
   examPlanText,
+  groupByCourse,
   hardCards,
   learnedCards,
   pickForExam,
@@ -108,6 +113,51 @@ describe('Sitzungsablauf', () => {
     assert.equal(isFinished(s), true)
     // Gewertet wird nur der erste Versuch
     assert.deepEqual(firstTryStats(s), { correct: 1, total: 2 })
+  })
+
+  it('blättert zurück und wieder vor, ohne Antworten oder Wiederholungen zu verändern', () => {
+    let s = startSession(tileItems(SAMPLE_COURSE.id, tile, 'learn'))
+    assert.equal(canGoBack(s), false) // am Anfang geht es nicht zurück
+    s = advance(advance(advance(s)))
+    assert.equal(s.index, 3)
+    s = back(back(s))
+    assert.equal(s.index, 1)
+    assert.equal(s.furthest, 3)
+    assert.equal(isRevisit(s), true)
+    assert.equal(canGoForward(s), true)
+    s = advance(advance(s))
+    assert.equal(isRevisit(s), false)
+    assert.equal(canGoForward(s), false)
+    assert.equal(s.furthest, 3)
+    // Nach dem Ende geht es nicht mehr zurück
+    while (!isFinished(s)) s = advance(s)
+    assert.equal(canGoBack(s), false)
+    assert.equal(back(s).index, s.index)
+  })
+
+  it('zählt offene Wiederholungen ab dem weitesten Schritt, auch nach dem Zurückblättern', () => {
+    const refs = tileQuestions(tile).slice(0, 3).map(({ index }) => ({ courseId: SAMPLE_COURSE.id, tileId: tile.id, step: index }))
+    let s = startSession(reviewItems(refs))
+    const key = lookupQuestion([SAMPLE_COURSE], s.items[0] as never)!.key
+    s = advance(answer(s, key, false))
+    assert.equal(pendingRetries(s), 1)
+    s = back(s)
+    assert.equal(pendingRetries(s), 1)
+  })
+})
+
+describe('Wiederholung kursweise', () => {
+  it('ordnet Fragen nach Kursen und behält die Reihenfolge innerhalb eines Kurses', () => {
+    const courses = [{ id: 'a' }, { id: 'b' }, { id: 'c' }] as never[]
+    const refs = [
+      { courseId: 'c', n: 1 },
+      { courseId: 'a', n: 2 },
+      { courseId: 'c', n: 3 },
+      { courseId: 'b', n: 4 },
+      { courseId: 'a', n: 5 },
+      { courseId: 'x', n: 6 }, // unbekannter Kurs → ans Ende
+    ]
+    assert.deepEqual(groupByCourse(refs, courses).map((r) => r.n), [2, 5, 4, 1, 3, 6])
   })
 })
 

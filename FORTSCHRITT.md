@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 16.11.2026 – Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
+**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) ist fertig, als Nächstes Phase E (Fragen-Varianten). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
 
 ## Erledigt
 
@@ -195,6 +195,17 @@ Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur
 - Hier in `CLAUDE.md` steht, wie aus den Notizen neue Kacheln im eingebauten Kurs werden.
 - **Nicht geprüft:** Die Routine selbst lässt sich erst beim nächsten echten Labor ausprobieren.
 
+### Phase D – Zurückblättern und Wiederholung nach Kursen (18.11.2026)
+Wünsche des Nutzers: in einer Sitzung zurück zum Text oder zur vorherigen Frage; „Wissen stärken“ kursweise statt gemischt; Schilder in der Leiste in der Kursfarbe.
+- **Zurückblättern:** Finger von links nach rechts wischen (wie „Zurück“ am iPhone) oder Pfeil oben neben dem ✕. Nach dem Zurückblättern führt Wischen nach links wieder vor, bis zum weitesten Schritt. Logik in [session.ts](src/lib/session.ts) (`furthest`, `back`, `canGoBack`, `canGoForward`, `isRevisit`), Geste in [useSwipe.ts](src/lib/useSwipe.ts) (eigene kleine Funktion, keine Bibliothek).
+- **Nur ansehen (entschieden vom Nutzer):** Beantwortete Fragen erscheinen beim Zurückblättern genauso wieder (gleiche Antwort-Reihenfolge, Auswahl, Erklärung, `QuestionSnapshot` in [QuestionCard.tsx](src/components/session/QuestionCard.tsx)), lassen sich aber nicht neu beantworten. „Du lernst …“ und Rückblick sind dann gleich aufgedeckt.
+- **Nicht in Prüfungen** (entschieden vom Nutzer): dort weder Pfeil noch Wischen.
+- **Geste:** nur Finger/Stift (am PC der Pfeil), nicht in den äußersten 24 px am Rand (dort blättert Safari selbst zurück), nicht auf Codeblöcken und Reglern; senkrecht scrollt die Seite wie bisher (`touch-action: pan-y pinch-zoom`). Ab 22 % der Breite oder schnellem Wischen wird umgeblättert, sonst springt die Karte zurück.
+- **Wiederholung kursweise:** `groupByCourse` in [smart.ts](src/lib/smart.ts) – Reihenfolge der Kurse wie auf der Karte (eingebaute zuerst), innerhalb eines Kurses gemischt. Gilt für „Wissen stärken“, fällige Wiederholungen und „Schwierige Fragen üben“. Falsch beantwortete Fragen kommen weiter ganz am Ende noch einmal.
+- **Schilder in Kursfarbe:** In Wiederholungsrunden hat jedes Schild oben die Farbe seines Kurses (kräftig = kommt noch, blass = erledigt) auf neutraler Leiste ([SessionProgress.tsx](src/components/session/SessionProgress.tsx)).
+- **Geprüft:** `npm test` 173 Tests (neu: Zurück/Vor, offene Wiederholungen nach dem Zurückblättern, kursweise Ordnung), `npm run build` fehlerfrei. Im Browser (Firefox, 390 px hell, 360 px dunkel): Kachel mit Einleitung → Seite → Frage, zurück per Pfeil und per Wischen, wieder vor (gleiche Antwort sichtbar), zu kurzer Wisch bleibt, bis zur Einleitung zurück (Pfeil dann aus); Wiederholung mit zwei Kursen am Stück in zwei Farben; Prüfung ohne Pfeil; keine Konsolenfehler.
+- **Nicht geprüft:** echtes Wischen auf dem iPhone (im Test mit nachgestellten Touch-Ereignissen).
+
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.
 - **Sicherung ersetzt, sie mischt nicht:** Einspielen überschreibt Kurse, Lernstand und Einstellungen des Geräts (nach Rückfrage). Zwei Geräte lassen sich damit nicht zusammenführen – das wäre Synchronisierung, und die ist laut Plan nicht gewollt.
@@ -239,6 +250,7 @@ Ziel des Nutzers: die Webdesign-Labore (HTML, CSS, später JavaScript) nicht nur
 - **Neue Styles** stehen in [learning.css](src/styles/learning.css), die Grundlagen weiter in global.css.
 
 ## Als Nächstes
+- **Phase E – Fragen-Varianten:** Feld `variants` an Fragen (gleicher Lernstand, bei jeder Wiederholung eine andere Variante) und freies Abrufen gefestigter Auswahlfragen als Karteikarte. Danach **F** (Varianten für die eingebauten Kurse) und **G** (Studienkurse in `kurse/`)
 - **Webdesign weiter ausbauen:** neue Vorlesungen und Labore als neue Kacheln in [src/content/webdesign/](src/content/webdesign/) ergänzen (siehe „Erweitern“ oben)
 - **Lernmodus ausprobieren** beim nächsten Labor (Ordner `C:\Users\PCUser\Webdesign`) und die Regeln in dessen `CLAUDE.md` nachschärfen
 - **JavaScript** in den Kurs „Webdesign“, sobald es in Vorlesung und Labor drankommt

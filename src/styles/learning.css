@@ -729,6 +729,55 @@
   background: #fff;
 }
 
+/* Wiederholung über mehrere Kurse: jedes Schild in der Farbe seines Kurses.
+   Kräftig = kommt noch, blass = erledigt. */
+.session-track--courses {
+  background: var(--surface-2);
+}
+
+.session-track--courses .marker {
+  background: var(--marker);
+}
+
+.session-track--courses .marker--done {
+  background: color-mix(in srgb, var(--marker) 28%, transparent);
+}
+
+.session-track--courses .marker--current {
+  transform: scale(1.5);
+}
+
+/* Zurückblättern: Wischen nur waagerecht abfangen, senkrecht scrollt die Seite */
+.session-swipe {
+  touch-action: pan-y pinch-zoom;
+}
+
+.session-swipe[data-direction='back'] .step-enter {
+  animation-name: step-in-back;
+}
+
+.session-swipe[data-direction='forward'] .step-enter {
+  animation-name: step-in-forward;
+}
+
+@keyframes step-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+
+@keyframes step-in-forward {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+.lesson-topbar .icon-btn:disabled {
+  opacity: 0.35;
+}
+
 .retry-chip {
   flex: none;
   display: inline-flex;

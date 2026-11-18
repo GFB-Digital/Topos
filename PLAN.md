@@ -137,3 +137,10 @@ Der Nutzer bearbeitet die Webdesign-Labore teils mit KI und will den Code trotzd
 - **A – Code in Topos:** `Code` im Satz und Codeblöcke in allen Kurstexten (außer Lückentext), Code-Seiten nur im normalen Lesemodus, Reihenfolge-Aufgaben mit Code-Zeilen. Keine neue Schrift, keine Bibliothek, kein Syntax-Highlighting.
 - **B – Kurs „Webdesign“**, auf Wunsch des Nutzers **fest in die App eingebaut** (kommt mit jedem Update, kein Import): Grundlagen aus den Vorlesungen in eigenen Worten, dazu je Labor die eigene Abgabe erklärt und abgefragt. Keine Folieninhalte und keine persönlichen Daten, weil App und Repo öffentlich sind. Seit 16.11.2026 aufgeteilt: „Webdesign“ (HTML, CSS, später JavaScript – zum Programmieren) und „World Wide Web“ (wie das Web funktioniert).
 - **C – Lernmodus fürs Vibe-Coding:** Regeln für Claude im Arbeitsordner der Labore (erst erklären, kleine Stellen selbst schreiben, vorhersagen, zurückerklären).
+
+## Erweiterung (18.11.2026): Zurückblättern und abwechslungsreiche Wiederholung
+
+Freigegeben vom Nutzer, mit seinen Entscheidungen: Finger von links nach rechts = zurück; in Prüfungen kein Zurück; zurückblättern heißt nur ansehen, nicht neu antworten. Dazu: Wiederholungsrunden kursweise ordnen und die Schilder oben in der Kursfarbe zeigen.
+- **D – Zurückblättern** (Wischen und Pfeil), Wiederholung kursweise, Schilder in Kursfarbe.
+- **E – Fragen-Varianten:** Feld `variants` an einer Frage (gleicher Lernstand, Schlüssel aus der Hauptfrage), bei jeder Wiederholung eine andere Variante; gefestigte Auswahl-/Lückentext-Fragen ab und zu als Karteikarte (freies Abrufen). Keine KI in der App.
+- **F – Varianten** für die eingebauten Kurse schreiben; **G –** für die Studienkurse im privaten Repo `kurse/`.

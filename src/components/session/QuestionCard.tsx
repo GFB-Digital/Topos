@@ -20,6 +20,14 @@ interface Result {
   selected: number | null
 }
 
+/** Alles, was nötig ist, um eine beantwortete Frage beim Zurückblättern genauso wieder zu zeigen */
+export interface QuestionSnapshot {
+  order: number[]
+  result: Result
+  revealed: boolean
+  picked: number[]
+}
+
 const KIND_LABEL: Record<QuestionStep['type'], string> = {
   choice: 'Frage',
   binary: 'Entweder – oder',
@@ -46,6 +54,7 @@ export function QuestionCard({
   context,
   retry,
   exam = false,
+  saved,
   onAnswer,
   onNext,
 }: {
@@ -55,36 +64,46 @@ export function QuestionCard({
   retry: boolean
   /** Prüfung: keine Rückmeldung, nach der Antwort geht es sofort weiter */
   exam?: boolean
-  onAnswer: (correct: boolean) => void
+  /** schon beantwortet (beim Zurückblättern): nur ansehen, nicht neu antworten */
+  saved?: QuestionSnapshot
+  onAnswer: (correct: boolean, snapshot: QuestionSnapshot) => void
   onNext: () => void
 }) {
   // Antworten einmal pro Anzeige mischen
-  const [order] = useState(() =>
-    step.type === 'order'
-      ? scrambled(step.items.length)
-      : step.type === 'truefalse' || step.type === 'recall'
-        ? []
-        : shuffledIndices(step.options.length),
+  const [order] = useState(
+    () =>
+      saved?.order ??
+      (step.type === 'order'
+        ? scrambled(step.items.length)
+        : step.type === 'truefalse' || step.type === 'recall'
+          ? []
+          : shuffledIndices(step.options.length)),
   )
-  const [result, setResult] = useState<Result | null>(null)
+  const [result, setResult] = useState<Result | null>(saved?.result ?? null)
   /** Karteikarte: Antwort aufgedeckt */
-  const [revealed, setRevealed] = useState(false)
+  const [revealed, setRevealed] = useState(saved?.revealed ?? false)
   /** Reihenfolge: bisher gewählte Einträge (Nummern aus `items`) */
-  const [picked, setPicked] = useState<number[]>([])
+  const [picked, setPicked] = useState<number[]>(saved?.picked ?? [])
   const feedbackRef = useRef<HTMLDivElement>(null)
   const actionsRef = useRef<HTMLDivElement>(null)
   const nextRef = useRef<HTMLButtonElement>(null)
   const swipeStart = useRef<number | null>(null)
+  /** Beim Zurückblättern nicht ans Kartenende springen */
+  const restored = useRef(saved !== undefined)
 
-  const finish = (next: Result) => {
+  const finish = (next: Result, revealedNow = revealed) => {
     if (result) return
     setResult(next)
-    onAnswer(next.correct)
+    onAnswer(next.correct, { order, result: next, revealed: revealedNow, picked })
     if (exam) onNext()
   }
 
   useEffect(() => {
     if (!result) return
+    if (restored.current) {
+      restored.current = false
+      return
+    }
     actionsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     nextRef.current?.focus({ preventScroll: true })
   }, [result])
@@ -112,7 +131,7 @@ export function QuestionCard({
 
   const giveUp = () => {
     setRevealed(true)
-    finish({ selected: null, correct: false })
+    finish({ selected: null, correct: false }, true)
   }
 
   useKeydown((event) => {

@@ -18,14 +18,16 @@ interface IconButtonProps {
   onClick: () => void
   /** Beschriftung auch auf schmalen Bildschirmen zeigen */
   showLabel?: boolean
+  disabled?: boolean
 }
 
-export function IconButton({ icon, label, onClick, showLabel = false }: IconButtonProps) {
+export function IconButton({ icon, label, onClick, showLabel = false, disabled = false }: IconButtonProps) {
   return (
     <button
       type="button"
       className={showLabel ? 'icon-btn icon-btn--labeled' : 'icon-btn'}
       onClick={onClick}
+      disabled={disabled}
       aria-label={label}
       title={label}
     >

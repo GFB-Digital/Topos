@@ -160,12 +160,23 @@ export function pickForReview(
     .sort((a, b) => Number(b.exam) - Number(a.exam) || a.r - b.r)
     .slice(0, limit)
     .map(({ ref }) => ref)
-  // Reihenfolge mischen, damit nicht immer derselbe Kurs am Stück kommt
+  // Innerhalb eines Kurses mischen, die Kurse selbst bleiben am Stück
   for (let i = chosen.length - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1))
     ;[chosen[i], chosen[j]] = [chosen[j], chosen[i]]
   }
-  return chosen
+  return groupByCourse(chosen, courses)
+}
+
+/**
+ * Fragen kursweise ordnen (Reihenfolge der Kurse wie in `courses`), damit man
+ * in einer Runde erst einen Kurs, dann den nächsten wiederholt. Innerhalb eines
+ * Kurses bleibt die bisherige Reihenfolge erhalten.
+ */
+export function groupByCourse<T extends { courseId: string }>(refs: T[], courses: Course[]): T[] {
+  const rank = new Map(courses.map((course, i) => [course.id, i]))
+  const position = (ref: T) => rank.get(ref.courseId) ?? courses.length
+  return [...refs].sort((a, b) => position(a) - position(b))
 }
 
 /** Fragen, die schon mehrfach falsch waren – die häufigsten Fehler zuerst */

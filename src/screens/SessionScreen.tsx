@@ -3,7 +3,7 @@ import { ConfirmDialog } from '../components/ConfirmDialog.tsx'
 import { Icon } from '../components/Icon.tsx'
 import { LessonFooter } from '../components/lesson/LessonFooter.tsx'
 import { PageView } from '../components/session/PageView.tsx'
-import { QuestionCard } from '../components/session/QuestionCard.tsx'
+import { QuestionCard, type QuestionSnapshot } from '../components/session/QuestionCard.tsx'
 import { RevealCard } from '../components/session/RevealCard.tsx'
 import { SessionProgress } from '../components/session/SessionProgress.tsx'
 import { IconButton } from '../components/TopBar.tsx'
@@ -13,8 +13,12 @@ import type { Navigation } from '../lib/navigation.ts'
 import {
   advance,
   answer,
+  back,
+  canGoBack,
+  canGoForward,
   firstTryStats,
   isFinished,
+  isRevisit,
   lookupQuestion,
   pendingRetries,
   reviewItems,
@@ -24,10 +28,11 @@ import {
   type TileMode,
 } from '../lib/session.ts'
 import { formatDue } from '../lib/srs.ts'
-import { EXAM, hardCards, pickForExam, pickForReview, planSmartSession } from '../lib/smart.ts'
+import { EXAM, groupByCourse, hardCards, pickForExam, pickForReview, planSmartSession } from '../lib/smart.ts'
 import { addReadingTime, finishReview, finishTile, getAppState, startTile, useAppState, type ReviewResult } from '../lib/store.ts'
 import { currentStreak, dayKey, hasStamp } from '../lib/streak.ts'
 import { isQuestion, type Course, type ReadingMode, type Tile } from '../lib/types.ts'
+import { useSwipe } from '../lib/useSwipe.ts'
 
 export type SessionSpec =
   | { kind: 'tile'; course: Course; tile: Tile; mode: TileMode }
@@ -118,13 +123,37 @@ export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigatio
     window.scrollTo(0, 0)
   }, [session.index])
 
+  /** Beantwortete Fragen je Schritt – damit sie beim Zurückblättern genauso wieder erscheinen */
+  const snapshots = useRef(new Map<number, QuestionSnapshot>())
+  /** Richtung des letzten Wechsels (für die Einblende-Bewegung) */
+  const [direction, setDirection] = useState<'next' | 'back' | 'forward'>('next')
+
   const goNext = () => {
     tick()
+    setDirection('next')
     setSession((s) => advance(s))
   }
 
+  // Zurückblättern: nicht in Prüfungen, und beantwortete Fragen bleiben gewertet
+  const browsable = spec.kind !== 'exam'
+  const backAllowed = browsable && canGoBack(session)
+  const forwardAllowed = browsable && canGoForward(session)
+  const goBack = () => {
+    if (!backAllowed) return
+    tick()
+    setDirection('back')
+    setSession((s) => back(s))
+  }
+  const goForward = () => {
+    if (!forwardAllowed) return
+    tick()
+    setDirection('forward')
+    setSession((s) => advance(s))
+  }
+  const swipe = useSwipe<HTMLElement>({ canBack: backAllowed, canForward: forwardAllowed, onBack: goBack, onForward: goForward })
+
   const requestClose = () => {
-    if (session.index > 0 && !finished) setConfirmClose(true)
+    if (session.furthest > 0 && !finished) setConfirmClose(true)
     else nav.back()
   }
 
@@ -168,6 +197,7 @@ export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigatio
           title={itemTile.title}
           heading={item.kind === 'intro' ? 'Du lernst …' : 'Rückblick'}
           entries={(item.kind === 'intro' ? itemTile.intro : itemTile.recap) ?? []}
+          open={isRevisit(session)}
           onNext={goNext}
         />
       )
@@ -203,12 +233,18 @@ export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigatio
           }
           retry={item.retry}
           exam={spec.kind === 'exam'}
-          onAnswer={(correct) => setSession((s) => answer(s, found.key, correct, spec.kind !== 'exam'))}
+          saved={snapshots.current.get(session.index)}
+          onAnswer={(correct, snapshot) => {
+            snapshots.current.set(session.index, snapshot)
+            setSession((s) => answer(s, found.key, correct, spec.kind !== 'exam'))
+          }}
           onNext={goNext}
         />
       ) : null
     }
   }
+
+  const courseColorOf = (courseId: string) => courseColor(app.courses.find((c) => c.id === courseId) ?? { id: courseId })
 
   // Sollte ein Schritt fehlen (Kurs inzwischen geändert), einfach weiter
   useEffect(() => {
@@ -220,11 +256,26 @@ export function SessionScreen({ spec, nav }: { spec: SessionSpec; nav: Navigatio
       <header className="topbar lesson-topbar">
         <div className="topbar-inner">
           <IconButton icon="close" label="Sitzung schließen" onClick={requestClose} />
-          <SessionProgress items={session.items} index={session.index} retries={pendingRetries(session)} />
+          {browsable && !finished && (
+            <IconButton icon="back" label="Vorheriger Schritt" onClick={goBack} disabled={!backAllowed} />
+          )}
+          <SessionProgress
+            items={session.items}
+            index={session.index}
+            furthest={session.furthest}
+            retries={pendingRetries(session)}
+            colorOf={spec.kind === 'review' ? courseColorOf : undefined}
+          />
         </div>
       </header>
 
-      <main className="lesson-main" aria-label={spec.kind === 'tile' ? spec.tile.title : spec.kind === 'exam' ? 'Prüfung' : spec.title}>
+      <main
+        ref={swipe.ref}
+        {...swipe.handlers}
+        className="lesson-main session-swipe"
+        data-direction={direction}
+        aria-label={spec.kind === 'tile' ? spec.tile.title : spec.kind === 'exam' ? 'Prüfung' : spec.title}
+      >
         {content}
       </main>
 
@@ -422,7 +473,7 @@ export function ReviewSession({
   const [spec] = useState<SessionSpec>(() => {
     const { courses, learn, settings } = getAppState()
     const refs = hard
-      ? hardCards(courses, learn, courseId).slice(0, settings.reviewBatch)
+      ? groupByCourse(hardCards(courses, learn, courseId).slice(0, settings.reviewBatch), courses)
       : pickForReview(courses, learn, Date.now(), settings.reviewBatch, courseId)
     const course = courseId ? courses.find((c) => c.id === courseId) : undefined
     const what = hard ? 'Schwierige Fragen' : 'Wissen stärken'

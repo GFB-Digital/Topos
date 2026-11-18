@@ -12,15 +12,18 @@ export function RevealCard({
   title,
   heading,
   entries,
+  open = false,
   onNext,
 }: {
   eyebrow: string
   title: string
   heading: string
   entries: string[]
+  /** beim Zurückblättern: gleich alles aufgedeckt */
+  open?: boolean
   onNext: () => void
 }) {
-  const [revealed, setRevealed] = useState(0)
+  const [revealed, setRevealed] = useState(open ? entries.length : 0)
   const allOpen = revealed >= entries.length
 
   useKeydown((event) => {
