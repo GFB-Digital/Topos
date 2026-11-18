@@ -42,6 +42,20 @@ export const SAMPLE_COURSE: Course = {
           answer: 0,
           explanation:
             'Sinnlose Silben haben keine Bedeutung. So konnte Ebbinghaus das reine Behalten messen, ohne dass Vorwissen hilft.',
+          variants: [
+            {
+              type: 'choice',
+              question: 'Wie maß Ebbinghaus, wie viel von einer Liste noch im Gedächtnis war?',
+              options: [
+                'Er prüfte, wie viel Zeit er beim erneuten Lernen derselben Liste sparte',
+                'Er zählte, wie viele Silben er spontan aufschreiben konnte',
+                'Er ließ sich von Kollegen abfragen',
+                'Er verglich seine Ergebnisse mit denen anderer Forscher',
+              ],
+              answer: 0,
+              explanation: 'Je mehr Zeit er beim Wiederlernen sparte, desto mehr war offenbar noch da – so wurde Vergessen messbar.',
+            },
+          ],
         },
         {
           type: 'text',
@@ -61,6 +75,15 @@ export const SAMPLE_COURSE: Course = {
           answer: false,
           explanation:
             'Direkt nach dem Lernen geht am meisten verloren. Danach wird das Vergessen immer langsamer.',
+          variants: [
+            {
+              type: 'choice',
+              question: 'Wann geht laut der Vergessenskurve am meisten verloren?',
+              options: ['Direkt nach dem Lernen', 'Nach etwa einer Woche', 'Gleichmäßig über die ganze Zeit', 'Erst nach einem Monat'],
+              answer: 0,
+              explanation: 'Die Kurve fällt anfangs steil ab und flacht dann ab. Was einige Tage überstanden hat, bleibt eher erhalten.',
+            },
+          ],
         },
         {
           type: 'text',
@@ -76,6 +99,14 @@ export const SAMPLE_COURSE: Course = {
           answer: 0,
           explanation:
             'Verteilte Wiederholungen festigen das Gelernte deutlich besser als dieselbe Lernzeit am Stück.',
+          variants: [
+            {
+              type: 'truefalse',
+              statement: 'Soll Wissen lange halten, dürfen die Abstände zwischen den Wiederholungen mit der Zeit größer werden.',
+              answer: true,
+              explanation: 'Genau so arbeiten Lernkarteien und Lern-Apps: Was sitzt, kommt in immer größeren Abständen wieder.',
+            },
+          ],
         },
         {
           type: 'cloze',
@@ -83,6 +114,14 @@ export const SAMPLE_COURSE: Course = {
           options: ['Leitner', 'Ebbinghaus', 'Karpicke'],
           answer: 0,
           explanation: 'Sebastian Leitner beschrieb das System 1972 in seinem Buch „So lernt man lernen“.',
+          variants: [
+            {
+              type: 'truefalse',
+              statement: 'Die Lernkartei mit mehreren Fächern hat Hermann Ebbinghaus erfunden.',
+              answer: false,
+              explanation: 'Sie stammt von Sebastian Leitner (1972). Ebbinghaus hatte schon 1885 das Vergessen gemessen.',
+            },
+          ],
         },
       ],
       recap: [
@@ -119,6 +158,15 @@ export const SAMPLE_COURSE: Course = {
           answer: 0,
           explanation:
             'Kurzfristig half Wiederlesen ein wenig mehr. Langfristig war das Abrufen klar überlegen.',
+          variants: [
+            {
+              type: 'choice',
+              question: 'Wer lag in der Studie von Roediger und Karpicke beim Test nach **fünf Minuten** leicht vorn?',
+              options: ['Die Gruppe, die erneut gelesen hatte', 'Die Gruppe, die sich selbst abgefragt hatte', 'Beide gleich', 'Nach fünf Minuten wurde nicht getestet'],
+              answer: 0,
+              explanation: 'Kurzfristig half Wiederlesen ein wenig. Nach zwei Tagen und nach einer Woche lag die Abruf-Gruppe deutlich vorn.',
+            },
+          ],
         },
         {
           type: 'text',
@@ -134,6 +182,20 @@ export const SAMPLE_COURSE: Course = {
           answer: false,
           explanation:
             'Wiederlesen erzeugt ein Gefühl von Vertrautheit. Deshalb überschätzt man leicht, wie viel man später noch weiß.',
+          variants: [
+            {
+              type: 'choice',
+              question: 'Wie schätzten Studierende, die nur wiedergelesen hatten, ihr eigenes Wissen ein?',
+              options: [
+                'Höher – und schnitten später trotzdem schlechter ab',
+                'Niedriger – und schnitten später besser ab',
+                'Genau richtig',
+                'Genauso wie die Abruf-Gruppe',
+              ],
+              answer: 0,
+              explanation: 'Der vertraute Text fühlte sich wie Wissen an. Im späteren Test zeigte sich, dass es keines war.',
+            },
+          ],
         },
         {
           type: 'text',
@@ -154,6 +216,15 @@ export const SAMPLE_COURSE: Course = {
           answer: 0,
           explanation:
             'Nur beim Aufschreiben aus dem Gedächtnis rufst du das Wissen aktiv ab. Markieren, Wiederlesen und Abschreiben bleiben passiv.',
+          variants: [
+            {
+              type: 'binary',
+              question: 'Du lernst mit Karteikarten. Was nutzt den Testeffekt?',
+              options: ['Die Antwort erst aussprechen, dann die Karte umdrehen', 'Die Karte gleich umdrehen und die Antwort lesen'],
+              answer: 0,
+              explanation: 'Nur wenn du die Antwort zuerst selbst abrufst, wirkt der Testeffekt. Gleich umdrehen ist bloßes Lesen.',
+            },
+          ],
         },
         {
           type: 'cloze',
@@ -161,6 +232,14 @@ export const SAMPLE_COURSE: Course = {
           options: ['Testeffekt', 'Abstandseffekt', 'Vergessenskurve'],
           answer: 0,
           explanation: 'Der Testeffekt: Sich selbst abzufragen ist selbst ein Lernvorgang.',
+          variants: [
+            {
+              type: 'truefalse',
+              statement: 'Abrufen prüft nur, was man schon gelernt hat – dabei selbst lernt man nichts.',
+              answer: false,
+              explanation: 'Der Abruf verändert das Gedächtnis: Die Erinnerung wird gefestigt und lässt sich später leichter wiederfinden.',
+            },
+          ],
         },
         {
           type: 'order',
@@ -172,11 +251,33 @@ export const SAMPLE_COURSE: Course = {
             'Nach einer Woche erinnert sich die Abruf-Gruppe deutlich besser',
           ],
           explanation: 'Kurzfristig wirkt Wiederlesen etwas besser, langfristig ist das Abrufen klar überlegen.',
+          variants: [
+            {
+              type: 'choice',
+              question: 'Was tat die Abruf-Gruppe in der Studie nach dem ersten Lesen?',
+              options: [
+                'Sie schrieb ohne Vorlage auf, woran sie sich erinnerte',
+                'Sie las den Text ein zweites Mal',
+                'Sie beantwortete benotete Auswahlfragen',
+                'Sie fasste den Text mit Vorlage zusammen',
+              ],
+              answer: 0,
+              explanation: 'Ein Test ohne Note und ohne Rückmeldung: einfach aufschreiben, was man noch weiß.',
+            },
+          ],
         },
         {
           type: 'recall',
           question: 'Warum überschätzt man nach bloßem Wiederlesen leicht, wie viel man weiß?',
           answer: 'Weil der Text vertraut wirkt. Vertrautheit fühlt sich wie Wissen an, ist aber nicht dasselbe wie Erinnern.',
+          variants: [
+            {
+              type: 'truefalse',
+              statement: 'Wenn ein Text beim zweiten Lesen vertraut wirkt, kann man ihn meist auch ohne Vorlage wiedergeben.',
+              answer: false,
+              explanation: 'Vertrautheit ist nicht dasselbe wie Erinnern. Ob man etwas weiß, zeigt erst der Abruf ohne Vorlage.',
+            },
+          ],
           explanation:
             'Eine Karteikarte wie diese nutzt den Testeffekt besonders stark: Du rufst die Antwort frei ab, statt sie nur unter Vorgaben wiederzuerkennen.',
         },
@@ -207,6 +308,15 @@ export const SAMPLE_COURSE: Course = {
           answer: 0,
           explanation:
             'Während der Sprünge wird kaum etwas wahrgenommen. Gelesen wird in den kurzen Ruhephasen dazwischen.',
+          variants: [
+            {
+              type: 'cloze',
+              text: 'Die schnellen Sprünge der Augen beim Lesen heißen ___.',
+              options: ['Sakkaden', 'Fixationen', 'Regressionen'],
+              answer: 0,
+              explanation: 'Sakkaden sind die Sprünge, Fixationen die kurzen Ruhephasen dazwischen, in denen wir lesen.',
+            },
+          ],
         },
         {
           type: 'text',
@@ -221,6 +331,20 @@ export const SAMPLE_COURSE: Course = {
           answer: true,
           explanation:
             'Genau das bedeutet RSVP: Die Wörter kommen zu den Augen, statt dass die Augen über die Zeile springen.',
+          variants: [
+            {
+              type: 'choice',
+              question: 'Warum steht der rote Buchstabe etwas links der Wortmitte?',
+              options: [
+                'Dort erkennen wir Wörter am schnellsten',
+                'Weil deutsche Wörter vorne wichtiger sind',
+                'Damit lange Wörter auf den Bildschirm passen',
+                'Weil Rot links besser zu sehen ist',
+              ],
+              answer: 0,
+              explanation: 'Diese optimale Betrachtungsposition hat u. a. Kevin O’Regan untersucht.',
+            },
+          ],
         },
         {
           type: 'text',
@@ -241,6 +365,14 @@ export const SAMPLE_COURSE: Course = {
           answer: 0,
           explanation:
             'Verstehen braucht Zeit. Wer deutlich schneller liest, versteht und behält in der Regel weniger.',
+          variants: [
+            {
+              type: 'truefalse',
+              statement: 'Die meiste Lesezeit steckt in den Augenbewegungen – deshalb macht RSVP das Lesen ohne Nachteil schneller.',
+              answer: false,
+              explanation: 'Die meiste Zeit kostet das Verstehen. Das lässt sich nicht beliebig beschleunigen – bei hohem Tempo sinkt das Verständnis.',
+            },
+          ],
         },
         {
           type: 'binary',
@@ -248,6 +380,15 @@ export const SAMPLE_COURSE: Course = {
           options: ['Angenehmes Tempo, an schweren Stellen bremsen', 'So schnell wie möglich – Hauptsache durch'],
           answer: 0,
           explanation: 'Bei Lernstoff zählt das Verstehen. Zu hohes Tempo kostet Verständnis.',
+          variants: [
+            {
+              type: 'choice',
+              question: 'Wie viele Wörter pro Minute lesen Erwachsene still meist?',
+              options: ['200 bis 300', '50 bis 100', '600 bis 800', 'Über 1000'],
+              answer: 0,
+              explanation: 'Das ist auch ein guter Ausgangspunkt für den Speed-Reader – an schwierigen Stellen lieber bremsen.',
+            },
+          ],
         },
       ],
       recap: [

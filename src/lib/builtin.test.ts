@@ -75,8 +75,8 @@ describe('Eingebaute Kurse Webdesign und World Wide Web', () => {
     }
   })
 
-  it('jede Webdesign-Frage hat eine Variante, die anders fragt', () => {
-    for (const tile of WEBDESIGN_COURSE.tiles) {
+  it('jede Frage der eingebauten Kurse hat eine Variante, die anders fragt', () => {
+    for (const tile of [SAMPLE_COURSE, ...COURSES].flatMap((course) => course.tiles)) {
       for (const { step } of tileQuestions(tile)) {
         assert.ok(step.variants?.length, `${tile.id}: „${questionText(step).slice(0, 40)}“ ohne Variante`)
         for (const variant of step.variants ?? []) {

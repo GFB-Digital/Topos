@@ -22,6 +22,15 @@ export const WEB_TILES: Tile[] = [
         statement: 'E-Mail ist ein Teil des World Wide Web.',
         answer: false,
         explanation: 'E-Mail ist ein eigener Dienst im Internet, genau wie das Web. Beide nutzen das Internet, sind aber verschiedene Dienste.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welches davon nutzt zwar das Internet, gehört aber **nicht** zum World Wide Web?',
+            options: ['Dateiübertragung per FTP', 'Eine Webseite im Browser', 'Ein Link von einer Seite zur nächsten', 'Eine per HTTP geladene Bilddatei'],
+            answer: 0,
+            explanation: 'FTP ist ein eigener Dienst im Internet. Seiten, Links und per HTTP geladene Dateien gehören zum Web.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -42,6 +51,14 @@ export const WEB_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'Hypertext liest man nicht linear wie ein Buch, sondern springt über Links von Dokument zu Dokument.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Hypertext liest man wie ein Buch von vorne nach hinten.',
+            answer: false,
+            explanation: 'Gerade nicht: Über Links springt man zwischen Texten hin und her.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -59,11 +76,29 @@ export const WEB_TILES: Tile[] = [
         question: 'Ordne zu: erst die Adresse, dann der Transport, dann der Inhalt einer Seite.',
         items: ['URI', 'HTTP', 'HTML'],
         explanation: 'Der Browser braucht zuerst die Adresse (URI), fragt dann per HTTP an und bekommt als Antwort meistens HTML.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welcher der drei Kernstandards regelt, wie der Browser eine Seite beim Server anfragt?',
+            options: ['HTTP', 'HTML', 'URI', 'CSS'],
+            answer: 0,
+            explanation: 'HTTP ist das Protokoll für Anfrage und Antwort. HTML ist der Inhalt, die URI die Adresse.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Wofür stehen HTML, HTTP und URI – und was macht jeder dieser Standards?',
         answer: 'HTML beschreibt den Inhalt einer Seite, HTTP regelt Anfrage und Antwort zwischen Browser und Server, die URI ist die eindeutige Adresse einer Ressource.',
+        variants: [
+          {
+            type: 'cloze',
+            text: 'Merksatz: HTML ist der Inhalt, HTTP der Transport, die ___ die Adresse.',
+            options: ['URI', 'DNS', 'IP'],
+            answer: 0,
+            explanation: 'Die URI gibt jeder Ressource eine eindeutige Adresse – ohne sie könnte man nichts verlinken.',
+          },
+        ],
       },
     ],
     recap: [
@@ -92,6 +127,15 @@ export const WEB_TILES: Tile[] = [
         options: ['Die Verbindung ist verschlüsselt', 'Die Seite ist statisch', 'Der Server ist schnell', 'Es ist eine sichere Domain'],
         answer: 0,
         explanation: 'HTTPS ist HTTP über eine verschlüsselte Verbindung. Wer mitliest, sieht nur Datensalat.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Jemand liest die Übertragung einer Seite über `http://` (ohne s) mit. Was sieht er?',
+            options: ['Den Inhalt im Klartext', 'Nur Datensalat'],
+            answer: 0,
+            explanation: 'Ohne s ist nichts verschlüsselt. Erst HTTPS macht die Übertragung für Mitleser unlesbar.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -108,6 +152,15 @@ export const WEB_TILES: Tile[] = [
         question: 'Bring die Teile der URI in die richtige Reihenfolge.',
         items: ['Schema `https://`', 'Host `hs-flensburg.de`', 'Pfad `/hochschule/personen`', 'Query `?lang=de`', 'Fragment `#lehre`'],
         explanation: 'Schema, Host (mit Port), Pfad, Query, Fragment – in dieser Reihenfolge steht es immer.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was ist in `https://beispiel.de/shop/schuhe?farbe=rot` die Query?',
+            options: ['`?farbe=rot`', '`/shop/schuhe`', '`beispiel.de`', '`https`'],
+            answer: 0,
+            explanation: 'Die Query beginnt mit dem Fragezeichen. Davor stehen Schema, Host und Pfad.',
+          },
+        ],
       },
       {
         type: 'cloze',
@@ -115,6 +168,15 @@ export const WEB_TILES: Tile[] = [
         options: ['443', '80', '8080'],
         answer: 0,
         explanation: 'HTTPS nutzt standardmäßig Port 443, unverschlüsseltes HTTP Port 80.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welcher Port wird bei `http://beispiel.de` genutzt, wenn keiner angegeben ist?',
+            options: ['80', '443', '8080', '21'],
+            answer: 0,
+            explanation: 'Unverschlüsseltes HTTP nutzt standardmäßig Port 80, HTTPS Port 443.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -130,6 +192,15 @@ export const WEB_TILES: Tile[] = [
         options: ['Das Fragment `#abschnitt`', 'Die Query `?abschnitt`'],
         answer: 0,
         explanation: 'Das Fragment nach dem # zeigt auf einen Teil der Seite. Die Query nach dem ? übergibt Parameter an den Server.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welcher Teil der URI übergibt Parameter wie `lang=de` an den Server?',
+            options: ['Die Query nach dem `?`', 'Das Fragment nach dem `#`', 'Der Pfad nach dem `/`', 'Das Schema vor dem `:`'],
+            answer: 0,
+            explanation: 'Parameter stehen in der Query. Das Fragment zeigt nur auf einen Teil der Seite.',
+          },
+        ],
       },
     ],
     recap: [
@@ -162,6 +233,14 @@ export const WEB_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'Das DNS ist das Telefonbuch: Name rein, IP-Adresse raus.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Kennt man die IP-Adresse eines Servers, kann man ihn auch ohne DNS erreichen.',
+            answer: true,
+            explanation: 'Das DNS liefert nur die Übersetzung vom Namen zur IP-Adresse. Wer die IP schon kennt, braucht diesen Schritt nicht.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -178,6 +257,15 @@ export const WEB_TILES: Tile[] = [
         options: ['MX', 'A'],
         answer: 0,
         explanation: 'MX steht für „Mail Exchange“ und nennt die Mailserver. Der A-Record nennt die IPv4-Adresse des Webservers.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welcher Record enthält die IPv6-Adresse eines Servers?',
+            options: ['AAAA', 'A', 'MX', 'CNAME'],
+            answer: 0,
+            explanation: 'A steht für IPv4, AAAA für das längere IPv6.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -192,11 +280,34 @@ export const WEB_TILES: Tile[] = [
         question: 'In welcher Reihenfolge fragt der Resolver bei einer neuen Domain nach?',
         items: ['Root-Server', 'Server der Top-Level-Domain (.de)', 'Autoritativer DNS-Server der Domain'],
         explanation: 'Von oben nach unten: Root kennt .de, .de kennt den zuständigen Server, der kennt die IP.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Warum muss nicht jede DNS-Anfrage bis zu einem Root-Server hinauf?',
+            options: [
+              'DNS-Server speichern Antworten eine Zeit lang zwischen',
+              'Der Browser kennt alle IP-Adressen auswendig',
+              'Root-Server werden nur einmal im Jahr gefragt',
+              'Jede Domain enthält ihre IP-Adresse im Namen',
+            ],
+            answer: 0,
+            explanation: 'Dank Caching kennen Resolver häufige Antworten schon und müssen die Kette nicht jedes Mal neu durchlaufen.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist ein A-Record und was ein NS-Record?',
         answer: 'Ein A-Record enthält die IPv4-Adresse eines Servers. Ein NS-Record nennt den autoritativen DNS-Server, der für die Domain zuständig ist.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Ein Eintrag sagt: `www.beispiel.de` ist ein anderer Name für `beispiel.de`. Welcher Record ist das?',
+            options: ['CNAME', 'NS'],
+            answer: 0,
+            explanation: 'CNAME ist ein Alias, also ein anderer Name. NS nennt den zuständigen DNS-Server.',
+          },
+        ],
       },
     ],
     recap: [
@@ -228,6 +339,15 @@ export const WEB_TILES: Tile[] = [
           'Browser setzt die Pakete zusammen und zeigt die Seite',
         ],
         explanation: 'Erst die Adresse auflösen, dann anfragen, dann antworten, dann anzeigen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Protokolle übernehmen beim Seitenaufruf den eigentlichen Transport der Datenpakete?',
+            options: ['TCP/IP', 'HTML', 'DNS', 'CSS'],
+            answer: 0,
+            explanation: 'HTTP legt fest, was gefragt und geantwortet wird; TCP/IP sorgt dafür, dass die Pakete ankommen.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -244,6 +364,15 @@ export const WEB_TILES: Tile[] = [
         statement: 'Ein HTTP-Server merkt sich von selbst, welche Seiten ein Browser vorher abgerufen hat.',
         answer: false,
         explanation: 'HTTP ist zustandslos: Jede Anfrage steht für sich. Damit der Server einen Browser wiedererkennt, braucht es zum Beispiel Cookies.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Du rufst zwei Seiten desselben Shops nacheinander auf. Woran erkennt der Server, dass beide Anfragen von dir kommen?',
+            options: ['An einem Cookie, das dein Browser mitschickt', 'HTTP merkt sich das von selbst'],
+            answer: 0,
+            explanation: 'HTTP ist zustandslos. Erst das mitgeschickte Cookie verbindet die Anfragen.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -261,11 +390,29 @@ export const WEB_TILES: Tile[] = [
         options: ['404', '200', '500', '301'],
         answer: 0,
         explanation: '404 heißt „Not Found“. 500 wäre ein Fehler im Server selbst, 301 eine Umleitung.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Im Programm auf dem Server tritt ein Fehler auf. Welchen Statuscode schickt er?',
+            options: ['500', '404', '403', '200'],
+            answer: 0,
+            explanation: '5xx heißt: Fehler beim Server. 404 wäre „nicht gefunden“, 403 „verboten“.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was bedeutet „HTTP ist zustandslos“?',
         answer: 'Der Server merkt sich nach einer Antwort nichts über den Client. Jede Anfrage wird für sich behandelt; Wiedererkennung braucht z. B. Cookies.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was steht im Rumpf (Body) einer HTTP-Antwort?',
+            options: ['Die eigentlichen Daten, z. B. das HTML', 'Der Statuscode', 'Die Cookies', 'Die IP-Adresse des Servers'],
+            answer: 0,
+            explanation: 'Statuscode, Format und Cookies stehen im Kopf. Der Rumpf nach der Leerzeile enthält die Daten.',
+          },
+        ],
       },
     ],
     recap: [
@@ -294,6 +441,15 @@ export const WEB_TILES: Tile[] = [
         options: ['POST', 'GET', 'DELETE', 'HEAD'],
         answer: 0,
         explanation: 'POST überträgt Daten an den Server, zum Beispiel Formulareingaben.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Mit welcher Methode bittet ein Client den Server, eine Ressource zu löschen?',
+            options: ['DELETE', 'POST', 'GET', 'HEAD'],
+            answer: 0,
+            explanation: 'DELETE löscht – sofern der Client das darf. GET liest, POST schickt Daten, HEAD holt nur den Kopf.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -308,6 +464,20 @@ export const WEB_TILES: Tile[] = [
         statement: 'Cookies werden vom Browser bei jeder weiteren Anfrage an denselben Server mitgeschickt.',
         answer: true,
         explanation: 'Genau dadurch kann der Server den Browser wiedererkennen, obwohl HTTP selbst zustandslos ist.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was steht in einem Session-Cookie oft nur drin?',
+            options: [
+              'Eine ID, zu der der Server Daten in seiner Datenbank speichert',
+              'Dein Passwort im Klartext',
+              'Die ganze zuletzt besuchte Seite',
+              'Die IP-Adresse des Servers',
+            ],
+            answer: 0,
+            explanation: 'Der Browser muss den Inhalt nicht verstehen. Die ID genügt, damit der Server weiß, wer du bist und z. B. dass du eingeloggt bist.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -325,11 +495,28 @@ export const WEB_TILES: Tile[] = [
         options: ['`-i`', '`-X`'],
         answer: 0,
         explanation: '`-i` gibt den Kopf der Antwort mit aus. `-X` wählt nur die Methode, zum Beispiel GET.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was bewirkt `-X GET` in `curl -i -X GET https://hs-flensburg.de`?',
+            options: ['Es wählt die HTTP-Methode GET', 'Es zeigt die Header an', 'Es speichert die Seite als Datei', 'Es folgt Umleitungen'],
+            answer: 0,
+            explanation: '-X legt die Methode fest. Die Header zeigt -i, Umleitungen folgt curl erst mit -L.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Warum siehst du im Netzwerk-Reiter der Entwicklerwerkzeuge beim Aufruf einer einzigen Seite viele Anfragen?',
         answer: 'Die HTML-Seite verweist auf weitere Dateien wie CSS, Bilder, Schriften und Skripte. Der Browser lädt jede davon mit einer eigenen Anfrage.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Bilder und CSS-Dateien einer Seite kommen in derselben HTTP-Antwort wie das HTML.',
+            answer: false,
+            explanation: 'Jede Datei wird mit einer eigenen Anfrage geladen – deshalb stehen im Netzwerk-Reiter so viele Einträge.',
+          },
+        ],
       },
     ],
     recap: [
@@ -358,6 +545,15 @@ export const WEB_TILES: Tile[] = [
         options: ['Eine statische Seite', 'Eine dynamische Seite'],
         answer: 0,
         explanation: 'Statisch heißt: Die Dateien liegen fertig auf dem Server und werden unverändert ausgeliefert.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Ein Onlineshop erzeugt jede Seite beim Aufruf auf dem Server neu aus seiner Datenbank. Was ist sie?',
+            options: ['Eine dynamische Seite', 'Eine statische Seite'],
+            answer: 0,
+            explanation: 'Wird die Seite bei jeder Anfrage neu erzeugt, ist sie dynamisch – das passiert im Backend.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -379,6 +575,15 @@ export const WEB_TILES: Tile[] = [
           'Pixel auf den Bildschirm malen (Paint)',
         ],
         explanation: 'Erst laden, dann den Baum bauen, dann die Styles zuordnen, dann das Layout berechnen und zuletzt malen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was berechnet der Browser im Schritt **Layout**?',
+            options: ['Größe und Position jedes Elements', 'Die Farbe jedes Pixels', 'Den DOM-Baum aus dem HTML', 'Welche Dateien er nachladen muss'],
+            answer: 0,
+            explanation: 'Layout heißt: Wo steht was, wie groß ist es? Die Pixel malt erst der nächste Schritt, Paint.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -395,17 +600,43 @@ export const WEB_TILES: Tile[] = [
         options: ['JavaScript', 'HTML', 'CSS', 'HTTP'],
         answer: 0,
         explanation: 'Verhalten bei Klicks ist die Aufgabe von JavaScript. (Für einfache Fälle gibt es auch reine CSS-Tricks, etwa mit einer versteckten Checkbox.)',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Sprache legt fest, in welcher Farbe und Schrift eine Überschrift erscheint?',
+            options: ['CSS', 'HTML', 'JavaScript', 'HTTP'],
+            answer: 0,
+            explanation: 'Aussehen ist Sache von CSS. HTML sagt nur, dass es eine Überschrift ist.',
+          },
+        ],
       },
       {
         type: 'truefalse',
         statement: 'HTML ist im engeren Sinn eine Programmiersprache.',
         answer: false,
         explanation: 'HTML ist eine Auszeichnungssprache: Es beschreibt Struktur, kennt aber keine Variablen, Bedingungen oder Schleifen. Das kann erst JavaScript.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche der drei Sprachen kennt Variablen, Bedingungen und Schleifen?',
+            options: ['JavaScript', 'HTML', 'CSS', 'Alle drei'],
+            answer: 0,
+            explanation: 'HTML (Auszeichnung) und CSS (Stylesheets) beschreiben nur. Schritt-für-Schritt-Abläufe kann erst JavaScript.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist das DOM?',
         answer: 'Der Baum aus Knoten, den der Browser aus dem HTML im Speicher aufbaut. CSS wird darauf angewendet, und JavaScript kann ihn lesen und verändern.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'JavaScript kann den DOM-Baum verändern, während die Seite schon angezeigt wird.',
+            answer: true,
+            explanation: 'Genau so entstehen z. B. aufklappende Menüs: JavaScript ändert den DOM, der Browser zeichnet neu.',
+          },
+        ],
       },
     ],
     recap: [
