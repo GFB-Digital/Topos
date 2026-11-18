@@ -24,6 +24,15 @@ export const CSS_TILES: Tile[] = [
         options: ['`font-size`', '`h1`', '`2rem`', '`{ }`'],
         answer: 0,
         explanation: 'h1 ist der Selektor, font-size die Eigenschaft, 2rem der Wert.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was ist in dieser Regel der Wert?\n\n' + code('css', 'nav { background-color: navy; }'),
+            options: ['`navy`', '`background-color`', '`nav`', '`;`'],
+            answer: 0,
+            explanation: 'nav ist der Selektor, background-color die Eigenschaft, navy der Wert.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -40,6 +49,14 @@ export const CSS_TILES: Tile[] = [
         options: ['Im `head`', 'Am Ende nach `</body>`'],
         answer: 0,
         explanation: 'link-Elemente für Stylesheets gehören in den head. Nach dem body darf nichts mehr stehen.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Ein `<style>`-Element darf nach `</body>` stehen, weil der Browser es trotzdem anwendet.',
+            answer: false,
+            explanation: 'Dass der Browser es oft trotzdem anwendet, macht den Code nicht richtig. style gehört in den head.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -57,11 +74,28 @@ export const CSS_TILES: Tile[] = [
         options: ['Punkt `.`', 'Rautezeichen `#`', 'Sternchen `*`'],
         answer: 0,
         explanation: '`.name` wählt eine Klasse, `#name` eine ID, `*` alle Elemente.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welcher Selektor trifft `<div id="kopf">`?',
+            options: ['`#kopf`', '`.kopf`', '`kopf`', '`*kopf`'],
+            answer: 0,
+            explanation: 'Eine ID wählst du mit #. `.kopf` würde eine Klasse suchen, `kopf` ein Element namens kopf.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist der Unterschied zwischen einer Klasse und einer ID?',
         answer: 'Eine Klasse (Selektor .name) darf beliebig oft vorkommen und ein Element kann mehrere haben. Eine ID (Selektor #name) ist auf der Seite eindeutig.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Ein Element kann mehrere Klassen gleichzeitig haben, z. B. `class="hinweis gross"`.',
+            answer: true,
+            explanation: 'Klassen werden durch Leerzeichen getrennt. Dann gelten die Regeln für .hinweis und für .gross.',
+          },
+        ],
       },
     ],
     recap: [
@@ -90,6 +124,15 @@ export const CSS_TILES: Tile[] = [
         options: ['Blau, halb durchsichtig', 'Rot, halb durchsichtig', 'Blau, halb so hell', 'Grün mit 50 % Sättigung'],
         answer: 0,
         explanation: 'Die Werte sind Rot, Grün, Blau, Deckkraft. 0, 0, 255 ist reines Blau, 0.5 heißt halb durchsichtig.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Farbe ergibt `rgb(0, 255, 0)`?',
+            options: ['Grün', 'Rot', 'Blau', 'Schwarz'],
+            answer: 0,
+            explanation: 'Die Reihenfolge ist Rot, Grün, Blau – hier ist nur der Grün-Kanal voll.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -107,6 +150,15 @@ export const CSS_TILES: Tile[] = [
         options: ['`rem`', '`em`'],
         answer: 0,
         explanation: 'rem = root em, bezieht sich immer auf html. em hängt vom jeweiligen Elternelement ab und kann sich beim Verschachteln aufschaukeln.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Das Elternelement hat `font-size: 20px`. Wie groß ist darin ein Text mit `font-size: 1.5em`?',
+            options: ['30 px', '20 px', '15 px', '24 px'],
+            answer: 0,
+            explanation: 'em bezieht sich auf die Schriftgröße des Elternelements: 1,5 × 20 px = 30 px.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -123,11 +175,29 @@ export const CSS_TILES: Tile[] = [
         question: 'In welcher Reihenfolge stehen die Werte bei `text-shadow`?',
         items: ['horizontaler Versatz', 'vertikaler Versatz', 'Unschärfe (Blur)', 'Farbe'],
         explanation: 'Beispiel: `text-shadow: 2px 2px 4px gray;` – erst x, dann y, dann Unschärfe, dann Farbe.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was legt der dritte Wert in `text-shadow: 3px 1px 6px black;` fest?',
+            options: ['Die Unschärfe', 'Den senkrechten Versatz', 'Die Schriftgröße', 'Den waagerechten Versatz'],
+            answer: 0,
+            explanation: 'Erst waagerechter, dann senkrechter Versatz, dann Unschärfe (hier 6px), zuletzt die Farbe.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Warum schreibt man bei `font-family` mehrere Schriften und am Ende z. B. `sans-serif`?',
         answer: 'Der Browser nimmt die erste verfügbare Schrift der Liste. Die allgemeine Familie am Ende ist der Rückfall, falls keine der genannten Schriften vorhanden ist.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Bei `font-family: Verdana, Arial, sans-serif;` fehlt Verdana auf dem Gerät, Arial ist vorhanden. Welche Schrift erscheint?',
+            options: ['Arial', 'Verdana', 'Irgendeine serifenlose Schrift', 'Die Standardschrift des Browsers'],
+            answer: 0,
+            explanation: 'Der Browser geht die Liste von vorn durch und nimmt die erste vorhandene Schrift. sans-serif käme erst, wenn auch Arial fehlt.',
+          },
+        ],
       },
     ],
     recap: [
@@ -156,6 +226,20 @@ export const CSS_TILES: Tile[] = [
         options: ['`footer p`', '`footer > p`'],
         answer: 0,
         explanation: 'Mit Leerzeichen zählen alle Nachfahren. `>` verlangt, dass p ein direktes Kind von footer ist – hier liegt die section dazwischen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Elemente trifft `nav > a`?',
+            options: [
+              'Nur Links, die direkt im nav stehen',
+              'Alle Links irgendwo im nav',
+              'Den ersten Link nach einem nav',
+              'Alle nav-Elemente, die einen Link enthalten',
+            ],
+            answer: 0,
+            explanation: '`>` verlangt ein direktes Kind. Ein Link in einem li innerhalb von nav wird also nicht getroffen – dafür bräuchte es `nav a`.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -172,6 +256,15 @@ export const CSS_TILES: Tile[] = [
         options: ['Das zweite aside', 'Das erste aside', 'Nichts, weil aside nicht das letzte Kind ist', 'Beide aside'],
         answer: 0,
         explanation: 'last-of-type zählt nur die aside-Geschwister. Das letzte davon ist das zweite aside – auch wenn danach noch andere Elemente kämen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'In einer Liste stehen fünf `li`. Welche trifft `li:nth-child(2n)`?',
+            options: ['Das zweite und das vierte', 'Das erste, dritte und fünfte', 'Nur das zweite', 'Alle ab dem zweiten'],
+            answer: 0,
+            explanation: '2n heißt 2, 4, 6 … – also jedes zweite li, beginnend beim zweiten.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -188,11 +281,28 @@ export const CSS_TILES: Tile[] = [
         options: ['zwei Doppelpunkte', 'ein Rautezeichen', 'eckige Klammern'],
         answer: 0,
         explanation: 'Ein Doppelpunkt für Zustände und Positionen, zwei für Teile wie ::before, ::after oder ::first-letter.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: '`a:hover` ist ein Pseudo-Element.',
+            answer: false,
+            explanation: 'hover beschreibt einen Zustand – eine Pseudo-Klasse mit einem Doppelpunkt. Pseudo-Elemente wie ::before haben zwei.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist der Unterschied zwischen `li:first-child` und `li:first-of-type`?',
         answer: 'first-child trifft ein li nur, wenn es das allererste Kind seines Elternelements ist. first-of-type trifft das erste li unter seinen Geschwistern, auch wenn davor andere Elemente stehen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was trifft `p:first-child` hier?\n\n' + code('html', '<section>', '  <h2>Titel</h2>', '  <p>Eins</p>', '  <p>Zwei</p>', '</section>'),
+            options: ['Nichts – das erste Kind ist das h2', 'Den Absatz „Eins“', 'Den Absatz „Zwei“', 'Beide Absätze'],
+            answer: 0,
+            explanation: 'first-child verlangt, dass das p das allererste Kind ist. Hier steht das h2 davor. `p:first-of-type` würde „Eins“ treffen.',
+          },
+        ],
       },
     ],
     recap: [
@@ -221,6 +331,15 @@ export const CSS_TILES: Tile[] = [
         statement: 'Bei zwei gleich spezifischen Regeln gewinnt die, die weiter oben im CSS steht.',
         answer: false,
         explanation: 'Umgekehrt: Bei gleicher Spezifität gewinnt die Regel, die später kommt.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Farbe haben die Absätze?\n\n' + code('css', 'p { color: blue; }', 'p { color: green; }'),
+            options: ['Grün', 'Blau', 'Eine Mischfarbe', 'Schwarz'],
+            answer: 0,
+            explanation: 'Beide Selektoren sind gleich spezifisch, also gewinnt die spätere Regel.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -239,6 +358,15 @@ export const CSS_TILES: Tile[] = [
         options: ['Rot', 'Blau', 'Grün', 'Schwarz'],
         answer: 0,
         explanation: 'Der ID-Selektor ist am spezifischsten und gewinnt, obwohl die anderen Regeln später kommen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Farbe hat der Absatz?\n\n' + code('html', '<p class="hinweis">Achtung</p>') + '\n\n' + code('css', '.hinweis { color: orange; }', 'p { color: gray; }'),
+            options: ['Orange', 'Grau', 'Schwarz'],
+            answer: 0,
+            explanation: 'Der Klassen-Selektor ist spezifischer als der Typ-Selektor – dass `p` später steht, hilft ihm nicht.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -255,11 +383,28 @@ export const CSS_TILES: Tile[] = [
         options: ['Nein, border wird nicht vererbt', 'Ja, alle Kinder erben den Rahmen'],
         answer: 0,
         explanation: 'Box-Eigenschaften wie border, margin und padding werden nicht vererbt – Texteigenschaften wie color und font-family schon.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Du setzt `color: navy` am body. Werden die Absätze darin auch dunkelblau?',
+            options: ['Ja, color wird vererbt', 'Nein, Farben werden nicht vererbt'],
+            answer: 0,
+            explanation: 'Texteigenschaften wie color werden vererbt – solange kein Absatz eine eigene Farbe bekommt.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Nenne die Rangfolge der Selektoren nach Spezifität und was bei Gleichstand entscheidet.',
         answer: 'ID schlägt Klasse, Klasse schlägt Typ (mehr Klassen schlagen weniger). Bei gleicher Spezifität gewinnt die Regel, die später steht.',
+        variants: [
+          {
+            type: 'order',
+            question: 'Ordne die Selektoren nach Spezifität, vom stärksten zum schwächsten.',
+            items: ['`#start`', '`.titel.gross`', '`.titel`', '`h1`'],
+            explanation: 'Die ID gewinnt, dann zwei Klassen vor einer Klasse, der Typ-Selektor ist am schwächsten.',
+          },
+        ],
       },
     ],
     recap: [
@@ -289,6 +434,15 @@ export const CSS_TILES: Tile[] = [
         options: ['So breit wie sein Elternelement', 'So breit wie sein Text'],
         answer: 0,
         explanation: 'p ist ein Block-Element und nimmt die volle Breite ein. Nur Inline-Elemente sind so breit wie ihr Inhalt.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Wie breit ist ein `<a>`-Element ohne CSS?',
+            options: ['So breit wie sein Text', 'So breit wie sein Elternelement'],
+            answer: 0,
+            explanation: 'a ist ein Inline-Element: Es steht im Textfluss und ist nur so breit wie sein Inhalt.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -305,6 +459,15 @@ export const CSS_TILES: Tile[] = [
         question: 'Bring die Schichten der Box in die Reihenfolge von innen nach außen.',
         items: ['Inhalt', 'padding', 'border', 'margin'],
         explanation: 'Innen der Inhalt, dann der Innenabstand, dann der Rahmen, außen der Abstand zu den Nachbarn.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Bis wohin reicht die Hintergrundfarbe eines Elements?',
+            options: ['Bis zum Rahmen, also auch unter das padding', 'Nur unter den Inhalt', 'Bis in den margin hinein', 'Nur unter den Rahmen'],
+            answer: 0,
+            explanation: 'Der Hintergrund liegt unter Inhalt, padding und Rahmen. Der margin bleibt durchsichtig.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -322,11 +485,34 @@ export const CSS_TILES: Tile[] = [
         options: ['230 px', '200 px', '215 px', '210 px'],
         answer: 0,
         explanation: 'Bei content-box kommen padding und border links und rechts dazu: 200 + 2 × 10 + 2 × 5 = 230 px. Mit border-box wären es genau 200 px.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Ein Element hat `width: 300px; padding: 20px; border: 2px solid;` und `box-sizing: border-box`. Wie breit ist es insgesamt?',
+            options: ['300 px', '344 px', '340 px', '322 px'],
+            answer: 0,
+            explanation: 'Bei border-box sind padding und border schon in der width enthalten. Mit content-box wären es 300 + 40 + 4 = 344 px.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was bedeutet `margin: 10px 20px;`?',
         answer: 'Oben und unten 10 px Außenabstand, rechts und links 20 px.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was bedeutet `padding: 5px 0 15px 0;`?',
+            options: [
+              'Oben 5 px, unten 15 px, links und rechts 0',
+              'Links 5 px, rechts 15 px, oben und unten 0',
+              'Oben 5 px, rechts 0, links 15 px, unten 0',
+              'Überall zwischen 5 und 15 px',
+            ],
+            answer: 0,
+            explanation: 'Vier Werte gelten im Uhrzeigersinn ab oben: oben 5px, rechts 0, unten 15px, links 0.',
+          },
+        ],
       },
     ],
     recap: [

@@ -25,6 +25,14 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['Auf die direkten Kinder des Containers', 'Auf alle Nachfahren des Containers'],
         answer: 0,
         explanation: 'Nur direkte Kinder werden Grid-Items. Enkel liegen in ihrem Elternelement und werden nicht ins Raster einsortiert.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Bei `<main><section><p>…</p></section></main>` und `main { display: grid; }` ist das p ein Grid-Item.',
+            answer: false,
+            explanation: 'Grid-Item ist nur die section, das direkte Kind von main. Das p liegt darin und wird nicht ins Raster einsortiert.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -42,6 +50,15 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['200 px', '300 px', '400 px', '100 px'],
         answer: 0,
         explanation: 'Nach Abzug der festen 200 px bleiben 400 px. Die zwei fr-Spalten teilen sie sich: je 200 px.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Ein Container ist 900 px breit und hat `grid-template-columns: 100px 1fr 3fr;`. Wie breit ist die dritte Spalte (ohne gap)?',
+            options: ['600 px', '300 px', '200 px', '800 px'],
+            answer: 0,
+            explanation: 'Nach Abzug der 100 px bleiben 800 px, aufgeteilt in 4 Anteile zu je 200 px. Die dritte Spalte hat 3 Anteile: 600 px.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -59,11 +76,29 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['`repeat(4, 1fr)`', '`4fr`', '`auto 4`'],
         answer: 0,
         explanation: '`4fr` wäre eine einzige Spalte mit 4 Anteilen. repeat wiederholt die Angabe.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Wie viele Spalten erzeugt `grid-template-columns: 4fr;`?',
+            options: ['Eine', 'Vier', 'Keine', 'So viele, wie es Kinder gibt'],
+            answer: 0,
+            explanation: 'Ohne repeat ist 4fr eine einzige Spalte mit 4 Anteilen – sie bekommt allein den ganzen Platz.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was macht `grid-template-columns: 100px 1fr 100px;`?',
         answer: 'Drei Spalten: links und rechts je 100 px fest, die mittlere nimmt den ganzen restlichen Platz. Das ist das Grundgerüst des Holy-Grail-Layouts.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Ein Grid hat `grid-template-columns: 1fr 1fr;` und fünf Kinder. Wie viele Zeilen entstehen?',
+            options: ['3', '2', '5', '1'],
+            answer: 0,
+            explanation: 'Zwei Kinder pro Zeile: 2 + 2 + 1 – das fünfte beginnt automatisch eine dritte Zeile.',
+          },
+        ],
       },
     ],
     recap: [
@@ -93,6 +128,15 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['`grid-column: 1 / 4;`', '`grid-column: 1 / 3;`', '`grid-column: 3;`', '`grid-column: 0 / 3;`'],
         answer: 0,
         explanation: 'Drei Spalten haben die Linien 1 bis 4. Von 1 bis 4 heißt: alle drei Spalten. `1 / -1` ginge auch.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Ein Grid hat 4 Spalten. Über welche Spalten reicht ein Element mit `grid-column: 2 / 4;`?',
+            options: ['Über die 2. und 3. Spalte', 'Über die 2., 3. und 4. Spalte', 'Nur über die 2. Spalte', 'Nur über die 4. Spalte'],
+            answer: 0,
+            explanation: 'Gezählt werden Linien: Zwischen Linie 2 und Linie 4 liegen die Spalten 2 und 3.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -109,6 +153,14 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['Diese Zelle bleibt leer', 'Hier steht das nächste freie Element'],
         answer: 0,
         explanation: 'Der Punkt ist eine leere Zelle. Kein benanntes Element wird dort platziert.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Diese Angabe ist gültig:\n\n' + code('css', 'grid-template-areas:', '  "a a b"', '  "a c c";'),
+            answer: false,
+            explanation: 'Die Fläche a wäre L-förmig. Jeder Name muss ein Rechteck bilden, sonst ignoriert der Browser die ganze Angabe.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -125,11 +177,29 @@ export const LAYOUT_TILES: Tile[] = [
         statement: 'Ein Element mit `margin-left: 300px` an seinen Platz im Grid zu schieben, ist eine robuste Lösung für alle Bildschirmbreiten.',
         answer: false,
         explanation: 'Feste Außenabstände passen nur bei einer Breite. Besser: das Element mit grid-column, grid-row oder grid-area in die richtige Zelle setzen.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Ein Bild soll in die dritte Spalte deines Grids. Was ist robuster?',
+            options: ['`grid-column: 3;`', '`margin-left: 400px;`'],
+            answer: 0,
+            explanation: 'grid-column setzt das Bild in die Spalte, egal wie breit das Fenster ist. Ein fester margin passt nur bei einer Breite.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Wie viele senkrechte Linien hat ein Grid mit 3 Spalten, und wie spannst du ein Element über alle?',
         answer: 'Vier Linien (1 bis 4). Über alle Spalten mit grid-column: 1 / 4 oder grid-column: 1 / -1.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Angabe reicht immer über die ganze Breite, egal wie viele Spalten das Grid hat?',
+            options: ['`grid-column: 1 / -1;`', '`grid-column: 1 / 4;`', '`grid-column: span 1;`', '`grid-column: 0;`'],
+            answer: 0,
+            explanation: '-1 ist immer die letzte Linie. `1 / 4` passt nur bei genau drei Spalten.',
+          },
+        ],
       },
     ],
     recap: [
@@ -164,6 +234,15 @@ export const LAYOUT_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'right ist kein gültiger Wert für align-content. Der Browser überspringt die Zeile. Gültig wären z. B. start, end oder center.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Mit welchem Wert zentrierst du ein Grid per `justify-content` waagerecht?',
+            options: ['`center`', '`middle`', '`centered`', '`mid`'],
+            answer: 0,
+            explanation: 'Der Wert heißt center. middle und Ähnliches gibt es nicht – der Browser würde die Zeile stillschweigend ignorieren.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -179,6 +258,15 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['`justify-content: center;`', '`justify-items: center;`'],
         answer: 0,
         explanation: '-content verschiebt das Raster als Ganzes. -items würde die Items in ihren Zellen zentrieren und sie dabei schrumpfen lassen.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Jede Karte soll waagerecht mittig in ihrer Zelle stehen, statt die Zelle auszufüllen. Was nimmst du?',
+            options: ['`justify-items: center;`', '`justify-content: center;`'],
+            answer: 0,
+            explanation: '-items wirkt auf die Items in ihren Zellen. -content würde nur das ganze Raster verschieben.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -194,11 +282,33 @@ export const LAYOUT_TILES: Tile[] = [
         question: 'Bring die Zeilen in die richtige Reihenfolge, um ein Grid mitten im Fenster zu zentrieren.',
         items: ['`body {`', '`  display: grid;`', '`  min-height: 100vh;`', '`  place-content: center;`', '`}`'],
         explanation: 'Erst den Container zum Grid machen, ihm eine Höhe geben und das Raster dann mit place-content in beide Richtungen zentrieren.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Warum braucht der body zum senkrechten Zentrieren `min-height: 100vh`?',
+            options: [
+              'Sonst ist er nur so hoch wie sein Inhalt – es gibt keinen Platz zum Verschieben',
+              'Sonst ist das Grid ausgeschaltet',
+              'Weil place-content nur mit vh funktioniert',
+              'Damit die Seite scrollen kann',
+            ],
+            answer: 0,
+            explanation: 'Ohne Höhe ist der body genau so hoch wie das Raster. Erst mit 100vh bleibt oben und unten Platz, in dem das Raster mittig stehen kann.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist der Unterschied zwischen `justify-content` und `justify-items` im Grid?',
         answer: 'justify-content verschiebt das ganze Raster waagerecht im Container. justify-items richtet jedes Item waagerecht innerhalb seiner Zelle aus.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: '`align-items: center;` am Grid-Container setzt jedes Item senkrecht in die Mitte seiner Zelle.',
+            answer: true,
+            explanation: 'align = senkrecht, -items = jedes Item in seiner Zelle.',
+          },
+        ],
       },
     ],
     recap: [
@@ -227,6 +337,20 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['Senkrecht', 'Waagerecht'],
         answer: 0,
         explanation: 'Die Hauptachse folgt flex-direction. Bei column stehen die Elemente untereinander, die Hauptachse ist also senkrecht.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was bewirkt `align-items: center;` in einem Flex-Container mit `flex-direction: row;`?',
+            options: [
+              'Die Elemente stehen senkrecht mittig',
+              'Die Elemente stehen waagerecht mittig',
+              'Die Reihenfolge dreht sich um',
+              'Die Elemente brechen um',
+            ],
+            answer: 0,
+            explanation: 'Bei row ist die Hauptachse waagerecht, die Kreuzachse also senkrecht – und align-items wirkt auf der Kreuzachse.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -244,6 +368,15 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['`justify-content: space-between;`', '`align-items: center;`', '`justify-content: center;`', '`flex-direction: row-reverse;`'],
         answer: 0,
         explanation: 'space-between legt das erste und letzte Element an die Ränder der Hauptachse und verteilt den Platz dazwischen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Angabe stellt die Kinder eines Flex-Containers untereinander?',
+            options: ['`flex-direction: column;`', '`flex-wrap: wrap;`', '`align-items: column;`', '`justify-content: column;`'],
+            answer: 0,
+            explanation: 'Die Richtung legt flex-direction fest. column gibt es als Wert nur dort.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -258,11 +391,29 @@ export const LAYOUT_TILES: Tile[] = [
         statement: 'In einem Flex-Container brechen Elemente standardmäßig in eine neue Zeile um, wenn der Platz nicht reicht.',
         answer: false,
         explanation: 'Der Standard ist flex-wrap: nowrap – die Elemente bleiben in einer Reihe und schrumpfen. Umbrechen erst mit flex-wrap: wrap.',
+        variants: [
+          {
+            type: 'cloze',
+            text: 'Damit Flex-Elemente in eine neue Reihe umbrechen, wenn der Platz nicht reicht, setzt du ___.',
+            options: ['`flex-wrap: wrap`', '`flex-direction: column`', '`overflow: wrap`'],
+            answer: 0,
+            explanation: 'Ohne flex-wrap: wrap bleiben alle Elemente in einer Reihe und schrumpfen.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was regeln `justify-content` und `align-items` in einem Flex-Container?',
         answer: 'justify-content verteilt die Elemente entlang der Hauptachse (Richtung von flex-direction). align-items richtet sie quer dazu auf der Kreuzachse aus.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Bei `flex-direction: column;` verteilt `justify-content` die Elemente …',
+            options: ['senkrecht', 'waagerecht'],
+            answer: 0,
+            explanation: 'justify-content wirkt immer auf der Hauptachse – und die ist bei column senkrecht.',
+          },
+        ],
       },
     ],
     recap: [
@@ -296,6 +447,15 @@ export const LAYOUT_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'flex-grow 0 heißt: übrigen Platz nicht nutzen. Das Element bleibt bei seiner flex-basis.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Zwei Elemente mit Grundgröße 0 haben `flex-grow: 1` und `flex-grow: 2`. Wie teilen sie 300 px?',
+            options: ['100 px und 200 px', '150 px und 150 px', '0 px und 300 px', '200 px und 100 px'],
+            answer: 0,
+            explanation: 'Der Platz wird im Verhältnis 1 : 2 geteilt, also in drei Anteile zu je 100 px.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -311,6 +471,15 @@ export const LAYOUT_TILES: Tile[] = [
         question: 'In welcher Reihenfolge stehen die Werte in der Kurzform `flex`?',
         items: ['flex-grow', 'flex-shrink', 'flex-basis'],
         explanation: 'flex: grow shrink basis – zum Beispiel flex: 0 0 200px.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was legt `150px` in `flex: 1 0 150px;` fest?',
+            options: ['Die Grundgröße (flex-basis)', 'Ob das Element schrumpfen darf', 'Ob das Element wachsen darf', 'Den Abstand zum Nachbarn'],
+            answer: 0,
+            explanation: 'Reihenfolge grow, shrink, basis: wachsen ja (1), schrumpfen nein (0), Grundgröße 150 px.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -327,11 +496,28 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['Grid', 'Flexbox'],
         answer: 0,
         explanation: 'Grid richtet in zwei Richtungen aus, damit werden alle Karten gleich breit und stehen sauber untereinander.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Eine Knopfleiste in einer Reihe, jeder Knopf so breit wie seine Beschriftung – was passt besser?',
+            options: ['Flexbox', 'Grid'],
+            answer: 0,
+            explanation: 'Eine Reihe mit Elementen, deren Größe vom Inhalt abhängt, ist der typische Fall für Flexbox.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was bedeuten `flex: 0 0 200px` und `flex: 1`?',
         answer: 'flex: 0 0 200px = feste Größe 200 px, weder wachsen noch schrumpfen. flex: 1 = darf wachsen und schrumpfen und nimmt sich den restlichen Platz.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Mit `flex: 0 0 200px` wird eine Seitenleiste auf schmalen Bildschirmen schmaler als 200 px.',
+            answer: false,
+            explanation: 'Die zweite 0 (flex-shrink) verbietet das Schrumpfen. Die Leiste bleibt 200 px breit.',
+          },
+        ],
       },
     ],
     recap: [
@@ -359,6 +545,14 @@ export const LAYOUT_TILES: Tile[] = [
         question: 'Nenne die drei Zutaten des responsiven Designs nach Ethan Marcotte (in seiner Reihenfolge).',
         items: ['Flexible Raster (fluid grids)', 'Flexible Bilder', 'Media Queries'],
         explanation: 'Fluid grids, flexible images, media queries – so beschrieb Marcotte es in seinem Artikel von 2010.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Zum responsiven Design nach Marcotte gehört eine eigene Handy-Version der Seite unter einer anderen Adresse.',
+            answer: false,
+            explanation: 'Gerade nicht: Eine einzige Seite passt sich mit flexiblen Rastern, flexiblen Bildern und Media Queries an alle Bildschirme an.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -374,6 +568,15 @@ export const LAYOUT_TILES: Tile[] = [
         statement: 'Ohne `<meta name="viewport" …>` zeigt ein iPhone eine Seite so an, als wäre der Bildschirm etwa 980 px breit.',
         answer: true,
         explanation: 'Deshalb wirken Seiten ohne diese Zeile auf dem Handy winzig. width=device-width sorgt für die echte Gerätebreite.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Wohin gehört `<meta name="viewport" content="width=device-width, initial-scale=1.0">`?',
+            options: ['In den head', 'An den Anfang des body', 'In die CSS-Datei', 'Direkt vor `</html>`'],
+            answer: 0,
+            explanation: 'meta-Elemente sind Informationen über die Seite und stehen im head.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -395,11 +598,29 @@ export const LAYOUT_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'clamp(min, bevorzugt, max): Der mittlere Wert gilt, solange er zwischen den Grenzen liegt.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Ein Bild soll nie breiter als sein Container werden. Was schreibst du?',
+            options: ['`max-width: 100%;`', '`width: 100vw;`', '`min-width: 100%;`', '`object-fit: none;`'],
+            answer: 0,
+            explanation: 'max-width: 100% begrenzt das Bild auf die Breite des Containers, kleinere Bilder bleiben unverändert.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was bedeutet „Mobile First“?',
         answer: 'Man gestaltet zuerst für kleine Bildschirme und verbessert die Darstellung für größere Bildschirme danach mit Media Queries.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Du arbeitest nach „Mobile First“. Welche Media Queries schreibst du dann typischerweise?',
+            options: ['Mit Mindestbreite, z. B. `(width > 600px)`', 'Mit Höchstbreite, z. B. `(width < 600px)`'],
+            answer: 0,
+            explanation: 'Die Grundregeln gelten fürs Handy. Für größere Bildschirme kommen Ergänzungen ab einer Mindestbreite dazu.',
+          },
+        ],
       },
     ],
     recap: [
@@ -428,6 +649,15 @@ export const LAYOUT_TILES: Tile[] = [
         options: ['2', '4', '1', '6'],
         answer: 0,
         explanation: '400 px ist nicht breiter als 500 px, die Media Query greift also nicht. Es bleibt bei repeat(2, 1fr).',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Wie viele Spalten hat `.karten` in einem 800 px breiten Fenster?\n\n' + code('css', '.karten { grid-template-columns: 1fr; }', '@media (width > 700px) {', '  .karten { grid-template-columns: repeat(3, 1fr); }', '}'),
+            options: ['3', '1', '2', '4'],
+            answer: 0,
+            explanation: '800 px ist breiter als 700 px, die Media Query greift und überschreibt die eine Spalte mit drei.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -448,6 +678,20 @@ export const LAYOUT_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'auto-fit berechnet die Spaltenzahl aus der verfügbaren Breite; minmax sorgt für mindestens 200 px pro Spalte.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Bei `repeat(auto-fill, minmax(200px, 1fr))` stehen nur zwei Karten in einem sehr breiten Container. Was passiert?',
+            options: [
+              'Leere Spalten bleiben stehen, die Karten bleiben schmal',
+              'Die zwei Karten werden auf die ganze Breite gestreckt',
+              'Es erscheint eine Scrollleiste',
+              'Die Karten stehen untereinander',
+            ],
+            answer: 0,
+            explanation: 'auto-fill legt alle passenden Spalten an, auch leere. Erst auto-fit würde die vorhandenen Karten strecken.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -463,11 +707,28 @@ export const LAYOUT_TILES: Tile[] = [
         statement: 'Ohne `flex-shrink: 0` (etwa über `flex: 0 0 200px`) würden die Karten in der scrollbaren Reihe schrumpfen, statt überzustehen.',
         answer: true,
         explanation: 'Flex-Elemente dürfen standardmäßig schrumpfen. Erst wenn sie es nicht dürfen, ragen sie über den Container hinaus und man kann scrollen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Angabe macht eine Reihe waagerecht scrollbar, wenn ihr Inhalt zu breit ist?',
+            options: ['`overflow-x: auto;`', '`flex-wrap: wrap;`', '`scroll: x;`', '`overflow-y: auto;`'],
+            answer: 0,
+            explanation: 'overflow-x regelt die waagerechte Richtung; auto zeigt die Scrollleiste nur bei Bedarf. flex-wrap würde umbrechen statt scrollen.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist der Unterschied zwischen `@media (min-width: 600px)` und `@media (width > 600px)`?',
         answer: 'min-width: 600px gilt ab genau 600 px (mindestens 600). width > 600px gilt erst bei mehr als 600 px. Die zweite ist die neuere Schreibweise.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Bei genau 600 px Fensterbreite greift `@media (width > 600px)`.',
+            answer: false,
+            explanation: '> heißt „breiter als“. Bei genau 600 px greift erst `(min-width: 600px)` bzw. `(width >= 600px)`.',
+          },
+        ],
       },
     ],
     recap: [

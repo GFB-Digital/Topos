@@ -24,6 +24,15 @@ export const HTML_TILES: Tile[] = [
         options: ['Alles zusammen: `<p>Hallo</p>`', 'Nur `<p>`', 'Nur `Hallo`', 'Nur `</p>`'],
         answer: 0,
         explanation: '`<p>` und `</p>` sind die Tags. Zusammen mit dem Inhalt dazwischen bilden sie das Element.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welche Teile von `<h2>Willkommen</h2>` sind die Tags?',
+            options: ['`<h2>` und `</h2>`', 'Nur `Willkommen`', 'Das ganze `<h2>Willkommen</h2>`', 'Nur `</h2>`'],
+            answer: 0,
+            explanation: 'Tags sind die Auszeichnungen in spitzen Klammern. Erst zusammen mit dem Inhalt bilden sie das Element.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -41,6 +50,15 @@ export const HTML_TILES: Tile[] = [
         options: ['Es ist ein Kind des p-Elements', 'Es ist ein Geschwister des p-Elements'],
         answer: 0,
         explanation: 'strong steht innerhalb von p, also ist p der Elternknoten und strong sein Kind.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Wie stehen die beiden li-Elemente zueinander?\n\n' + code('html', '<ul>', '  <li>HTML</li>', '  <li>CSS</li>', '</ul>'),
+            options: ['Sie sind Geschwister', 'Das zweite ist ein Kind des ersten'],
+            answer: 0,
+            explanation: 'Beide haben dasselbe Elternelement ul – also sind sie Geschwister.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -59,11 +77,28 @@ export const HTML_TILES: Tile[] = [
         options: ['`<!--`', '`//`', '`/*`'],
         answer: 0,
         explanation: '`//` und `/* */` sind Kommentare in JavaScript bzw. CSS. In HTML heißt es `<!-- … -->`.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'In HTML schreibt man einen Kommentar als `// Kommentar`.',
+            answer: false,
+            explanation: '`//` ist ein Kommentar in JavaScript. In HTML heißt es `<!-- Kommentar -->`.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Erkläre die Begriffe Kind, Elternknoten und Geschwister im HTML-Baum.',
         answer: 'Ein Kind steht direkt in einem anderen Element, dieses ist sein Elternknoten. Geschwister sind Elemente mit demselben Elternknoten.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Im Code `<nav><ul><li>Start</li></ul></nav>`: Was ist das li-Element für das nav-Element?',
+            options: ['Ein Nachfahre, aber kein Kind', 'Ein Kind', 'Ein Geschwister', 'Der Elternknoten'],
+            answer: 0,
+            explanation: 'Zwischen nav und li liegt noch ul. Das einzige Kind von nav ist ul; li ist ein Kindeskind, also ein Nachfahre.',
+          },
+        ],
       },
     ],
     recap: [
@@ -103,6 +138,15 @@ export const HTML_TILES: Tile[] = [
         question: 'Bring die Zeilen des Grundgerüsts in die richtige Reihenfolge.',
         items: ['`<!DOCTYPE html>`', '`<html lang="de">`', '`  <head>…</head>`', '`  <body>…</body>`', '`</html>`'],
         explanation: 'Doctype zuerst, dann html als Wurzel mit head und body als Kindern – in genau dieser Reihenfolge.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Wie viele body-Elemente darf ein HTML-Dokument haben?',
+            options: ['Genau eines', 'Beliebig viele', 'Höchstens zwei', 'Keines – body ist freiwillig'],
+            answer: 0,
+            explanation: 'Die Wurzel html hat genau einen head und genau einen body.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -119,6 +163,15 @@ export const HTML_TILES: Tile[] = [
         options: ['`<link>`', '`<h1>`', '`<nav>`', '`<img>`'],
         answer: 0,
         explanation: 'Im head sind nur Elemente über die Seite erlaubt, etwa meta, title, style und link. Alles Sichtbare gehört in den body.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welches dieser Elemente gehört **nicht** in den `head`?',
+            options: ['`<footer>`', '`<title>`', '`<meta>`', '`<style>`'],
+            answer: 0,
+            explanation: 'footer ist sichtbarer Inhalt und gehört in den body. title, meta und style sind Informationen über die Seite.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -136,11 +189,32 @@ export const HTML_TILES: Tile[] = [
         options: ['Ein nav mit einer Liste aus 4 Einträgen', '4 nav-Elemente mit je einer Liste'],
         answer: 0,
         explanation: '`>` geht eine Ebene tiefer, `*4` gilt nur für li. Also: nav, darin ul, darin 4 li.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was erzeugt die Emmet-Abkürzung `header+main+footer`?',
+            options: [
+              'header, main und footer nebeneinander als Geschwister',
+              'Einen header, darin main, darin footer',
+              'Einen header mit dem Text „main+footer“',
+            ],
+            answer: 0,
+            explanation: '`+` erzeugt Geschwister auf derselben Ebene. Für „darin“ bräuchte es `>`.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist der Unterschied zwischen head und body?',
         answer: 'Der head enthält Informationen über die Seite (z. B. Titel, Zeichensatz, CSS-Einbindung), die nicht angezeigt werden. Im body steht alles, was der Nutzer sieht.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Eine Überschrift `<h1>` darf im `head` stehen, wenn sie nach dem `title` kommt.',
+            answer: false,
+            explanation: 'Alles Sichtbare gehört in den body – egal an welcher Stelle im head es stünde.',
+          },
+        ],
       },
     ],
     recap: [
@@ -168,6 +242,14 @@ export const HTML_TILES: Tile[] = [
         statement: 'Das main-Element verändert, wie sein Inhalt aussieht.',
         answer: false,
         explanation: 'main hat keinen Einfluss auf das Aussehen. Es kennzeichnet den Hauptinhalt, was z. B. Screenreadern hilft.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Ein `nav`-Element macht seine Links automatisch zu einer waagerechten Menüleiste.',
+            answer: false,
+            explanation: 'nav hat kein besonderes Aussehen. Es sagt nur, dass hier Navigation steht – die Menüleiste baust du mit CSS.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -187,6 +269,15 @@ export const HTML_TILES: Tile[] = [
         options: ['`<aside>`', '`<main>`', '`<nav>`', '`<footer>`'],
         answer: 0,
         explanation: 'aside steht für ergänzende Informationen neben dem Hauptinhalt – genau wie eine Seitenleiste.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Ganz unten auf der Seite stehen Impressum und Kontaktdaten. Welches Element passt?',
+            options: ['`<footer>`', '`<aside>`', '`<header>`', '`<nav>`'],
+            answer: 0,
+            explanation: 'footer ist für abschließende Informationen wie Impressum und Kontakt gedacht.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -204,11 +295,34 @@ export const HTML_TILES: Tile[] = [
         options: ['`<div>`', '`<article>`'],
         answer: 0,
         explanation: 'Ohne eigene Bedeutung ist div richtig. article würde behaupten, der Inhalt sei ein eigenständiger Beitrag.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Du schreibst einen Blogbeitrag, der auch für sich allein verständlich ist. Was nimmst du?',
+            options: ['`<article>`', '`<div>`'],
+            answer: 0,
+            explanation: 'article steht für einen eigenständigen Inhalt. Ein div hätte keine Bedeutung.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Warum soll man semantische Elemente wie nav oder main statt div verwenden?',
         answer: 'Sie sagen, welche Rolle ein Bereich hat. Das hilft Screenreadern, Suchmaschinen und anderen Entwicklern, die Seite zu verstehen.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Was gewinnst du, wenn du für den Hauptinhalt `main` statt `div` nimmst?',
+            options: [
+              'Screenreader können direkt zum Hauptinhalt springen',
+              'Die Seite lädt schneller',
+              'Der Inhalt wird automatisch zentriert',
+              'Nichts – beide Elemente sind gleichwertig',
+            ],
+            answer: 0,
+            explanation: 'main ändert weder Tempo noch Aussehen, sagt aber, welche Rolle der Bereich hat – das nutzen Screenreader und Suchmaschinen.',
+          },
+        ],
       },
     ],
     recap: [
@@ -242,6 +356,19 @@ export const HTML_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'In ul dürfen nur li-Elemente als Kinder stehen. Der Link gehört also in ein li.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welcher Code ist **falsch**?',
+            options: [
+              code('html', '<ol>', '  <p>Schritt 1</p>', '</ol>'),
+              code('html', '<ol>', '  <li>Schritt 1</li>', '</ol>'),
+              code('html', '<ul>', '  <li><strong>Neu</strong></li>', '</ul>'),
+            ],
+            answer: 0,
+            explanation: 'Auch in ol dürfen als Kinder nur li stehen. Im li selbst darf dann anderes stehen, etwa strong.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -258,6 +385,15 @@ export const HTML_TILES: Tile[] = [
         statement: 'Der Link `<a href="holy-grail.html">` öffnet auch eine Datei namens `Holygrail.html`.',
         answer: false,
         explanation: 'Der Dateiname muss genau stimmen. Hier fehlt der Bindestrich und die Großschreibung weicht ab – der Browser findet die Datei nicht.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Die Datei `kontakt.html` liegt im selben Ordner. Welcher Link öffnet sie zuverlässig?',
+            options: ['`<a href="kontakt.html">`', '`<a href="Kontakt.html">`', '`<a href="kontakt">`', '`<a src="kontakt.html">`'],
+            answer: 0,
+            explanation: 'Name und Endung müssen genau stimmen, und die Adresse steht im Attribut href – src gibt es beim a-Element nicht.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -280,11 +416,28 @@ export const HTML_TILES: Tile[] = [
         ],
         answer: 0,
         explanation: 'alt ist der Textersatz für das Bild – wichtig für Barrierefreiheit und wenn das Bild nicht lädt.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Bei einem Foto, das wichtige Inhalte zeigt, darf das alt-Attribut leer bleiben.',
+            answer: false,
+            explanation: 'Leer bleibt alt nur bei reinen Schmuckbildern. Bilder mit Inhalt brauchen eine Beschreibung.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Was ist der Unterschied zwischen `ul` und `ol`, und was muss in beiden stehen?',
         answer: 'ul ist eine Liste mit Punkten, ol eine nummerierte Liste. In beiden stehen als Kinder nur li-Elemente.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Du schreibst eine Anleitung, deren Schritte in fester Reihenfolge kommen. Welche Liste passt?',
+            options: ['`<ol>`', '`<ul>`'],
+            answer: 0,
+            explanation: 'ol nummeriert die Einträge – passend, wenn die Reihenfolge zählt. ul zeigt nur Punkte.',
+          },
+        ],
       },
     ],
     recap: [
@@ -313,6 +466,15 @@ export const HTML_TILES: Tile[] = [
         options: ['`action`', '`method`', '`href`'],
         answer: 0,
         explanation: 'action ist das Ziel, method die HTTP-Methode (z. B. post).',
+        variants: [
+          {
+            type: 'cloze',
+            text: 'Mit welcher HTTP-Methode ein Formular seine Daten schickt, steht im Attribut ___.',
+            options: ['`method`', '`action`', '`type`'],
+            answer: 0,
+            explanation: 'method legt die Methode fest (meist post), action das Ziel.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -329,6 +491,14 @@ export const HTML_TILES: Tile[] = [
         options: ['Denselben `name`', 'Dasselbe `value`'],
         answer: 0,
         explanation: 'Radio-Buttons mit gleichem name bilden eine Gruppe. Das value muss sich unterscheiden, sonst weiß der Server nicht, was gewählt wurde.',
+        variants: [
+          {
+            type: 'truefalse',
+            statement: 'Zwei Checkboxen mit demselben `name` lassen sich nicht gleichzeitig ankreuzen.',
+            answer: false,
+            explanation: 'Das gilt nur für Radio-Buttons. Checkboxen sind unabhängig voneinander – auch mit gleichem name.',
+          },
+        ],
       },
       {
         type: 'text',
@@ -346,11 +516,29 @@ export const HTML_TILES: Tile[] = [
         options: ['Auf die `id` des Eingabefelds', 'Auf den `name` des Formulars', 'Auf die `action` des Formulars', 'Auf den `type` des Eingabefelds'],
         answer: 0,
         explanation: 'for und id gehören zusammen. Alternativ steht das input direkt im label.',
+        variants: [
+          {
+            type: 'choice',
+            question: 'Welches label gehört zu `<input type="text" id="vorname" name="vn">`?',
+            options: ['`<label for="vorname">`', '`<label for="vn">`', '`<label id="vorname">`', '`<label name="vorname">`'],
+            answer: 0,
+            explanation: 'for zeigt auf die id des Feldes, hier „vorname“. Der name „vn“ ist nur für den Server.',
+          },
+        ],
       },
       {
         type: 'recall',
         question: 'Wozu dienen die Attribute `name` und `id` bei einem Eingabefeld?',
         answer: 'name bestimmt, unter welchem Namen der Wert an den Server geschickt wird. id identifiziert das Feld eindeutig, z. B. für das for-Attribut eines label.',
+        variants: [
+          {
+            type: 'binary',
+            question: 'Der Server soll den Wert eines Feldes unter `plz` bekommen. Welches Attribut setzt du?',
+            options: ['`name="plz"`', '`id="plz"`'],
+            answer: 0,
+            explanation: 'Der Server bekommt die Werte unter ihrem name. Die id wirkt nur innerhalb der Seite, z. B. für label oder CSS.',
+          },
+        ],
       },
     ],
     recap: [

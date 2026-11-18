@@ -5,7 +5,7 @@ import { describe, it } from 'node:test'
 import { SAMPLE_COURSE } from '../content/sample-course.ts'
 import { MOVED_TILES, WEBDESIGN_COURSE, WWW_COURSE } from '../content/webdesign/index.ts'
 import { parseCourses, LONG_PAGE_WORDS } from './importer.ts'
-import { cardKey, stripMarkup, textBlocks, tileQuestions } from './model.ts'
+import { cardKey, questionText, stripMarkup, textBlocks, tileQuestions } from './model.ts'
 import { isQuestion } from './types.ts'
 
 const COURSES = [WEBDESIGN_COURSE, WWW_COURSE]
@@ -60,7 +60,8 @@ describe('Eingebaute Kurse Webdesign und World Wide Web', () => {
     for (const tile of COURSES.flatMap((course) => course.tiles)) {
       for (const step of tile.steps) {
         const texts = step.type === 'text' ? [step.text] : []
-        if (isQuestion(step) && step.type !== 'truefalse' && step.type !== 'cloze') texts.push(step.question)
+        const questions = isQuestion(step) ? [step, ...(step.variants ?? [])] : []
+        for (const question of questions) texts.push(questionText(question))
         for (const text of texts) {
           for (const block of textBlocks(text)) {
             if (block.kind === 'code') assert.ok(block.code.split('\n').length <= 12, `${tile.id}: Codeblock zu lang`)
@@ -69,6 +70,17 @@ describe('Eingebaute Kurse Webdesign und World Wide Web', () => {
         if (step.type === 'text') {
           const words = stripMarkup(step.text).split(/\s+/).length
           assert.ok(words <= LONG_PAGE_WORDS, `${tile.id}: Seite mit ${words} Wörtern`)
+        }
+      }
+    }
+  })
+
+  it('jede Webdesign-Frage hat eine Variante, die anders fragt', () => {
+    for (const tile of WEBDESIGN_COURSE.tiles) {
+      for (const { step } of tileQuestions(tile)) {
+        assert.ok(step.variants?.length, `${tile.id}: „${questionText(step).slice(0, 40)}“ ohne Variante`)
+        for (const variant of step.variants ?? []) {
+          assert.notEqual(questionText(variant), questionText(step), `${tile.id}: Variante gleich der Frage`)
         }
       }
     }

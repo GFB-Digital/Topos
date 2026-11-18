@@ -3,7 +3,7 @@
 Hier steht, was schon erledigt ist, welche Entscheidungen getroffen wurden und was als Nächstes kommt.
 Wird nach jeder Phase aktualisiert. Den eigentlichen Auftrag beschreibt [PLAN.md](PLAN.md).
 
-**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) und Phase E (Fragen-Varianten, freies Abrufen) sind fertig, als Nächstes Phase F (Varianten für die eingebauten Kurse). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
+**Stand:** 18.11.2026 – Phase D (Zurückblättern, Wiederholung kursweise mit Kursfarben) und Phase E (Fragen-Varianten, freies Abrufen) sind fertig, ebenso Phase F Teil 1 (Varianten für alle Webdesign-Fragen). Als Nächstes Phase F Teil 2 (World Wide Web, Lernen lernen). Vorher, 16.11.2026: Code-Darstellung (Phase A) und eingebauter Kurs „Webdesign“ (Phase B) sind veröffentlicht (Commit `4068e75`). Danach aufgeteilt in zwei Kurse „Webdesign“ (HTML/CSS) und „World Wide Web“, dazu Phase C (Lernmodus-Ordner `C:\Users\PCUser\Webdesign`). Als Nächstes: Lernmodus beim nächsten Labor ausprobieren; JavaScript kommt später.
 
 ## Erledigt
 
@@ -215,6 +215,12 @@ Wunsch des Nutzers: Die Wiederholungsfragen sollen sich ändern (andere Beispiel
 - **Geprüft:** `npm test` 182 Tests (9 neu in [variants.test.ts](src/lib/variants.test.ts)), `npm run build` fehlerfrei. Im Browser (Firefox, 390 px) mit einem Testkurs: vier Runden nacheinander zeigten Hauptfrage → Stimmt-das-Variante → Auswahl-Variante → Hauptfrage, `v` wurde jeweils gespeichert; gefestigte Frage erschien als Karteikarte; keine Konsolenfehler.
 - **Noch ohne Varianten:** die eingebauten Kurse und die Studienkurse (Phasen F und G).
 
+### Phase F, Teil 1 – Varianten für „Webdesign“ (18.11.2026)
+- **Alle 96 Fragen** des Kurses „Webdesign“ haben eine Variante (HTML, CSS, Layout, Labore 2–7), dazu die 4 Fragen von Labor 1 (Kurs „World Wide Web“, steht in derselben Datei). Varianten fragen dasselbe Wissen an einem anderen Beispiel (andere Selektoren, Breiten, Rechenwerte, Code-Ausschnitte), aus der Gegenrichtung (z. B. „Was gehört **nicht** in den head?“) oder als anderer Fragetyp.
+- **Fragetexte, IDs und Seiten unverändert:** Vorher und nachher wurden die Schlüssel aller 139 Fragen der eingebauten Kurse verglichen – alle gleich, der Lernstand bleibt.
+- **Test** ([builtin.test.ts](src/lib/builtin.test.ts)): Jede Webdesign-Frage braucht eine Variante, die anders fragt; Codeblöcke in Fragen und Varianten höchstens 12 Zeilen.
+- **Geprüft:** `npm test` 183 Tests, `npm run build` fehlerfrei. Im Browser (Firefox, 390 px): Wiederholungsrunde über zwei Kacheln zeigte acht Varianten, auch mit Codeblöcken in Frage und Antworten; kein seitliches Scrollen, keine Konsolenfehler.
+
 ## Entscheidungen und Abweichungen vom Plan
 - **Säulenhöhe (entschieden 13.11.2026):** zeigt, wie fest das Wissen sitzt, nicht den Umfang der Kachel und nicht den Tagesstand. Sie sinkt nur nach Fehlern. Folge: Ohne Lernstand ist die Welt flach.
 - **Sicherung ersetzt, sie mischt nicht:** Einspielen überschreibt Kurse, Lernstand und Einstellungen des Geräts (nach Rückfrage). Zwei Geräte lassen sich damit nicht zusammenführen – das wäre Synchronisierung, und die ist laut Plan nicht gewollt.
@@ -259,7 +265,8 @@ Wunsch des Nutzers: Die Wiederholungsfragen sollen sich ändern (andere Beispiel
 - **Neue Styles** stehen in [learning.css](src/styles/learning.css), die Grundlagen weiter in global.css.
 
 ## Als Nächstes
-- **Phase F – Varianten schreiben** für „Webdesign“, „World Wide Web“ und „Lernen lernen“ (je Frage eine Variante, in mehreren Schritten; Fragetexte nie ändern), danach **G** für die Studienkurse in `kurse/` (dann in der App „Ersetzen“)
+- **Phase F, Teil 2 – Varianten** für „World Wide Web“ (25 Fragen ohne Labor 1) und „Lernen lernen“ (14 Fragen); Fragetexte nie ändern, Schlüssel vorher/nachher vergleichen. Danach **G** für die Studienkurse in `kurse/` (dann in der App „Ersetzen“)
+- **Neue Webdesign-Kacheln** bekommen ab jetzt gleich eine Variante je Frage (der Test verlangt das)
 - **Webdesign weiter ausbauen:** neue Vorlesungen und Labore als neue Kacheln in [src/content/webdesign/](src/content/webdesign/) ergänzen (siehe „Erweitern“ oben)
 - **Lernmodus ausprobieren** beim nächsten Labor (Ordner `C:\Users\PCUser\Webdesign`) und die Regeln in dessen `CLAUDE.md` nachschärfen
 - **JavaScript** in den Kurs „Webdesign“, sobald es in Vorlesung und Labor drankommt
